@@ -135,6 +135,7 @@ object Option {
             const val NAME = Meta.NAME
             const val SUBPLOTS_GRID = "grid"
             const val SUBPLOTS_FREE = "free"
+            const val SUBPLOTS_DECK = "deck"
 
             const val GUIDES = "guides"
         }

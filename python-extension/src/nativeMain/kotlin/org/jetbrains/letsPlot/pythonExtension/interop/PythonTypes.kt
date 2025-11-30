@@ -15,11 +15,7 @@ import kotlinx.cinterop.toKString
 internal object PythonTypes {
     fun getPyObjectType(obj: TPyObjPtr): String? {
         val objType = PyObject_Type(obj)
-        if (objType == null) {
-            return null
-        }
-
-        return objType.reinterpret<PyTypeObject>().pointed.tp_name?.toKString()
+        return objType?.reinterpret<PyTypeObject>()?.pointed?.tp_name?.toKString()
     }
 
     const val STR = "str"

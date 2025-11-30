@@ -52,6 +52,7 @@ kotlin {
                 implementation("org.hamcrest:hamcrest-library:$hamcrestVersion")
                 implementation("org.mockito:mockito-core:$mockitoVersion")
                 implementation("org.assertj:assertj-core:$assertjVersion")
+                implementation("io.mockk:mockk:$mockkVersion")
             }
         }
         named("jsMain") {
