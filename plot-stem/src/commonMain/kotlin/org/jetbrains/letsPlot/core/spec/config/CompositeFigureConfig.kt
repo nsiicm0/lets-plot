@@ -23,6 +23,8 @@ import org.jetbrains.letsPlot.core.spec.Option
 import org.jetbrains.letsPlot.core.spec.Option.Meta.Kind.GG_TOOLBAR
 import org.jetbrains.letsPlot.core.spec.Option.Plot.CAPTION
 import org.jetbrains.letsPlot.core.spec.Option.Plot.CAPTION_TEXT
+import org.jetbrains.letsPlot.core.spec.Option.Plot.TAG
+import org.jetbrains.letsPlot.core.spec.Option.Plot.TAG_TEXT
 import org.jetbrains.letsPlot.core.spec.Option.Plot.SUBTITLE_TEXT
 import org.jetbrains.letsPlot.core.spec.Option.Plot.THEME
 import org.jetbrains.letsPlot.core.spec.Option.Plot.TITLE
@@ -35,12 +37,6 @@ import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.INNER_ALIGNMENT
 import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.NCOLS
 import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.NROWS
 import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.ROW_HEIGHTS
-import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.SHARE_X_SCALE
-import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.SHARE_Y_SCALE
-import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.Scales.SHARE_ALL
-import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.Scales.SHARE_COL
-import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.Scales.SHARE_NONE
-import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.Scales.SHARE_ROW
 import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Grid.VSPACE
 import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Layout
 import org.jetbrains.letsPlot.core.spec.Option.SubPlots.Layout.NAME
@@ -66,6 +62,14 @@ class CompositeFigureConfig constructor(
         get() = getMap(TITLE)[SUBTITLE_TEXT] as String?
     internal val caption: String?
         get() = getMap(CAPTION)[CAPTION_TEXT] as String?
+    internal val tag: String?
+        get() = getMap(TAG)[TAG_TEXT] as String?
+
+    internal val fullTag: String?
+        get() {
+            val text = tag ?: return null
+            return theme.plot().tagPrefix() + text + theme.plot().tagSuffix()
+        }
 
     init {
         val fontFamilyRegistry: FontFamilyRegistry = FontFamilyRegistryConfig(this).createFontFamilyRegistry()
@@ -82,6 +86,12 @@ class CompositeFigureConfig constructor(
             if (spec is Map<*, *>) {
                 @Suppress("UNCHECKED_CAST")
                 spec as Map<String, Any>
+                // This was necessary to pass the "size_basis" and "size_zoomin" parameters
+                // through PlotConfigFrontend to MonolithicCommon, where they will be used
+                // when creating the PlotAssembler.
+                // https://github.com/JetBrains/lets-plot/blob/f8ead91e83d508550896b5ebc3dd197b039b0cc1/plot-stem/src/commonMain/kotlin/org/jetbrains/letsPlot/core/util/MonolithicCommon.kt#L192
+                // Discussed here: https://forum.datalore-plot.jetbrains-boston.com/t/528/6
+                // todo: Need refactor. Use CompositeFigureLayout to pass parameters to MonolithicCommon.
 
                 // Add the 'ggtoolbar' option to each subfigure:
                 val extendedSpec = opts[GG_TOOLBAR]?.let { ggToolbar ->
@@ -112,7 +122,7 @@ class CompositeFigureConfig constructor(
             Layout.SUBPLOTS_GRID -> createGridLayout(layoutOptions)
             Layout.SUBPLOTS_FREE -> createFreeLayout(layoutOptions, elementConfigs.size)
             Layout.SUBPLOTS_DECK -> createDeckLayout(layoutOptions)
-            else -> throw IllegalArgumentException("Unsupported composit figure layout: $layoutKind")
+            else -> throw IllegalArgumentException("Unsupported composite figure layout: $layoutKind")
         }
 
         guidesSharing = if (layoutKind == Layout.SUBPLOTS_GRID) {
@@ -161,8 +171,9 @@ class CompositeFigureConfig constructor(
         val rowHeights = layoutOptions.getDoubleList(ROW_HEIGHTS)
         val fitCellAspectRatio = layoutOptions.getBoolean(FIT_CELL_ASPECT_RATIO, true)
         val innerAlignment = layoutOptions.getBoolean(INNER_ALIGNMENT, false)
-        val scaleShareX: ScaleSharePolicy = asScaleSharePolicy(SHARE_X_SCALE, layoutOptions)
-        val scaleShareY: ScaleSharePolicy = asScaleSharePolicy(SHARE_Y_SCALE, layoutOptions)
+        val shareConfig = CompositeFigureScaleShareConfig(layoutOptions)
+        val scaleShareX: ScaleSharePolicy = shareConfig.shareX
+        val scaleShareY: ScaleSharePolicy = shareConfig.shareY
 
         val elementsDefaultSizes: List<DoubleVector?> = elementConfigs.map { figureSpec ->
             figureSpec?.let {
@@ -205,18 +216,6 @@ class CompositeFigureConfig constructor(
                 scaleShareY = scaleShareY,
             )
         }
-    }
-
-    private fun asScaleSharePolicy(option: String, layoutOptions: OptionsAccessor): ScaleSharePolicy {
-        return layoutOptions.get(option)?.let {
-            when (it.toString().lowercase()) {
-                SHARE_NONE -> ScaleSharePolicy.NONE
-                SHARE_ALL -> ScaleSharePolicy.ALL
-                SHARE_ROW -> ScaleSharePolicy.ROW
-                SHARE_COL -> ScaleSharePolicy.COL
-                else -> throw IllegalArgumentException("Unexpected value: '$option = $it'. Use: 'all', 'row', 'col' or 'none'")
-            }
-        } ?: ScaleSharePolicy.NONE
     }
 
     private fun createFreeLayout(
@@ -270,5 +269,4 @@ class CompositeFigureConfig constructor(
             }
         }
     }
-
 }

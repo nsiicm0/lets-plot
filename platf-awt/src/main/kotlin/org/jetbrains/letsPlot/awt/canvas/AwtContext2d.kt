@@ -22,7 +22,9 @@ import java.awt.Font as AwtFont
 
 internal class AwtContext2d(
     initialGraphics: Graphics2D,
-    private val stateDelegate: ContextStateDelegate = ContextStateDelegate(),
+    contentScale: Double,
+    private val stateDelegate: ContextStateDelegate = ContextStateDelegate(contentScale = contentScale),
+    private val fontManager: FontManager
 ) : Context2d by stateDelegate {
     private var graphics: Graphics2D = (initialGraphics.create() as Graphics2D).apply {
         stroke = BasicStroke()
@@ -43,8 +45,16 @@ internal class AwtContext2d(
         setLineCap(LineCap.BUTT)
     }
 
+    override fun dispose() {
+        graphics.dispose()
+    }
+
     override fun clearRect(rect: DoubleRectangle) {
-        graphics.clearRect(rect.left.toInt(), rect.top.toInt(), rect.width.toInt(), rect.height.toInt())
+        clearRect(rect.left, rect.top, rect.width, rect.height)
+    }
+
+    override fun clearRect(x: Double, y: Double, w: Double, h: Double) {
+        graphics.clearRect(x.toInt(), y.toInt(), w.toInt(), h.toInt())
     }
 
     override fun drawImage(snapshot: Canvas.Snapshot) {
@@ -94,8 +104,8 @@ internal class AwtContext2d(
     override fun drawCircle(x: Double, y: Double, radius: Double) {
         val circle = Arc2D.Double(x - radius, y - radius, 2 * radius, 2 * radius, 0.0, 360.0, Arc2D.OPEN)
 
-        withStrokeGraphics { g -> g.draw(circle) }
         withFillGraphics { g -> g.fill(circle) }
+        withStrokeGraphics { g -> g.draw(circle) }
     }
 
     override fun save() {
@@ -164,7 +174,9 @@ internal class AwtContext2d(
     override fun setFont(f: Font) {
         stateDelegate.setFont(f)
 
-        graphics.font = f.toAwtFont()
+        val awtFont = fontManager.getFont(f) ?: f.toAwtFont()
+
+        graphics.font = awtFont
     }
 
     override fun setGlobalAlpha(alpha: Double) {
@@ -309,10 +321,17 @@ internal class AwtContext2d(
     }
 
     override fun measureText(str: String): TextMetrics {
+        val logicalBounds = graphics.glyphVector(str).logicalBounds
+        val bbox = DoubleRectangle.XYWH(
+            logicalBounds.x,
+            logicalBounds.y,
+            logicalBounds.width,
+            logicalBounds.height
+        )
         return TextMetrics(
             ascent = graphics.fontMetrics.ascent.toDouble(),
             descent = graphics.fontMetrics.descent.toDouble(),
-            bbox = graphics.glyphVector(str).logicalBounds.let { DoubleRectangle.XYWH(it.x, it.y, it.width, it.height) }
+            bbox = bbox
         )
     }
 

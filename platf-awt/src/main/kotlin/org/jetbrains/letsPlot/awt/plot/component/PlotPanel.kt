@@ -7,6 +7,7 @@ package org.jetbrains.letsPlot.awt.plot.component
 
 import org.jetbrains.letsPlot.commons.registration.Disposable
 import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModel
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.SpecOverrideState
 import org.jetbrains.letsPlot.core.plot.builder.interact.tools.WithFigureModel
 import org.jetbrains.letsPlot.core.plot.builder.presentation.Defaults.TOOLBAR_HEIGHT
 import org.jetbrains.letsPlot.core.util.sizing.SizingPolicy
@@ -25,10 +26,11 @@ open class PlotPanel constructor(
     val sizingPolicy: SizingPolicy,
     repaintDelay: Int,  // ms
     applicationContext: ApplicationContext,
-    val hasToolbar: Boolean = false,
+    showToolbar: Boolean = false,
 ) : JPanel(), WithFigureModel, Disposable {
 
     final override val figureModel: FigureModel
+    val hasToolbar = showToolbar
 
     // The panel that contains the plot component when a toolbar is shown.
     private lateinit var plotComponentContainer: JPanel
@@ -63,7 +65,7 @@ open class PlotPanel constructor(
             // Must be initialized before the first call to 'rebuildProvidedComponent()'.
             plotComponentContainer = JPanel(BorderLayout(0, 0))
                 .apply { isOpaque = false; border = null }
-                .also {
+                .apply {
                     // Extra cleanup on 'dispose'.
                     addContainerListener(object : ContainerAdapter() {
                         override fun componentRemoved(e: ContainerEvent) {
@@ -76,7 +78,7 @@ open class PlotPanel constructor(
         val providedComponent = if (preferredSizeFromPlot) {
             // Build the plot component now with its default size.
             // So that the container could take the plot's preferred size into account.
-            rebuildProvidedComponent(null, sizingPolicy)
+            rebuildProvidedComponent(null, sizingPolicy, SpecOverrideState.empty())
         } else {
             null
         }
@@ -84,11 +86,11 @@ open class PlotPanel constructor(
         figureModel = PlotPanelFigureModel(
             plotPanel = this,
             providedComponent = providedComponent,
-            plotComponentFactory = { containerSize: Dimension, specOverrideList: List<Map<String, Any>> ->
+            plotComponentFactory = { containerSize: Dimension, state: SpecOverrideState ->
                 rebuildProvidedComponent(
                     containerSize,
                     sizingPolicy,
-                    specOverrideList
+                    state
                 )
             },
             applicationContext = applicationContext,
@@ -152,7 +154,7 @@ open class PlotPanel constructor(
     private fun rebuildProvidedComponent(
         containerSize: Dimension?,
         sizingPolicy: SizingPolicy,
-        specOverrideList: List<Map<String, Any>> = emptyList()
+        specOverrideState: SpecOverrideState
     ): JComponent {
         val plotComponentContainer = if (hasToolbar) plotComponentContainer else this
         plotComponentContainer.removeAll()
@@ -167,7 +169,7 @@ open class PlotPanel constructor(
         val providedComponent: JComponent = plotComponentProvider.createComponent(
             adjustedContainerSize,
             sizingPolicy,
-            specOverrideList
+            specOverrideState
         )
 
         // notify

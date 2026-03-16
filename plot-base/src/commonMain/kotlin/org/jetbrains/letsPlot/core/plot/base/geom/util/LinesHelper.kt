@@ -24,7 +24,8 @@ import org.jetbrains.letsPlot.datamodel.svg.dom.SvgNode
 open class LinesHelper(
     pos: PositionAdjustment,
     coord: CoordinateSystem,
-    ctx: GeomContext
+    ctx: GeomContext,
+    private val counter: (Int) -> Unit = {} // todo: remove default counter
 ) : GeomHelper(pos, coord, ctx) {
 
     private var myAlphaEnabled = true
@@ -80,7 +81,9 @@ open class LinesHelper(
         locationTransform: (DataPointAesthetics) -> DoubleVector? = GeomUtil.TO_LOCATION_X_Y,
         closePath: Boolean = false,
     ): List<PathData> {
-        val domainData = createPaths(dataPoints, locationTransform, sorted = true, closePath = closePath)
+        val domainData = createPaths(
+            dataPoints,
+            locationTransform, sorted = true, closePath = closePath, nullsCounter = counter)
         return toClientPaths(domainData)
     }
 
@@ -88,7 +91,7 @@ open class LinesHelper(
         dataPoints: Iterable<DataPointAesthetics>,
         locationTransform: (DataPointAesthetics) -> DoubleVector? = GeomUtil.TO_LOCATION_X_Y,
     ): List<Pair<SvgNode, PolygonData>> {
-        val domainPathData = createPaths(dataPoints, locationTransform, sorted = true, closePath = false)
+        val domainPathData = createPaths(dataPoints, locationTransform, sorted = true, closePath = false, nullsCounter = counter)
 
         return createPolygon(domainPathData)
     }
@@ -177,7 +180,7 @@ open class LinesHelper(
         dataPoints: Iterable<DataPointAesthetics>,
         toLocation: (DataPointAesthetics) -> DoubleVector?
     ): List<PathData> {
-        return createPaths(dataPoints, toClientLocation(toLocation), sorted = true, closePath = false)
+        return createPaths(dataPoints, toClientLocation(toLocation), sorted = true, closePath = false, nullsCounter = counter)
     }
 
     fun createSteps(paths: Collection<PathData>, horizontalThenVertical: Boolean): List<LinePath> {
@@ -225,8 +228,8 @@ open class LinesHelper(
         simplifyBorders: Boolean,
         closePath: Boolean
     ): List<LinePath> {
-        val domainUpperPathData = createPaths(dataPoints, toLocationUpper, sorted = true, closePath)
-        val domainLowerPathData = createPaths(dataPoints, toLocationLower, sorted = true, closePath)
+        val domainUpperPathData = createPaths(dataPoints, toLocationUpper, sorted = true, closePath, nullsCounter = counter)
+        val domainLowerPathData = createPaths(dataPoints, toLocationLower, sorted = true, closePath, nullsCounter = counter)
 
         if (domainUpperPathData.isEmpty() || domainLowerPathData.isEmpty()) {
             return emptyList()
@@ -260,6 +263,31 @@ open class LinesHelper(
         }
     }
 
+    fun toClientPaths(domainPathData: List<PathData>): List<PathData> {
+        return when (myResamplingEnabled) {
+            true -> {
+                domainPathData
+                    .map { path -> splitByStyle(path).let(::midPointsPathInterpolator) }
+                    .flatMap { paths -> paths.mapNotNull { PathData.create(resample(it.points)) } }
+            }
+
+            false -> {
+                val clientPathData = domainPathData.mapNotNull { segment ->
+                    // Note that PathPoint have to be recreated with the point aes, not with a segment aes
+                    val points = segment.points.mapNotNull { p ->
+                        toClient(p.coord, p.aes)
+                            ?.let { PathPoint(p.aes, coord = it) }
+                    }
+                    PathData.create(points)
+                }
+
+                clientPathData
+                    .map { splitByStyle(it).let(::midPointsPathInterpolator) }
+                    .flatten()
+            }
+        }
+    }
+
     fun decorate(
         path: LinePath,
         p: DataPointAesthetics,
@@ -288,31 +316,6 @@ open class LinesHelper(
         val fill = p.fill()
         val fillAlpha = AestheticsUtil.alpha(fill!!, p)
         path.fill().set(withOpacity(fill, fillAlpha))
-    }
-
-    private fun toClientPaths(domainPathData: List<PathData>): List<PathData> {
-        return when (myResamplingEnabled) {
-            true -> {
-                domainPathData
-                    .map { path -> splitByStyle(path).let(::midPointsPathInterpolator) }
-                    .flatMap { paths -> paths.mapNotNull { PathData.create(resample(it.points)) } }
-            }
-
-            false -> {
-                val clientPathData = domainPathData.mapNotNull { segment ->
-                    // Note that PathPoint have to be recreated with the point aes, not with a segment aes
-                    val points = segment.points.mapNotNull { p ->
-                        toClient(p.coord, p.aes)
-                            ?.let { PathPoint(p.aes, coord = it) }
-                    }
-                    PathData.create(points)
-                }
-
-                clientPathData
-                    .map { splitByStyle(it).let(::midPointsPathInterpolator) }
-                    .flatten()
-            }
-        }
     }
 
     companion object {

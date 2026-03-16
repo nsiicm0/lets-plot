@@ -14,9 +14,10 @@ private fun log(str: () -> String) {
         println(str())
 }
 
-class ContextStateDelegate(
+open class ContextStateDelegate(
     logEnabled: Boolean = true,
-    failIfNotImplemented: Boolean = true
+    failIfNotImplemented: Boolean = true,
+    override val contentScale: Double = 1.0
 ) : Context2d by Context2dDelegate(
     logEnabled = logEnabled,
     failIfNotImplemented = failIfNotImplemented

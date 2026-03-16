@@ -5,21 +5,14 @@
 
 plugins {
     kotlin("jvm")
-    id("org.openjfx.javafxplugin")
 }
 
 val batikVersion = project.extra["batik.version"] as String
-val commonsIOVersion = project.extra["commons-io.version"] as String
+//val commonsIOVersion = project.extra["commons-io.version"] as String
 val kotlinLoggingVersion = project.extra["kotlinLogging.version"] as String
 val ktorVersion = project.extra["ktor.version"] as String
-val jfxVersion = extra["jfx.version"] as String
 val kotlinxDatetimeVersion = project.extra["kotlinx.datetime.version"] as String
 val jsvgVersion = project.extra["weisj.jsvg.version"] as String
-
-javafx {
-    version = jfxVersion
-    modules = listOf("javafx.controls", "javafx.swing")
-}
 
 dependencies {
     implementation(kotlin("stdlib-common"))
@@ -44,9 +37,7 @@ dependencies {
     implementation(project(":platf-batik"))
 
     implementation("org.apache.xmlgraphics:batik-codec:${batikVersion}")
-    implementation("commons-io:commons-io:${commonsIOVersion}")  // commons-io: a newer version than the one in Batik transitive dependency.
-
-    implementation(project(":platf-jfx-swing"))
+//    implementation("commons-io:commons-io:${commonsIOVersion}")  // commons-io: a newer version than the one in Batik transitive dependency.
 
     implementation("io.ktor:ktor-client-cio:${ktorVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDatetimeVersion")

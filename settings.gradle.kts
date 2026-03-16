@@ -31,20 +31,18 @@ include("plot-raster")
 include("platf-w3c")
 include("platf-awt")
 include("platf-batik")
-include("platf-jfx-swing")
-include("platf-native")
-include("plot-image-export")
 
 include("python-extension")
 include("python-package-build")
 
 include("js-package")
 include("jvm-package:jvm-publish-common")
-include("jvm-package:jvm-publish-jfx")
 include("jvm-package:jvm-publish-batik")
+include("jvm-package:jvm-publish-swing")
 include("jvm-package:jvm-publish-gis")
 include("jvm-package:jvm-publish-idea-plugin")
 
+include("visual-testing")
 
 include("demo-and-test-shared")
 project(":demo-and-test-shared").projectDir = File("./demo/demo-and-test-shared")

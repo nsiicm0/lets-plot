@@ -6,12 +6,11 @@
 package org.jetbrains.letsPlot.awt.plot.component
 
 import org.jetbrains.letsPlot.awt.plot.component.PlotPanel.Companion.actualPlotComponentFromProvidedComponent
-import org.jetbrains.letsPlot.commons.registration.Disposable
-import org.jetbrains.letsPlot.commons.registration.Registration
-import org.jetbrains.letsPlot.core.interact.InteractionSpec
 import org.jetbrains.letsPlot.core.interact.event.ToolEventDispatcher
-import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModel
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModelBase
 import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModelHelper
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModelOptions.TARGET_ID
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.SpecOverrideState
 import java.awt.Dimension
 import javax.swing.JComponent
 
@@ -20,68 +19,15 @@ internal class PlotPanelFigureModel constructor(
     providedComponent: JComponent?,
     private val plotComponentFactory: (
         containerSize: Dimension,
-        specOverrideList: List<Map<String, Any>>
+        state: SpecOverrideState
     ) -> JComponent,
     private val applicationContext: ApplicationContext,
-) : FigureModel {
+) : FigureModelBase() {
 
-    private val toolEventCallbacks = mutableListOf<(Map<String, Any>) -> Unit>()
-    private val disposibleTools = mutableListOf<Disposable>()
     private var currSpecOverrideList: List<Map<String, Any>> = emptyList()
-    private var defaultInteractions: List<InteractionSpec> = emptyList()
-
-    private var toolEventDispatcher: ToolEventDispatcher? = null
-        set(value) {
-            // De-activate and re-activate ongoing interactions when replacing the dispatcher.
-            val wereInteractions = field?.deactivateAllSilently() ?: emptyMap()
-            field = value
-            value?.let { newDispatcher ->
-                newDispatcher.initToolEventCallback { event ->
-                    toolEventCallbacks.forEach { it(event) }
-                }
-
-                // Make sure that 'implicit' interactions are activated.
-                newDispatcher.deactivateInteractions(origin = ToolEventDispatcher.ORIGIN_FIGURE_IMPLICIT)
-                newDispatcher.activateInteractions(
-                    origin = ToolEventDispatcher.ORIGIN_FIGURE_IMPLICIT,
-                    interactionSpecList = FIGURE_IMPLICIT_INTERACTIONS
-                )
-
-                // Set default interactions if any were configured
-                defaultInteractions.let { defaultInteractionSpecs ->
-                    newDispatcher.setDefaultInteractions(defaultInteractionSpecs)
-                }
-
-                // Reactivate explicit interactions in the new plot component
-                ToolEventDispatcher.filterExplicitOrigins(wereInteractions)
-                    .forEach { (origin, interactionSpecList) ->
-                        newDispatcher.activateInteractions(origin, interactionSpecList)
-                    }
-            }
-        }
 
     init {
         toolEventDispatcher = toolEventDispatcherFromProvidedComponent(providedComponent)
-    }
-
-    override fun addToolEventCallback(callback: (Map<String, Any>) -> Unit): Registration {
-        toolEventCallbacks.add(callback)
-        return Registration.onRemove {
-            toolEventCallbacks.remove(callback)
-        }
-    }
-
-    override fun activateInteractions(origin: String, interactionSpecList: List<InteractionSpec>) {
-        toolEventDispatcher?.activateInteractions(origin, interactionSpecList)
-    }
-
-    override fun deactivateInteractions(origin: String) {
-        toolEventDispatcher?.deactivateInteractions(origin)
-    }
-
-    override fun setDefaultInteractions(interactionSpecList: List<InteractionSpec>) {
-        defaultInteractions = interactionSpecList
-        toolEventDispatcher?.setDefaultInteractions(interactionSpecList)
     }
 
     override fun updateView(specOverride: Map<String, Any>?) {
@@ -90,38 +36,31 @@ internal class PlotPanelFigureModel constructor(
             newSpecOverride = specOverride
         )
 
-        rebuildPlotComponent()
-    }
-
-    override fun addDisposible(disposable: Disposable) {
-        disposibleTools.add(disposable)
-    }
-
-    override fun dispose() {
-        toolEventDispatcher?.deactivateAll()
-        toolEventDispatcher = null
-        toolEventCallbacks.clear()
-
-        val disposibles = ArrayList(disposibleTools)
-        disposibleTools.clear()
-        disposibles.forEach { it.dispose() }
+        val activeTargetId = specOverride?.get(TARGET_ID) as? String
+        rebuildPlotComponent(
+            state = SpecOverrideState(currSpecOverrideList, activeTargetId)
+        )
     }
 
     internal fun rebuildPlotComponent(
+        state: SpecOverrideState = SpecOverrideState(currSpecOverrideList, null),
         onComponentCreated: (JComponent) -> Unit = {},
         expared: () -> Boolean = { false }
     ) {
-        val specOverrideList = ArrayList(currSpecOverrideList)
         val action = Runnable {
 
             val containerSize = plotPanel.size
             if (containerSize == null) return@Runnable
 
-            val providedComponent = plotComponentFactory(containerSize, specOverrideList)
+            val providedComponent = plotComponentFactory(containerSize, state)
             onComponentCreated(providedComponent)
 
-            toolEventDispatcher = toolEventDispatcherFromProvidedComponent(providedComponent)
+            // Read back expanded overrides (non-empty only when expansion occurred).
+            if (state.expandedOverrides.isNotEmpty()) {
+                currSpecOverrideList = state.expandedOverrides
+            }
 
+            toolEventDispatcher = toolEventDispatcherFromProvidedComponent(providedComponent)
             plotPanel.revalidate()
         }
 
@@ -129,8 +68,6 @@ internal class PlotPanelFigureModel constructor(
     }
 
     companion object {
-        private val FIGURE_IMPLICIT_INTERACTIONS = listOf(InteractionSpec(InteractionSpec.Name.ROLLBACK_ALL_CHANGES))
-
         fun toolEventDispatcherFromProvidedComponent(providedComponent: JComponent?): ToolEventDispatcher? {
             if (providedComponent == null) return null
             val actualPlotComponent = actualPlotComponentFromProvidedComponent(providedComponent)

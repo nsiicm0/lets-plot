@@ -11,6 +11,7 @@ import org.jetbrains.letsPlot.core.commons.data.DataType
 import org.jetbrains.letsPlot.core.commons.data.SeriesUtil
 import org.jetbrains.letsPlot.core.plot.base.*
 import org.jetbrains.letsPlot.core.plot.base.data.DataFrameUtil
+import org.jetbrains.letsPlot.core.plot.base.tooltip.TooltipSpecification
 import org.jetbrains.letsPlot.core.plot.base.util.YOrientationBaseUtil
 import org.jetbrains.letsPlot.core.plot.base.util.afterOrientation
 import org.jetbrains.letsPlot.core.plot.builder.MarginSide
@@ -21,8 +22,8 @@ import org.jetbrains.letsPlot.core.plot.builder.assemble.PosProvider
 import org.jetbrains.letsPlot.core.plot.builder.data.OrderOptionUtil.OrderOption
 import org.jetbrains.letsPlot.core.plot.builder.data.OrderOptionUtil.OrderOption.Companion.mergeWith
 import org.jetbrains.letsPlot.core.plot.builder.sampling.Sampling
-import org.jetbrains.letsPlot.core.plot.builder.tooltip.TooltipSpecification
-import org.jetbrains.letsPlot.core.spec.*
+import org.jetbrains.letsPlot.core.spec.GeomProto
+import org.jetbrains.letsPlot.core.spec.Option
 import org.jetbrains.letsPlot.core.spec.Option.Layer
 import org.jetbrains.letsPlot.core.spec.Option.Layer.ANNOTATIONS
 import org.jetbrains.letsPlot.core.spec.Option.Layer.DEFAULT_LEGEND_GROUP_NAME
@@ -38,11 +39,15 @@ import org.jetbrains.letsPlot.core.spec.Option.Layer.POS
 import org.jetbrains.letsPlot.core.spec.Option.Layer.SHOW_LEGEND
 import org.jetbrains.letsPlot.core.spec.Option.Layer.STAT
 import org.jetbrains.letsPlot.core.spec.Option.Layer.TOOLTIPS
+import org.jetbrains.letsPlot.core.spec.Option.LinesSpec.KIND
+import org.jetbrains.letsPlot.core.spec.Option.LinesSpec.Kind.SMOOTH_STAT_SUMMARY_ANNOTATION
 import org.jetbrains.letsPlot.core.spec.Option.Mapping
 import org.jetbrains.letsPlot.core.spec.Option.Mapping.toOption
 import org.jetbrains.letsPlot.core.spec.Option.Meta.DATA_META
 import org.jetbrains.letsPlot.core.spec.Option.PlotBase.DATA
 import org.jetbrains.letsPlot.core.spec.Option.PlotBase.MAPPING
+import org.jetbrains.letsPlot.core.spec.PosProto
+import org.jetbrains.letsPlot.core.spec.StatProto
 import org.jetbrains.letsPlot.core.spec.config.DataConfigUtil.combinedDiscreteMapping
 import org.jetbrains.letsPlot.core.spec.config.DataConfigUtil.layerMappingsAndCombinedData
 import org.jetbrains.letsPlot.core.spec.conversion.AesOptionConversion
@@ -85,7 +90,7 @@ class LayerConfig constructor(
     val fillByAes: Aes<Color> = getPaintAes(Aes.FILL, explicitConstantAes)
     val renderedAes: List<Aes<*>> = GeomMeta.renders(geomProto.geomKind, colorByAes, fillByAes)
     val isLegendDisabled: Boolean
-        get() = when (hasOwn(SHOW_LEGEND)) {
+        get() = when (has(SHOW_LEGEND)) {
             true -> !getBoolean(SHOW_LEGEND, true)
             else -> false
         }
@@ -391,6 +396,13 @@ class LayerConfig constructor(
                 isYOrientedByAes(setOf(Aes.YMIN, Aes.LOWER, Aes.MIDDLE, Aes.UPPER, Aes.YMAX))
             }
 
+            geomProto.geomKind == GeomKind.BRACKET -> {
+                isYOrientedByAes(setOf(Aes.XMIN, Aes.XMAX))
+            }
+            geomProto.geomKind == GeomKind.BRACKET_DODGE -> {
+                !isAesDiscrete(Aes.X) && isAesDiscrete(Aes.Y)
+            }
+
             geomProto.geomKind in listOf(
                 GeomKind.CROSS_BAR,
                 GeomKind.ERROR_BAR,
@@ -544,14 +556,9 @@ class LayerConfig constructor(
                     ).createTooltips()
                 }
 
-                NONE -> {
-                    // not show tooltips
-                    TooltipSpecification.withoutTooltip()
-                }
+                NONE -> TooltipSpecification.NONE
 
-                else -> {
-                    error("Incorrect tooltips specification")
-                }
+                else -> error("Incorrect tooltips specification")
             }
         }
 
@@ -563,13 +570,23 @@ class LayerConfig constructor(
         ): AnnotationSpecification {
             return when (annotationOptions) {
                 is Map<*, *> -> {
-                    @Suppress("UNCHECKED_CAST")
-                    AnnotationConfig(
-                        opts = annotationOptions as Map<String, Any>,
-                        varBindings = varBindings,
-                        constantsMap = constantsMap,
-                        groupingVarNames = explicitGroupingVarNames
-                    ).createAnnotations()
+                    if (annotationOptions[KIND] == SMOOTH_STAT_SUMMARY_ANNOTATION) {
+                        @Suppress("UNCHECKED_CAST")
+                        SmoothStatSummaryAnnotationConfig(
+                            opts = annotationOptions as Map<String, Any>,
+                            varBindings = varBindings,
+                            constantsMap = constantsMap,
+                            groupingVarNames = explicitGroupingVarNames
+                        ).createAnnotations()
+                    } else {
+                        @Suppress("UNCHECKED_CAST")
+                        AnnotationConfig(
+                            opts = annotationOptions as Map<String, Any>,
+                            varBindings = varBindings,
+                            constantsMap = constantsMap,
+                            groupingVarNames = explicitGroupingVarNames
+                        ).createAnnotations()
+                    }
                 }
 
                 NONE -> {

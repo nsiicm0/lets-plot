@@ -7,6 +7,8 @@ plugins {
     kotlin("multiplatform")
 }
 
+val os: org.gradle.internal.os.OperatingSystem = org.gradle.internal.os.OperatingSystem.current()
+val arch = rootProject.project.extra["architecture"]
 
 val ktorVersion = project.extra["ktor.version"] as String
 val kotlinxDatetimeVersion = project.extra["kotlinx.datetime.version"] as String
@@ -21,6 +23,15 @@ kotlin {
         browser {}
     }
 
+    when {
+        os.isMacOsX && arch == "arm64" -> macosArm64()
+        os.isMacOsX && arch == "x86_64" -> macosX64()
+        os.isLinux && arch == "arm64" -> linuxArm64()
+        os.isLinux && arch == "x86_64" -> linuxX64()
+        os.isWindows -> mingwX64()
+        else -> throw Exception("Unsupported platform! Check project settings.")
+    }
+
     sourceSets {
         commonMain {
             dependencies {
@@ -32,6 +43,17 @@ kotlin {
         jvmMain {
             dependencies {
                 compileOnly("io.ktor:ktor-client-cio:$ktorVersion")
+            }
+        }
+
+        nativeMain {
+            dependencies {
+                if (os.isMacOsX) {
+                    implementation("io.ktor:ktor-client-darwin:${ktorVersion}")
+                } else {
+                    // Uses CIO for Linux and Windows
+                    implementation("io.ktor:ktor-client-cio:${ktorVersion}")
+                }
             }
         }
 

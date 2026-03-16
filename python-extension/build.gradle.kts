@@ -64,6 +64,9 @@ kotlin {
         target.compilations.getByName("main") {
             val python by cinterops.creating {
                 compilerOpts("-I${rootProject.project.extra["python.include_path"]}")
+                if (os.isWindows) {
+                    compilerOpts("-mcrc32")
+                }
             }
         }
         target
@@ -85,7 +88,6 @@ kotlin {
                 implementation(project(":plot-base"))
                 implementation(project(":plot-builder"))
                 implementation(project(":plot-stem"))
-                implementation(project(":platf-native"))
                 implementation(project(":platf-imagick"))
                 implementation(project(":plot-raster"))
             }
@@ -95,6 +97,7 @@ kotlin {
                 dependencies {
                     implementation(project(":demo-and-test-shared"))
                     implementation(project(":demo-common-svg"))
+                    implementation(project(":visual-testing"))
                 }
             }
     }

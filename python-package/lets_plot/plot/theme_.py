@@ -34,9 +34,11 @@ def theme(*,
           # ToDo: axis.text.x.left, axis.text.x.right
           axis_text_spacing=None, axis_text_spacing_x=None, axis_text_spacing_y=None,
           axis_ticks=None, axis_ticks_x=None, axis_ticks_y=None,
+          axis_minor_ticks=None, axis_minor_ticks_x=None, axis_minor_ticks_y=None,
           # ToDo: axis.ticks.x.top, axis.ticks.x.bottom
           # ToDo: axis.ticks.x.left, axis.ticks.x.right
           axis_ticks_length=None, axis_ticks_length_x=None, axis_ticks_length_y=None,
+          axis_minor_ticks_length=None, axis_minor_ticks_length_x=None, axis_minor_ticks_length_y=None,
           axis_line=None, axis_line_x=None, axis_line_y=None,
           # ToDo: axis.line.x.top, axis.line.x.bottom
           # ToDo: axis.line.x.left, axis.line.x.right
@@ -72,12 +74,18 @@ def theme(*,
           plot_title=None,
           plot_subtitle=None,
           plot_caption=None,
+          plot_tag=None,
           plot_message=None,
           plot_margin=None,
           plot_inset=None,
 
           plot_title_position=None,
           plot_caption_position=None,
+          plot_tag_position=None,
+          plot_tag_location=None,
+
+          plot_tag_prefix=None,
+          plot_tag_suffix=None,
 
           strip_background=None, strip_background_x=None, strip_background_y=None,
           strip_text=None, strip_text_x=None, strip_text_y=None,
@@ -158,8 +166,15 @@ def theme(*,
         Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to draw nothing and assign no space.
         Set `element_line() <https://lets-plot.org/python/pages/api/lets_plot.element_line.html>`__ to specify all tick mark parameters.
         ``axis_ticks_*`` inherits from ``axis_ticks`` which inherits from ``line``.
+    axis_minor_ticks, axis_minor_ticks_x, axis_minor_ticks_y : str or dict
+        Style settings for minor tick marks along axes.
+        Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to draw nothing and assign no space.
+        Set `element_line() <https://lets-plot.org/python/pages/api/lets_plot.element_line.html>`__ to specify all minor tick mark parameters.
+        ``axis_minor_ticks_*`` inherits from ``axis_minor_ticks`` which inherits from ``line``.
     axis_ticks_length, axis_ticks_length_x, axis_ticks_length_y : float
         Length of tick marks in px.
+    axis_minor_ticks_length, axis_minor_ticks_length_x, axis_minor_ticks_length_y : float
+        Length of minor tick marks in px.
     axis_line, axis_line_x, axis_line_y : str or dict
         Style settings for lines along axes.
         Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to draw nothing and assign no space.
@@ -280,6 +295,10 @@ def theme(*,
         Style settings for plot caption.
         Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to draw nothing and assign no space.
         Set `element_text() <https://lets-plot.org/python/pages/api/lets_plot.element_text.html>`__ to specify plot caption parameters, inherited from ``title``.
+    plot_tag : str or dict
+        Style settings for plot tag.
+        Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to draw nothing and assign no space.
+        Set `element_text() <https://lets-plot.org/python/pages/api/lets_plot.element_text.html>`__ to specify plot tag parameters.
     plot_message : str or dict
         Style settings for plot message (e.g. sampling messages).
         Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to show nothing.
@@ -312,6 +331,25 @@ def theme(*,
         Alignment of the plot caption.
         A value of 'panel' means that caption is aligned to the plot panels.
         A value of 'plot' means that caption is aligned to the entire plot (excluding margins).
+    plot_tag_position : {'left', 'top-left', 'top', 'top-right', 'right', 'bottom-right', 'bottom', 'bottom-left'} or list[float, float], default='top-left'
+        Position of the tag within the area defined by plot_tag_location. It can be one of the predefined anchor names,
+        or a numeric pair [x, y], where each value is between 0 and 1. [0, 0] is bottom-left and [1, 1] is top-right.
+
+        When ``plot_tag_location='margin'``, only predefined position names are supported. Use ``hjust``/``vjust``
+        in `element_text() <https://lets-plot.org/python/pages/api/lets_plot.element_text.html>`__ to fine-tune
+        the tag position within the margin.
+    plot_tag_location : {'plot', 'panel', 'margin'}, default='plot'
+        Area used for positioning the tag.
+
+        - 'plot'   - the tag is positioned relative to the entire plot area without affecting layout.
+        - 'panel'  - the tag is positioned relative to the panel (data) area without affecting layout.
+        - 'margin' - the tag is placed in the plot margin area. Space for the tag is reserved by the layout,
+          so other plot elements are shifted to avoid overlap.
+
+    plot_tag_prefix : str, default=''
+        Text added before the plot tag.
+    plot_tag_suffix : str, default=''
+        Text added after the plot tag.
     strip_background : str or dict
         Style settings for facet strip background.
         Set 'blank' or result of `element_blank() <https://lets-plot.org/python/pages/api/lets_plot.element_blank.html>`__ to draw nothing.
@@ -370,8 +408,11 @@ def theme(*,
         Set `element_text() <https://lets-plot.org/python/pages/api/lets_plot.element_text.html>`__ to specify tooltip title parameters, inherited from ``tooltip_text``. Bold by default.
     label_text : dict
         Style settings for annotation text.
-        Annotations are currently supported for pie, bar chart and crossbar.
-        Set `element_text() <https://lets-plot.org/python/pages/api/lets_plot.element_text.html>`__ to specify annotation text parameters: font family and face, text size, text color.
+        Applies to text labels used in annotations, including labels configured with
+        `layer_labels() <https://lets-plot.org/python/pages/api/lets_plot.layer_labels.html>`__ and
+        `smooth_labels() <https://lets-plot.org/python/pages/api/lets_plot.smooth_labels.html>`__.
+        For more info see `Annotating Charts <https://lets-plot.org/python/pages/annotations.html>`__.
+        Set `element_text() <https://lets-plot.org/python/pages/api/lets_plot.element_text.html>`__ to specify label text appearance.
     geom : dict
         Color settings for geometries.
         Set `element_geom() <https://lets-plot.org/python/pages/api/lets_plot.element_geom.html>`__ to specify new values for the named colors.
@@ -448,7 +489,7 @@ def _filter_none(original: dict) -> dict:
 
 def element_blank() -> dict:
     """
-    Theme element that draws nothing and allocates no space for non-data components of the plot.
+    Theme element that specifies that the corresponding non-data components of the plot are not drawn and do not allocate space.
 
     Returns
     -------
@@ -481,7 +522,7 @@ def element_rect(
         blank=False,
 ) -> dict:
     """
-    Theme element that draws rectangular non-data components of the plot: borders and backgrounds.
+    Theme element that specifies how rectangular non-data components of the plot, such as borders and backgrounds, are drawn.
 
     Parameters
     ----------
@@ -533,7 +574,7 @@ def element_line(
         blank=False,
 ) -> dict:
     """
-    Theme element that draws line-based non-data components of the plot.
+    Theme element that specifies how line-based non-data components of the plot are drawn.
 
     Parameters
     ----------
@@ -588,7 +629,7 @@ def element_text(
         blank=False,
 ) -> dict:
     """
-    Theme element that draws text for non-data components of the plot.
+    Theme element that specifies how text in non-data components of the plot is drawn.
 
     Parameters
     ----------
@@ -663,11 +704,11 @@ def element_markdown(
         blank=False,
 ) -> dict:
     """
-    Theme element that draws text with Markdown support for non-data components of the plot.
+    Theme element that specifies how text with Markdown support in non-data components of the plot is drawn.
 
     Supported features:
 
-    - Emphasis (\*, \*\*, \*\*\*, _, __, ___)
+    - Emphasis (\\*, \\*\\*, \\*\\*\\*, _, __, ___)
     - Coloring with inline style (<span style='color:red'>text</span>)
     - Links with anchor tags (<a href="https://lets-plot.org">Lets-Plot</a>). Supports target attribute (default is "_blank")
     - Multiple lines using double space and a newline delimiter (  ``\\n``)
@@ -689,13 +730,13 @@ def element_markdown(
         0 - left-justified;
         1 - right-justified;
         0.5 - center-justified.
-        Can be used with values out of range, but behaviour is not specified.
+        Can be used with values out of range, but behavior is not specified.
     vjust : float
         Vertical justification (in [0, 1]).
         0 - bottom-justified;
         1 - top-justified;
         0.5 - middle-justified.
-        Can be used with values out of range, but behaviour is not specified.
+        Can be used with values out of range, but behavior is not specified.
     margin : number or list of numbers
         Margins around the text.
         The margin may be specified using a number or a list of numbers:
@@ -756,16 +797,25 @@ def element_geom(
         # ToDo: fatten
 ) -> dict:
     """
-    Theme element that specifies custom values for named geom colors used in plot elements.
+    Theme element that specifies custom values for named geom colors used by plot elements.
+
+    It allows you to specify custom color values for special named geom colors ("pen", "brush", "paper")
+    that can be referenced in geom parameters such as ``color``, ``fill``, etc.
+
+    These names act as indirections: instead of hardcoding a concrete color in a geom (e.g., ``color="red"``),
+    you can use a semantic name (e.g., ``color="pen"``) and control its actual value centrally via the theme.
 
     Parameters
     ----------
     pen : str
-        Color to use by name "pen".
+        Color assigned to the named color "pen".
+        Typically used for stroke/outline rendering (e.g., ``color='pen'``).
     brush : str
-        Color to use by name "brush".
+        Color assigned to the named color "brush".
+        Typically used for interior fills or secondary stroke styling (e.g., ``fill='brush'``), depending on the geom.
     paper : str
-        Color to use by name "paper".
+        Color assigned to the named color "paper".
+        Commonly used for background-like fills or lighter interior areas (e.g., ``fill='paper'``).
 
     Returns
     -------
@@ -776,15 +826,19 @@ def element_geom(
     --------
     .. jupyter-execute::
         :linenos:
-        :emphasize-lines: 7
+        :emphasize-lines: 8-11
 
         import numpy as np
         from lets_plot import *
         LetsPlot.setup_html()
         np.random.seed(42)
         data = {'x': np.random.normal(size=1000)}
-        ggplot(data, aes(x='x')) + geom_histogram(color='pen', fill='paper') + \\
-            theme(geom=element_geom(pen='dark_blue', paper='light_blue'))
+        ggplot(data, aes(x='x')) + \\
+            geom_histogram(color='pen', fill='paper') + \\
+            theme(geom=element_geom(
+                pen='dark_blue',
+                paper='light_blue'
+            ))
 
     """
     return locals()

@@ -20,18 +20,16 @@ import org.jetbrains.letsPlot.commons.encoding.Png
 import org.jetbrains.letsPlot.commons.geometry.DoubleVector
 import org.jetbrains.letsPlot.commons.registration.Registration
 import org.jetbrains.letsPlot.commons.values.Bitmap
-import org.jetbrains.letsPlot.core.util.DisplayHtmlPolicy
-import org.jetbrains.letsPlot.core.util.MonolithicCommon
+import org.jetbrains.letsPlot.core.util.*
 import org.jetbrains.letsPlot.core.util.PlotExportCommon.SizeUnit
 import org.jetbrains.letsPlot.core.util.PlotExportCommon.computeExportParameters
-import org.jetbrains.letsPlot.core.util.PlotHtmlExport
-import org.jetbrains.letsPlot.core.util.PlotHtmlHelper
 import org.jetbrains.letsPlot.core.util.sizing.SizingPolicy
 import org.jetbrains.letsPlot.imagick.canvas.MagickCanvasPeer
 import org.jetbrains.letsPlot.imagick.canvas.MagickFontManager
-import org.jetbrains.letsPlot.nat.util.PlotSvgExportNative
 import org.jetbrains.letsPlot.pythonExtension.interop.TypeUtils.pyDictToMap
-import org.jetbrains.letsPlot.raster.view.PlotCanvasFigure2
+import org.jetbrains.letsPlot.raster.view.PlotCanvasDrawable
+import org.jetbrains.letsPlot.raster.view.RenderingHints.KEY_OFFSCREEN_BUFFERING
+import org.jetbrains.letsPlot.raster.view.RenderingHints.VALUE_OFFSCREEN_BUFFERING_OFF
 import kotlin.time.TimeSource
 
 object PlotReprGenerator {
@@ -65,8 +63,7 @@ object PlotReprGenerator {
         plotSpecDict: CPointer<PyObject>?,
         width: Float,
         height: Float,
-        unit: CPointer<ByteVar>,
-        useCssPixelatedImageRendering: Int,
+        unit: CPointer<ByteVar>
     ): CPointer<PyObject>? {
         return try {
             val plotSize = if (width >= 0 && height >= 0) DoubleVector(width, height) else null
@@ -75,11 +72,10 @@ object PlotReprGenerator {
             val plotSpecMap = pyDictToMap(plotSpecDict)
 
             @Suppress("UNCHECKED_CAST")
-            val svg = PlotSvgExportNative.buildSvgImageFromRawSpecs(
+            val svg = PlotSvgExport.buildSvgImageFromRawSpecs(
                 plotSpec = plotSpecMap as MutableMap<String, Any>,
                 plotSize = plotSize,
-                sizeUnit = sizeUnit,
-                useCssPixelatedImageRendering = useCssPixelatedImageRendering == 1,
+                sizeUnit = sizeUnit
             )
             Py_BuildValue("s", svg)
         } catch (e: Throwable) {
@@ -210,39 +206,45 @@ object PlotReprGenerator {
         scale: Number? = null,
         antialiasing: Boolean = true
     ): Pair<Bitmap, Double> {
-        var canvasReg: Registration? = null
+        val exportParameters = computeExportParameters(plotSize, dpi, sizeUnit, scale)
+
+        @Suppress("UNCHECKED_CAST")
+        val rawPlotSpec = plotSpec as MutableMap<String, Any>
+
+        val plotCanvasDrawable = PlotCanvasDrawable()
+
+        plotCanvasDrawable.setRenderingHint(KEY_OFFSCREEN_BUFFERING, VALUE_OFFSCREEN_BUFFERING_OFF)
+
+        plotCanvasDrawable.update(
+            processedSpec = MonolithicCommon.processRawSpecs(rawPlotSpec, frontendOnly = false),
+            sizingPolicy = exportParameters.sizingPolicy,
+            computationMessagesHandler = { }
+        )
+
+        val magickCanvasPeer = MagickCanvasPeer(
+            pixelDensity = exportParameters.scaleFactor,
+            fontManager = fontManager,
+            antialiasing = antialiasing
+        )
+
+        var canvasReg: Registration? = plotCanvasDrawable.mapToCanvas(magickCanvasPeer)
+
         try {
-            val exportParameters = computeExportParameters(plotSize, dpi, sizeUnit, scale)
-
-            @Suppress("UNCHECKED_CAST")
-            val rawPlotSpec = plotSpec as MutableMap<String, Any>
-
-            val plotCanvasFigure = PlotCanvasFigure2()
-            plotCanvasFigure.update(
-                processedSpec = MonolithicCommon.processRawSpecs(rawPlotSpec, frontendOnly = false),
-                sizingPolicy = exportParameters.sizingPolicy,
-                computationMessagesHandler = { }
+            val canvas = magickCanvasPeer.createCanvas(
+                plotCanvasDrawable.size,
+                contentScale = exportParameters.scaleFactor
             )
+            val ctx = canvas.context2d
+            plotCanvasDrawable.paint(ctx)
 
-            val magickCanvasPeer = MagickCanvasPeer(
-                pixelDensity = exportParameters.scaleFactor,
-                fontManager = fontManager,
-                antialiasing = antialiasing
-            )
-
-            canvasReg = plotCanvasFigure.mapToCanvas(magickCanvasPeer)
-
-            val canvas = magickCanvasPeer.createCanvas(plotCanvasFigure.size)
-
-            plotCanvasFigure.paint(canvas.context2d)
-
-            // Save the image to a file
             val snapshot = canvas.takeSnapshot()
             val bitmap = snapshot.bitmap
 
-            canvas.dispose()
+            canvasReg?.dispose()
+            canvasReg = null
+
+            ctx.dispose()
             snapshot.dispose()
-            magickCanvasPeer.dispose()
 
             return bitmap to exportParameters.dpi
         } finally {
@@ -326,7 +328,6 @@ object PlotReprGenerator {
         scale: Number? = null,
     ): String {
         var canvasReg: Registration? = null
-        try {
             val start = TimeSource.Monotonic.markNow()
 
             println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): plotSpec parsed")
@@ -338,29 +339,31 @@ object PlotReprGenerator {
             @Suppress("UNCHECKED_CAST")
             val rawPlotSpec = plotSpec as MutableMap<String, Any>
 
-            val plotCanvasFigure = PlotCanvasFigure2()
-            plotCanvasFigure.update(
+            val plotCanvasDrawable = PlotCanvasDrawable()
+            plotCanvasDrawable.update(
                 processedSpec = MonolithicCommon.processRawSpecs(rawPlotSpec, frontendOnly = false),
                 sizingPolicy = exportParameters.sizingPolicy,
                 computationMessagesHandler = { }
             )
 
-            println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): plotCanvasFigure built, size=${plotCanvasFigure.size}")
+            println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): plotCanvasFigure built, size=${plotCanvasDrawable.size}")
 
             val magickCanvasPeer = MagickCanvasPeer(
                 pixelDensity = exportParameters.scaleFactor,
                 fontManager = defaultFontManager,
             )
 
-            canvasReg = plotCanvasFigure.mapToCanvas(magickCanvasPeer)
+            canvasReg = plotCanvasDrawable.mapToCanvas(magickCanvasPeer)
 
             println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): plot mapped to canvas")
 
-            val canvas = magickCanvasPeer.createCanvas(plotCanvasFigure.size)
+        try {
+            val canvas = magickCanvasPeer.createCanvas(plotCanvasDrawable.size)
+            val ctx = canvas.context2d
 
             println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): canvas size: ${canvas.size}, pixelDensity=${magickCanvasPeer.pixelDensity}")
 
-            plotCanvasFigure.paint(canvas.context2d)
+            plotCanvasDrawable.paint(ctx)
 
             println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): plot painted")
 
@@ -379,16 +382,21 @@ object PlotReprGenerator {
 
             println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): MVG extracted, length=${mvg.length}")
 
-            canvas.dispose()
+            ctx.dispose()
             snapshot.dispose()
-            magickCanvasPeer.dispose()
 
             println("${TimeSource.Monotonic.markNow() - start}: exportMvg(): resources disposed")
 
-            return mvg
+            val contentPosStart = mvg.indexOf("<vector-graphics>")
+            val contentPosEnd = mvg.indexOf("</vector-graphics>")
+
+            if (contentPosStart < 0 || contentPosEnd < 0 || contentPosEnd <= contentPosStart) {
+                return ""
+            }
+
+            return mvg.substring(contentPosStart + "<vector-graphics>".length, contentPosEnd)
         } finally {
-            canvasReg?.dispose()
+            canvasReg.dispose()
         }
     }
-
 }

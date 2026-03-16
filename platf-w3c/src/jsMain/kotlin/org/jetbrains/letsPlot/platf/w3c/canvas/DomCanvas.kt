@@ -23,9 +23,10 @@ import kotlin.math.ceil
 
 internal class DomCanvas private constructor(
     val canvasElement: HTMLCanvasElement,
-    override val size: Vector
+    override val size: Vector,
+    pixelRatio: Double
 ) : Canvas {
-    override val context2d: Context2d = DomContext2d(canvasElement.getContext("2d") as CanvasRenderingContext2D)
+    override val context2d: Context2d = DomContext2d(canvasElement.getContext("2d") as CanvasRenderingContext2D, pixelRatio)
 
     override fun takeSnapshot(): Canvas.Snapshot = DomSnapshot(canvasElement, size)
 
@@ -44,6 +45,10 @@ internal class DomCanvas private constructor(
             canvasCopy.context2d.drawImage(canvasElement, 0.0, 0.0)
             return DomSnapshot(canvasCopy, size)
         }
+
+        override fun dispose() {
+            // No resources to dispose
+        }
     }
 
     companion object {
@@ -51,11 +56,7 @@ internal class DomCanvas private constructor(
 
         fun create(size: Vector, pixelRatio: Double): DomCanvas {
             val nativeCanvas = createNativeCanvas(size, pixelRatio)
-            return DomCanvas(nativeCanvas, size).also {
-                if (pixelRatio != 1.0) {
-                    it.context2d.scale(pixelRatio, pixelRatio)
-                }
-            }
+            return DomCanvas(nativeCanvas, size, pixelRatio)
         }
 
         private fun createNativeCanvas(

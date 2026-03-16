@@ -40,11 +40,13 @@ class PlotAssembler constructor(
     private val title: String? = null,
     private val subtitle: String? = null,
     private val caption: String? = null,
+    private val tag: String? = null,
     guideOptionsMap: Map<GuideKey, GuideOptionsList> = HashMap(),
     private val plotSpecId: String?,
     private val tz: TimeZone?,
     scaleFactor: Double = 1.0,
     private val detachedLegendsCollector: DetachedLegendsCollector?,
+    private val messageConsumer: (String) -> Unit = {},
 ) {
 
     val containsLiveMap: Boolean = geomTiles.containsLiveMap
@@ -67,7 +69,8 @@ class PlotAssembler constructor(
             geomTiles,
             expFormat = extractExponentFormat(theme.exponentFormat),
             tz = tz,
-            scaleFactor
+            scaleFactor,
+            messageConsumer
         )
 
         val legendTheme = theme.legend()
@@ -147,7 +150,8 @@ class PlotAssembler constructor(
             legendBoxInfos = legendBoxInfosForLayout,
             title = title,
             subtitle = subtitle,
-            caption = caption
+            caption = caption,
+            tag = tag
         )
     }
 
@@ -178,6 +182,7 @@ class PlotAssembler constructor(
             title = title,
             subtitle = subtitle,
             caption = caption,
+            tag = tag,
             coreLayersByTile = geomTiles.coreLayersByTile(),
             marginalLayersByTile = geomTiles.marginalLayersByTile(),
             figureLayoutInfo = figureLayoutInfo,

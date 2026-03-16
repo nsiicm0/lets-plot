@@ -36,14 +36,12 @@ object MonolithicCommon {
     fun buildSvgImageFromRawSpecs(
         plotSpec: MutableMap<String, Any>,
         plotSize: DoubleVector?,
-        svgToString: SvgToString,
         computationMessagesHandler: ((List<String>) -> Unit)
     ): String {
         return buildSvgImageFromRawSpecs(
             plotSpec = plotSpec,
             plotSize = plotSize,
             sizeUnit = SizeUnit.PX,
-            svgToString = svgToString,
             computationMessagesHandler = computationMessagesHandler
         )
     }
@@ -55,7 +53,6 @@ object MonolithicCommon {
         plotSpec: MutableMap<String, Any>,
         plotSize: DoubleVector?,
         sizeUnit: SizeUnit?,
-        svgToString: SvgToString,
         computationMessagesHandler: ((List<String>) -> Unit)
     ): String {
         @Suppress("NAME_SHADOWING")
@@ -70,12 +67,13 @@ object MonolithicCommon {
         }
 
         val success = buildResult as PlotsBuildResult.Success
+
+        val svg: SvgSvgElement = FigureToPlainSvg(success.buildInfo).eval()
+
         val computationMessages = success.buildInfo.computationMessages
         if (computationMessages.isNotEmpty()) {
             computationMessagesHandler(computationMessages)
         }
-
-        val svg: SvgSvgElement = FigureToPlainSvg(success.buildInfo).eval()
 
         if (plotSize != null && unit.isPhysicalUnit) {
             val pixelWidth = svg.width().get()!!
@@ -88,7 +86,7 @@ object MonolithicCommon {
             svg.setAttribute("viewBox", "0 0 $pixelWidth $pixelHeight")
         }
 
-        return svgToString.render(svg)
+        return SvgToString.render(svg)
     }
 
     /**
@@ -101,12 +99,11 @@ object MonolithicCommon {
     fun buildSvgImagesFromRawSpecs(
         plotSpec: MutableMap<String, Any>,
         plotSize: DoubleVector?,
-        svgToString: SvgToString,
         computationMessagesHandler: ((List<String>) -> Unit)
     ): List<String> {
         return listOf(
             buildSvgImageFromRawSpecs(
-                plotSpec, plotSize, svgToString, computationMessagesHandler
+                plotSpec, plotSize, computationMessagesHandler
             )
         )
     }
@@ -114,7 +111,7 @@ object MonolithicCommon {
     fun buildPlotsFromProcessedSpecs(
         plotSpec: Map<String, Any>,
         containerSize: DoubleVector?,
-        sizingPolicy: SizingPolicy
+        sizingPolicy: SizingPolicy,
     ): PlotsBuildResult {
         throwTestingErrors()  // noop
 
@@ -130,7 +127,7 @@ object MonolithicCommon {
                     buildSinglePlotFromProcessedSpecs(
                         plotSpec,
                         containerSize,
-                        sizingPolicy
+                        sizingPolicy,
                     )
                 )
             }
@@ -139,7 +136,7 @@ object MonolithicCommon {
                 buildCompositeFigureFromProcessedSpecs(
                     plotSpec,
                     containerSize,
-                    sizingPolicy
+                    sizingPolicy,
                 )
             )
 
@@ -150,7 +147,7 @@ object MonolithicCommon {
     private fun buildSinglePlotFromProcessedSpecs(
         plotSpec: Map<String, Any>,
         containerSize: DoubleVector?,
-        sizingPolicy: SizingPolicy,
+        sizingPolicy: SizingPolicy
     ): PlotFigureBuildInfo {
         val computationMessages = ArrayList<String>()
         val config = PlotConfigFrontend.create(
@@ -168,6 +165,7 @@ object MonolithicCommon {
             sharedContinuousDomainY = null,
             computationMessages,
             detachedLegendsCollector = null,
+            computationMessages::add
         )
     }
 
@@ -179,6 +177,7 @@ object MonolithicCommon {
         sharedContinuousDomainY: DoubleSpan?,
         computationMessages: List<String>,
         detachedLegendsCollector: DetachedLegendsCollector?,
+        messageConsumer: (String) -> Unit
     ): PlotFigureBuildInfo {
 
         val preferredSize = PlotSizeHelper.singlePlotSize(
@@ -193,20 +192,21 @@ object MonolithicCommon {
             config,
             sharedContinuousDomainX,
             sharedContinuousDomainY,
-            detachedLegendsCollector
+            detachedLegendsCollector,
+            messageConsumer
         )
         return PlotFigureBuildInfo(
             assembler,
             config.toMap(),
             DoubleRectangle(DoubleVector.ZERO, preferredSize),
-            computationMessages
+            computationMessages,
         )
     }
 
     private fun buildCompositeFigureFromProcessedSpecs(
         plotSpec: Map<String, Any>,
         containerSize: DoubleVector?,
-        sizingPolicy: SizingPolicy,
+        sizingPolicy: SizingPolicy
     ): CompositeFigureBuildInfo {
         val computationMessages = ArrayList<String>()
         val compositeFigureConfig = CompositeFigureConfig(plotSpec, containerTheme = null) {
@@ -224,7 +224,7 @@ object MonolithicCommon {
             preferredSize,
             computationMessages,
             containerGuidesSharing = AUTO,
-            containerDetachedLegendsCollector = null
+            containerDetachedLegendsCollector = null,
         )
     }
 
@@ -278,10 +278,12 @@ object MonolithicCommon {
                         sharedContinuousDomainX = sharedXDomains?.get(index),
                         sharedContinuousDomainY = sharedYDomains?.get(index),
                         computationMessages = emptyList(),  // No "own messages" when a part of a composite.
-                        detachedLegendsCollector = ownDetachedLegendsCollector
+                        detachedLegendsCollector = ownDetachedLegendsCollector,
+                        computationMessages::add
                     )
 
                     FigKind.SUBPLOTS_SPEC -> {
+                        @Suppress("NAME_SHADOWING")
                         val containerGuidesSharing = if (ownDetachedLegendsCollector != null) {
                             COLLECT
                         } else {
@@ -326,6 +328,7 @@ object MonolithicCommon {
         val title: String? = config.title?.takeIf { theme.plot().showTitle() }
         val subtitle: String? = config.subtitle?.takeIf { theme.plot().showSubtitle() }
         val caption: String? = config.caption?.takeIf { theme.plot().showCaption() }
+        val tag: String? = config.fullTag?.takeIf { theme.plot().showTag() }
 
         return CompositeFigureBuildInfo(
             elements = elements,
@@ -334,6 +337,7 @@ object MonolithicCommon {
             title = title,
             subtitle = subtitle,
             caption = caption,
+            tag = tag,
             theme = theme,
             computationMessages,
             legendBlocks = legendBlocks

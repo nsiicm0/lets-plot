@@ -38,6 +38,11 @@ Copyright © 2019 Matt Davis. Licensed under MIT License.
 Date and time library for JavaScript.
 Copyright © 2016, Philipp Thürwächter & Pattrick Hüper. Licensed under BSD License.
 
+### pako
+high speed zlib port to javascript, works in browser & node.js
+Copyright (C) 2014-2017 by Vitaly Puzrin and Andrei Tuputcyn
+Licensed under MTI License: https://github.com/nodeca/pako/blob/master/LICENSE
+
 ### Pillow
 
 Copyright © 1997-2011 by Secret Labs AB. Copyright (c) 1995-2011 by Fredrik Lundh and contributors.
@@ -67,3 +72,8 @@ Licensed under MIT License.
 ### WeisJ/jsvg Java SVG Renderer
 
 Copyright © 2021-2024, Jannis Weis. Licensed under MIT License.
+
+### stb_image
+
+Copyright (c) 2017 Sean Barrett
+Licensed under MIT License: https://github.com/nothings/stb/blob/master/LICENSE

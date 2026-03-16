@@ -223,6 +223,7 @@ object PlotConfigFrontendUtil {
         sharedContinuousDomainX: DoubleSpan?,
         sharedContinuousDomainY: DoubleSpan?,
         detachedLegendsCollector: DetachedLegendsCollector?,
+        messageConsumer: (String) -> Unit = {}
     ): PlotAssembler {
 
         val plotGeomTiles = createPlotGeomTiles(
@@ -237,6 +238,7 @@ object PlotConfigFrontendUtil {
         val title = config.title?.takeIf { theme.plot().showTitle() }
         val subtitle = config.subtitle?.takeIf { theme.plot().showSubtitle() }
         val caption = config.caption?.takeIf { theme.plot().showCaption() }
+        val tag = config.fullTag?.takeIf { theme.plot().showTag() }
 
         return PlotAssembler(
             plotGeomTiles,
@@ -247,11 +249,13 @@ object PlotConfigFrontendUtil {
             title = title,
             subtitle = subtitle,
             caption = caption,
+            tag = tag,
             guideOptionsMap = config.guideOptionsMap,
             plotSpecId = config.specId,
             tz = config.tz,
             scaleFactor,
-            detachedLegendsCollector = detachedLegendsCollector
+            detachedLegendsCollector = detachedLegendsCollector,
+            messageConsumer
         )
     }
 }

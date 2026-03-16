@@ -9,8 +9,8 @@ import org.jetbrains.letsPlot.commons.event.MouseEventSpec
 import org.jetbrains.letsPlot.commons.geometry.DoubleRectangle
 import org.jetbrains.letsPlot.commons.geometry.DoubleVector
 import org.jetbrains.letsPlot.commons.values.Color
-import org.jetbrains.letsPlot.commons.values.SomeFig
 import org.jetbrains.letsPlot.core.FeatureSwitch.PLOT_DEBUG_DRAWING
+import org.jetbrains.letsPlot.core.canvas.CanvasDrawable
 import org.jetbrains.letsPlot.core.interact.InteractionContext
 import org.jetbrains.letsPlot.core.interact.UnsupportedInteractionException
 import org.jetbrains.letsPlot.core.plot.base.geom.LiveMapGeom
@@ -24,15 +24,17 @@ import org.jetbrains.letsPlot.core.plot.base.render.svg.SvgComponent
 import org.jetbrains.letsPlot.core.plot.base.theme.FacetStripTheme
 import org.jetbrains.letsPlot.core.plot.base.theme.FacetsTheme
 import org.jetbrains.letsPlot.core.plot.base.theme.Theme
+import org.jetbrains.letsPlot.core.plot.base.tooltip.GeomTargetCollector
 import org.jetbrains.letsPlot.core.plot.base.tooltip.GeomTargetLocator
+import org.jetbrains.letsPlot.core.plot.base.tooltip.GeomTargetLocator.NullGeomTargetLocator
 import org.jetbrains.letsPlot.core.plot.base.tooltip.NullGeomTargetCollector
+import org.jetbrains.letsPlot.core.plot.base.tooltip.loc.LayerTargetCollectorWithLocator
 import org.jetbrains.letsPlot.core.plot.builder.MarginalLayerUtil.marginalLayersByMargin
 import org.jetbrains.letsPlot.core.plot.builder.layout.FacetedPlotLayout
 import org.jetbrains.letsPlot.core.plot.builder.layout.FacetedPlotLayout.Companion.facetColHeadTotalHeight
 import org.jetbrains.letsPlot.core.plot.builder.layout.PlotLabelSpecFactory
 import org.jetbrains.letsPlot.core.plot.builder.layout.TileLayoutInfo
 import org.jetbrains.letsPlot.core.plot.builder.presentation.Style
-import org.jetbrains.letsPlot.core.plot.builder.tooltip.loc.LayerTargetCollectorWithLocator
 import org.jetbrains.letsPlot.datamodel.svg.dom.SvgRectElement
 import org.jetbrains.letsPlot.datamodel.svg.dom.SvgTransformBuilder
 
@@ -55,7 +57,7 @@ internal class PlotTile constructor(
 
     private val _targetLocators = ArrayList<GeomTargetLocator>()
 
-    var liveMapFigure: SomeFig? = null
+    var liveMapCanvasDrawable: CanvasDrawable? = null
         private set
 
     val targetLocators: List<GeomTargetLocator>
@@ -94,20 +96,24 @@ internal class PlotTile constructor(
             val realBounds = tileLayoutInfo.getAbsoluteOuterGeomBounds(tilesOrigin)
             val liveMapData = createCanvasFigure(liveMapGeomLayer, realBounds)
 
-            liveMapFigure = liveMapData.canvasFigure
+            liveMapCanvasDrawable = liveMapData.canvasDrawable
             _targetLocators.addAll(liveMapData.targetLocators)
         } else {
             // Normal plot tiles
 
             for (layer in coreLayers) {
-                val collectorWithLocator = LayerTargetCollectorWithLocator(
-                    layer.geomKind,
-                    layer.locatorLookupSpec,
-                    layer.createContextualMapping(),
-                )
+                // skip layer
+                val collectorWithLocator = layer.createContextualMapping()?.let {
+                    LayerTargetCollectorWithLocator(layer.geomKind, layer.locatorLookupSpec, it)
+                } ?: object :
+                    GeomTargetLocator by NullGeomTargetLocator,
+                    GeomTargetCollector by NullGeomTargetCollector {
+                }
+
                 _targetLocators.add(collectorWithLocator)
 
                 val layerComponent = frameOfReference.buildGeomComponent(layer, collectorWithLocator)
+                layerComponent.rootGroup.setAttribute("buffered-rendering", "static")
                 geomInteractionGroup.add(layerComponent.rootGroup)
                 frameOfReference.setClip(clipGroup)
             }
@@ -118,7 +124,7 @@ internal class PlotTile constructor(
             for ((margin, layers) in marginalLayersByMargin) {
                 val marginFrame = marginalFrameByMargin.getValue(margin)
                 for (layer in layers) {
-                    val marginComponent = marginFrame.buildGeomComponent(layer, NullGeomTargetCollector())
+                    val marginComponent = marginFrame.buildGeomComponent(layer, NullGeomTargetCollector)
                     add(marginComponent)
                     marginFrame.setClip(marginComponent)
                 }
@@ -241,7 +247,7 @@ internal class PlotTile constructor(
      * Throws UnsupportedInteractionException if not supported
      */
     fun checkMouseInteractionSupported(eventSpec: MouseEventSpec) {
-        if (liveMapFigure != null) {
+        if (liveMapCanvasDrawable != null) {
             throw UnsupportedInteractionException("$eventSpec denied by LiveMap component.")
         }
         frameOfReference.checkMouseInteractionSupported(eventSpec)

@@ -49,15 +49,14 @@ static PyObject* export_svg(PyObject* self, PyObject* args) {
     float width;
     float height;
     const char* unit;
-    int useCssPixelatedImageRendering;          // 0 - false, 1 - true
-    if (!PyArg_ParseTuple(args, "Offsp", &rawPlotSpecDict, &width, &height, &unit, &useCssPixelatedImageRendering)) {
+    if (!PyArg_ParseTuple(args, "Offs", &rawPlotSpecDict, &width, &height, &unit)) {
         PyErr_SetString(PyExc_TypeError, "export_svg: failed to parse arguments");
         return NULL;
     }
 
-    //printf("export_svg: width=%f, height=%f, unit=%s, useCssPixelatedImageRendering=%d\n", width, height, unit, useCssPixelatedImageRendering);
+    //printf("export_svg: width=%f, height=%f, unit=%s\n", width, height, unit);
 
-    PyObject* svg = __ kotlin.root.org.jetbrains.letsPlot.pythonExtension.interop.PlotReprGenerator.generateSvg(reprGen, rawPlotSpecDict, width, height, unit, useCssPixelatedImageRendering);
+    PyObject* svg = __ kotlin.root.org.jetbrains.letsPlot.pythonExtension.interop.PlotReprGenerator.generateSvg(reprGen, rawPlotSpecDict, width, height, unit);
     return svg;
 }
 
@@ -192,6 +191,20 @@ static PyObject* get_static_html_page_for_raw_spec(PyObject* self, PyObject* arg
     return html;
 }
 
+static PyObject* get_palette_from_color_scale_spec(PyObject* self, PyObject* args) {
+    T_(ColorScalePaletteGenerator) paletteGen = __ kotlin.root.org.jetbrains.letsPlot.pythonExtension.interop.ColorScalePaletteGenerator._instance();
+
+    PyObject *scaleSpecDict;
+    int n;
+    if (!PyArg_ParseTuple(args, "Oi", &scaleSpecDict, &n)) {
+        PyErr_SetString(PyExc_TypeError, "get_palette_from_color_scale_spec: failed to parse arguments");
+        return NULL;
+    }
+
+    PyObject* palette = __ kotlin.root.org.jetbrains.letsPlot.pythonExtension.interop.ColorScalePaletteGenerator.generatePalette(paletteGen, scaleSpecDict, n);
+    return palette;
+}
+
 static PyMethodDef module_methods[] = {
 // { "generate_html", (PyCFunction)generate_html, METH_O, "Generates HTML and JS sufficient for buidling of interactive plot." },  // Deprecated: use get_display_html_for_raw_spec
    { "export_svg", (PyCFunction)export_svg, METH_VARARGS, "Generates SVG representing plot." },
@@ -201,6 +214,7 @@ static PyMethodDef module_methods[] = {
    { "get_static_configure_html", (PyCFunction)get_static_configure_html, METH_O, "Generates static HTML configuration." },
    { "get_display_html_for_raw_spec", (PyCFunction)get_display_html_for_raw_spec, METH_VARARGS, "Generates display HTML for raw plot spec." },
    { "get_static_html_page_for_raw_spec", (PyCFunction)get_static_html_page_for_raw_spec, METH_VARARGS, "Generates static HTML page for raw plot spec." },
+   { "get_palette_from_color_scale_spec", (PyCFunction)get_palette_from_color_scale_spec, METH_VARARGS, "Generates color palette for a scale." },
    { NULL }
 };
 
@@ -219,5 +233,8 @@ static struct PyModuleDef module_def = {
 
 PyMODINIT_FUNC PyInit_lets_plot_kotlin_bridge(void) {
    PyObject *module = PyModule_Create(&module_def);
+   #ifdef Py_GIL_DISABLED
+       PyUnstable_Module_SetGIL(module, Py_MOD_GIL_NOT_USED);
+   #endif
    return module;
 }

@@ -7,6 +7,7 @@ package org.jetbrains.letsPlot.core.spec
 
 import org.jetbrains.letsPlot.core.plot.base.Aes
 import org.jetbrains.letsPlot.core.plot.base.GeomKind
+import org.jetbrains.letsPlot.core.plot.base.StatKind
 import org.jetbrains.letsPlot.core.plot.builder.defaultTheme.values.ThemeOption
 import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModelOptions
 
@@ -188,6 +189,8 @@ object Option {
         const val SUBTITLE_TEXT = "subtitle"
         const val CAPTION = "caption"
         const val CAPTION_TEXT = "text"
+        const val TAG = "tag"
+        const val TAG_TEXT = "text"
         const val COORD = "coord"
         const val FACET = "facet"
         const val THEME = "theme"
@@ -254,17 +257,37 @@ object Option {
     }
 
     object LinesSpec {
+        const val KIND = "kind"
         const val LINES = "lines"
         const val FORMATS = "formats"
         const val VARIABLES = "variables"
         const val TITLE = "title"
+        const val OPTIONS = "options"
 
         object Format {
             const val FIELD = "field"
             const val FORMAT = "format"
         }
+
+        object Kind {
+            const val SMOOTH_STAT_SUMMARY_ANNOTATION = "smooth_stat_summary_annotation"
+        }
     }
 
+    object SmoothOptions {
+        const val EQ = "eq"
+        const val LABEL_X = "label_x"
+        const val LABEL_Y = "label_y"
+
+        object Eq {
+            const val LHS = "lhs"
+            const val RHS = "rhs"
+            const val FORMAT = "format"
+            const val THRESHOLD = "threshold"
+        }
+    }
+
+    // todo: investigate if we can unify options with LinesSpec
     object AnnotationSpec {
         const val LINES = "lines"
         const val FORMATS = "formats"
@@ -451,6 +474,16 @@ object Option {
         object Spoke {
             const val ARROW = "arrow"
             const val PIVOT = "pivot"
+        }
+
+        object Bracket {
+            const val BRACKET_SHORTEN = "bracket_shorten"
+            const val TIPLENGTH_UNIT = "tiplength_unit"
+        }
+
+        object BracketDodge {
+            const val DODGE_WIDTH = "dodge_width"
+            const val NGROUP = "ngroup"
         }
 
         object LiveMap {
@@ -678,6 +711,7 @@ object Option {
         const val NAME = Meta.NAME
         const val AES = "aesthetic"
         const val BREAKS = "breaks"
+        const val BREAK_WIDTH = "break_width"
         const val LABELS = "labels"
         const val LABLIM = "lablim"
         const val EXPAND = "expand"
@@ -728,6 +762,7 @@ object Option {
         // color brewer
         const val PALETTE_TYPE = "type"
         const val PALETTE = "palette"
+        const val OVERFLOW = "overflow"
 
         // range
         const val RANGE = "range"
@@ -872,11 +907,16 @@ object Option {
         const val PLOT_TITLE = ThemeOption.PLOT_TITLE
         const val PLOT_SUBTITLE = ThemeOption.PLOT_SUBTITLE
         const val PLOT_CAPTION = ThemeOption.PLOT_CAPTION
+        const val PLOT_TAG = ThemeOption.PLOT_TAG
         const val PLOT_MESSAGE = ThemeOption.PLOT_MESSAGE
         const val PLOT_MARGIN = ThemeOption.PLOT_MARGIN
         const val PLOT_INSET = ThemeOption.PLOT_INSET
         const val PLOT_TITLE_POSITION = ThemeOption.PLOT_TITLE_POSITION
         const val PLOT_CAPTION_POSITION = ThemeOption.PLOT_CAPTION_POSITION
+        const val PLOT_TAG_POSITION = ThemeOption.PLOT_TAG_POSITION
+        const val PLOT_TAG_LOCATION = ThemeOption.PLOT_TAG_LOCATION
+        const val PLOT_TAG_PREFIX = ThemeOption.PLOT_TAG_PREFIX
+        const val PLOT_TAG_SUFFIX = ThemeOption.PLOT_TAG_SUFFIX
 
         // Axis
         const val AXIS = ThemeOption.AXIS
@@ -1109,6 +1149,8 @@ object Option {
         const val IMAGE = "image"
         const val PIE = "pie"
         const val LOLLIPOP = "lollipop"
+        const val BRACKET = "bracket"
+        const val BRACKET_DODGE = "bracket_dodge"
         const val BLANK = "blank"
 
         private val GEOM_KIND_MAP: Map<String, GeomKind>
@@ -1168,6 +1210,8 @@ object Option {
             map[IMAGE] = GeomKind.IMAGE
             map[PIE] = GeomKind.PIE
             map[LOLLIPOP] = GeomKind.LOLLIPOP
+            map[BRACKET] = GeomKind.BRACKET
+            map[BRACKET_DODGE] = GeomKind.BRACKET_DODGE
             map[BLANK] = GeomKind.BLANK
 
             GEOM_KIND_MAP = map

@@ -27,7 +27,6 @@ buildscript {
 plugins {
     kotlin("multiplatform") apply false
     kotlin("js") apply false
-    id("org.openjfx.javafxplugin") version "0.1.0" apply false
 }
 
 
@@ -43,7 +42,7 @@ val letsPlotTaskGroup by extra { "lets-plot" }
 
 allprojects {
     group = "org.jetbrains.lets-plot"
-    version = "4.8.2-SNAPSHOT" // see also: python-package/lets_plot/_version.py
+    version = "4.9.1-SNAPSHOT" // see also: python-package/lets_plot/_version.py
 //    version = "0.0.0-SNAPSHOT"  // for local publishing only
 
     // Generate JVM 1.8 bytecode
@@ -304,7 +303,8 @@ val multiPlatformCoreModulesForPublish = listOf(
     "plot-builder",
     "plot-raster",
     "plot-stem",
-    "plot-livemap"
+    "plot-livemap",
+    "visual-testing"
 )
 
 subprojects {
@@ -321,7 +321,6 @@ subprojects {
 val jvmCoreModulesForPublish = listOf(
     "platf-awt",
     "platf-batik",
-    "platf-jfx-swing"
 )
 
 subprojects {
@@ -360,7 +359,6 @@ subprojects {
         val targetsToPublish = listOf(
             "platf-awt",
             "platf-batik",
-            "platf-jfx-swing",
             "jvm",
             "js",
             "kotlinMultiplatform",

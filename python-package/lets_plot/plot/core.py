@@ -5,12 +5,14 @@
 import io
 import json
 import os
-from typing import Union
+from typing import Union, List
 
 __all__ = ['aes', 'layer']
 
+from lets_plot._type_utils import LazyModule
 from lets_plot._global_settings import get_global_bool, has_global_value, FRAGMENTS_ENABLED
 
+geopandas = LazyModule('geopandas')
 
 def aes(x=None, y=None, **kwargs):
     """
@@ -399,9 +401,8 @@ class PlotSpec(FeatureSpec):
                 if other.props()['geom'] == 'livemap':
                     plot.__is_livemap = True
 
-                from lets_plot.plot.util import is_geo_data_frame  # local import to break circular reference
-                if is_geo_data_frame(other.props().get('data')) \
-                        or is_geo_data_frame(other.props().get('map')):
+                if geopandas.lazy_is_instance(other.props().get('data'), 'GeoDataFrame') \
+                        or geopandas.lazy_is_instance(other.props().get('map'), 'GeoDataFrame'):
                     if plot.__crs_initialized:
                         if plot.__crs != other.props().get('use_crs'):
                             raise ValueError(
@@ -531,7 +532,7 @@ class PlotSpec(FeatureSpec):
         self : ``PlotSpec``
             Plot specification to export.
         path : str, file-like object, default=None
-            Сan be either a string specifying a file path or a file-like object.
+            Can be either a string specifying a file path or a file-like object.
             If a string is provided, the result will be exported to the file at that path.
             If a file-like object is provided, the result will be exported to that object.
             If None is provided, the result will be returned as a string.
@@ -578,7 +579,7 @@ class PlotSpec(FeatureSpec):
         self : ``PlotSpec``
             Plot specification to export.
         path : str, file-like object, default=None
-            Сan be either a string specifying a file path or a file-like object.
+            Can be either a string specifying a file path or a file-like object.
             If a string is provided, the result will be exported to the file at that path.
             If a file-like object is provided, the result will be exported to that object.
             If None is provided, the result will be returned as a string.
@@ -623,23 +624,19 @@ class PlotSpec(FeatureSpec):
         self : ``PlotSpec``
             Plot specification to export.
         path : str, file-like object
-            Сan be either a string specifying a file path or a file-like object.
+            Can be either a string specifying a file path or a file-like object.
             If a string is provided, the result will be exported to the file at that path.
             If a file-like object is provided, the result will be exported to that object.
         scale : float
             Scaling factor for raster output. Default value is 2.0.
         w : float, default=None
             Width of the output image in units.
-            Only applicable when exporting to PNG or PDF.
         h : float, default=None
             Height of the output image in units.
-            Only applicable when exporting to PNG or PDF.
         unit : {'in', 'cm', 'mm', 'px'}, default='in'
             Unit of the output image. One of: 'in', 'cm', 'mm' or 'px'.
-            Only applicable when exporting to PNG or PDF.
         dpi : int, default=300
             Resolution in dots per inch.
-            Only applicable when exporting to PNG or PDF.
             The default value depends on the unit:
 
             - for 'px' it is 96 (output image will have the same pixel size as ``w`` and ``h`` values)
@@ -707,23 +704,19 @@ class PlotSpec(FeatureSpec):
         self : ``PlotSpec``
             Plot specification to export.
         path : str, file-like object
-            Сan be either a string specifying a file path or a file-like object.
+            Can be either a string specifying a file path or a file-like object.
             If a string is provided, the result will be exported to the file at that path.
             If a file-like object is provided, the result will be exported to that object.
         scale : float
             Scaling factor for raster output. Default value is 2.0.
         w : float, default=None
             Width of the output image in units.
-            Only applicable when exporting to PNG or PDF.
         h : float, default=None
             Height of the output image in units.
-            Only applicable when exporting to PNG or PDF.
         unit : {'in', 'cm', 'mm', 'px'}, default='in'
             Unit of the output image. One of: 'in', 'cm', 'mm' or 'px'.
-            Only applicable when exporting to PNG or PDF.
         dpi : int, default=300
             Resolution in dots per inch.
-            Only applicable when exporting to PNG or PDF.
             The default value depends on the unit:
 
             - for 'px' it is 96 (output image will have the same pixel size as ``w`` and ``h`` values)
@@ -806,7 +799,7 @@ class LayerSpec(FeatureSpec):
         super().__init__('layer', name=None, **kwargs)
 
     def before_append(self, is_livemap):
-        from .util import normalize_map_join, is_geo_data_frame, auto_join_geo_names, geo_data_frame_to_crs, \
+        from .util import normalize_map_join, auto_join_geo_names, geo_data_frame_to_crs, \
             get_geo_data_frame_meta
         from lets_plot.geo_data_internals.utils import is_geocoder
 
@@ -836,7 +829,7 @@ class LayerSpec(FeatureSpec):
                 else:
                     raise ValueError("Geocoding doesn't provide geometries for geom_{}".format(name))
 
-        if is_geo_data_frame(map):
+        if geopandas.lazy_is_instance(map, 'GeoDataFrame'):
             # map = geo_data_frame_to_crs(map, self.props().get('use_crs'))
             use_crs = self.props().get('use_crs')
             if use_crs != "provided":
@@ -935,6 +928,45 @@ class DummySpec(FeatureSpec):
         return other
 
 
+class ColorScaleFeatureSpec(FeatureSpec):
+    """
+    A scale specification for color aesthetics with palette generation support.
+    """
+
+    def palette(self, n) -> List[str]:
+        """
+        Generate a list of hex color codes from a color scale specification.
+
+        Parameters
+        ----------
+        n : int
+            Number of colors to generate.
+
+        Returns
+        -------
+        List of hex color codes.
+
+        Notes
+        -----
+        For ColorBrewer palettes, if the requested number of colors exceeds the palette's
+        maximum size, colors will be interpolated to generate the required number of unique colors.
+
+        Examples
+        --------
+        .. jupyter-execute::
+            :linenos:
+            :emphasize-lines: 3
+
+            from lets_plot import *
+            LetsPlot.setup_html()
+            scale_color_viridis().palette(5)
+
+        """
+
+        from .. import _kbridge
+        return _kbridge._generate_palette_from_color_scale_spec(self.as_dict(), n)
+
+
 def _generate_data(size):
     """ For testing reasons only """
     # return FeatureSpec('dummy', name=None, data='x' * size)
@@ -964,7 +996,7 @@ def _theme_dicts_merge(x, y):
 def _to_svg(spec, path, w=None, h=None, unit=None) -> Union[str, None]:
     from .. import _kbridge as kbr
 
-    svg = kbr._generate_svg(spec.as_dict(), w, h, unit, use_css_pixelated_image_rendering=True)
+    svg = kbr._generate_svg(spec.as_dict(), w, h, unit)
 
     if path is None:
         return svg
@@ -997,7 +1029,8 @@ def _to_html(spec, path, iframe: bool) -> Union[str, None]:
         return None
 
 
-def _export_as_raster(spec, path, scale: float, export_format: str, w=None, h=None, unit=None, dpi=None) -> Union[str, None]:
+def _export_as_raster(spec, path, scale: float, export_format: str, w=None, h=None, unit=None, dpi=None) -> Union[
+    str, None]:
     import base64
     from .. import _kbridge
 

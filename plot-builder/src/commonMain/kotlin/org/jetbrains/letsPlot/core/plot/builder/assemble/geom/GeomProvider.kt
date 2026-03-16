@@ -425,6 +425,22 @@ class GeomProvider internal constructor(
             )
         }
 
+        fun bracket(supplier: (Context) -> Geom): GeomProvider {
+            return GeomProvider(
+                GeomKind.BRACKET,
+                BracketGeom.HANDLES_GROUPS,
+                supplier
+            )
+        }
+
+        fun bracketDodge(supplier: (Context) -> Geom): GeomProvider {
+            return GeomProvider(
+                GeomKind.BRACKET_DODGE,
+                BracketDodgeGeom.HANDLES_GROUPS,
+                supplier
+            )
+        }
+
         fun blank(): GeomProvider {
             return GeomProvider(
                 GeomKind.BLANK,

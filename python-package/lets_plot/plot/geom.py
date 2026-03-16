@@ -2,10 +2,14 @@
 # Copyright (c) 2019. JetBrains s.r.o.
 # Use of this source code is governed by the MIT license that can be found in the LICENSE file.
 #
+from lets_plot._type_utils import LazyModule
 from lets_plot.geo_data_internals.utils import is_geocoder
-
+from .annotation import smooth_labels
 from .core import FeatureSpec, LayerSpec
-from .util import as_annotated_data, is_geo_data_frame, geo_data_frame_to_crs, get_geo_data_frame_meta, key_int2str
+from .tooltip import layer_tooltips
+from .util import as_annotated_data, geo_data_frame_to_crs, get_geo_data_frame_meta, key_int2str
+
+geopandas = LazyModule('geopandas')
 
 #
 # Geoms, short for geometric objects, describe the type of plot ggplot will produce.
@@ -27,8 +31,10 @@ __all__ = ['geom_point', 'geom_path', 'geom_line',
            'geom_freqpoly', 'geom_step', 'geom_rect',
            'geom_segment', 'geom_curve', 'geom_spoke',
            'geom_text', 'geom_label', 'geom_text_repel', 'geom_label_repel', 'geom_pie', 'geom_lollipop',
+           'geom_bracket', 'geom_bracket_dodge',
            'geom_count',
-           'geom_blank']
+           'geom_blank',
+           'layer_tooltips']
 
 
 def geom_point(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=None,
@@ -571,6 +577,7 @@ def geom_line(mapping=None, *, data=None, stat=None, position=None, show_legend=
 def geom_smooth(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=None,
                 manual_key=None, sampling=None,
                 tooltips=None,
+                labels=None,
                 orientation=None,
                 method=None,
                 n=None,
@@ -619,6 +626,9 @@ def geom_smooth(mapping=None, *, data=None, stat=None, position=None, show_legen
         Result of the call to the `layer_tooltips() <https://lets-plot.org/python/pages/api/lets_plot.layer_tooltips.html>`__ function.
         Specify appearance, style and content.
         Set tooltips='none' to hide tooltips from the layer.
+    labels : ``smooth_labels``
+        Result of the call to the `smooth_labels() <https://lets-plot.org/python/pages/api/lets_plot.smooth_labels.html>`__ function.
+        Specify style and content of the annotations.
     orientation : str, default='x'
         Specify the axis that the layer's stat and geom should run along.
         Possible values: 'x', 'y'.
@@ -738,27 +748,50 @@ def geom_smooth(mapping=None, *, data=None, stat=None, position=None, show_legen
                         method='loess', span=.3, level=.7, seed=42)
 
     """
-    return _geom('smooth',
-                 mapping=mapping,
-                 data=data,
-                 stat=stat,
-                 position=position,
-                 show_legend=show_legend,
-                 inherit_aes=inherit_aes,
-                 manual_key=manual_key,
-                 sampling=sampling,
-                 tooltips=tooltips,
-                 orientation=orientation,
-                 method=method,
-                 n=n,
-                 se=se,
-                 level=level,
-                 span=span,
-                 deg=deg,
-                 seed=seed,
-                 max_n=max_n,
-                 color_by=color_by, fill_by=fill_by,
-                 **other_args)
+    smooth_layer = _geom('smooth',
+                         mapping=mapping,
+                         data=data,
+                         stat=stat,
+                         position=position,
+                         show_legend=show_legend,
+                         inherit_aes=inherit_aes,
+                         manual_key=manual_key,
+                         sampling=sampling,
+                         tooltips=tooltips,
+                         orientation=orientation,
+                         method=method,
+                         n=n,
+                         se=se,
+                         level=level,
+                         span=span,
+                         deg=deg,
+                         seed=seed,
+                         max_n=max_n,
+                         color_by=color_by, fill_by=fill_by,
+                         **other_args)
+
+    if labels is not None and isinstance(labels, smooth_labels) and (stat is None or stat == "smooth"):
+        smooth_layer += _geom('blank',
+                              mapping=mapping,
+                              data=data,
+                              stat="smooth_summary",
+                              position=position,
+                              show_legend=show_legend,
+                              inherit_aes=inherit_aes,
+                              manual_key=manual_key,
+                              sampling=sampling,
+                              labels=labels,
+                              orientation=orientation,
+                              method=method,
+                              level=level,
+                              span=span,
+                              deg=deg,
+                              seed=seed,
+                              max_n=max_n,
+                              color_by=color_by, fill_by=fill_by,
+                              **other_args)
+
+    return smooth_layer
 
 
 def geom_bar(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=None,
@@ -1086,18 +1119,20 @@ def geom_histogram(mapping=None, *, data=None, stat=None, position=None, show_le
 
     .. jupyter-execute::
         :linenos:
-        :emphasize-lines: 8-10
+        :emphasize-lines: 11
 
         import numpy as np
         from lets_plot import *
         LetsPlot.setup_html()
         np.random.seed(42)
-        x = np.random.normal(scale=3, size=1000)
-        y = 2 * (np.round(x) % 2) - 1
-        ggplot({'x': x, 'y': y}) + \\
-            geom_histogram(aes(x='x', weight='y'), \\
-                           center=0, binwidth=1, \\
-                           color='black', fill='gray', size=1)
+        n = 50
+        data = {'x': np.concatenate([np.random.normal(loc=-2, size=n),
+                                     np.random.normal(loc=0, size=n),
+                                     np.random.normal(loc=2, size=n)]),
+                'g': ['a'] * n + ['b'] * n + ['c'] * n}
+        ggplot(data, aes(x='x')) + \\
+            geom_histogram(threshold=0) + \\
+            facet_wrap('g', scales='free')
 
     """
     return _geom('histogram',
@@ -7976,27 +8011,28 @@ def geom_label(mapping=None, *, data=None, stat=None, position=None, show_legend
                  color_by=color_by, fill_by=fill_by,
                  **other_args)
 
+
 def geom_text_repel(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=None,
-              manual_key=None, sampling=None,
-              tooltips=None,
-              map=None, map_join=None, use_crs=None,
-              label_format=None,
-              na_text=None,
-              nudge_x=None, nudge_y=None,
-              size_unit=None,
-              nudge_unit=None,
-              check_overlap=None,
-              color_by=None,
-              seed=None,
-              max_iter=None,
-              max_time=None,
-              direction=None,
-              point_padding=None,
-              box_padding=None,
-              max_overlaps=None,
-              min_segment_length=None,
-              arrow=None,
-              **other_args):
+                    manual_key=None, sampling=None,
+                    tooltips=None,
+                    map=None, map_join=None, use_crs=None,
+                    label_format=None,
+                    na_text=None,
+                    nudge_x=None, nudge_y=None,
+                    size_unit=None,
+                    nudge_unit=None,
+                    check_overlap=None,
+                    color_by=None,
+                    seed=None,
+                    max_iter=None,
+                    max_time=None,
+                    direction=None,
+                    point_padding=None,
+                    box_padding=None,
+                    max_overlaps=None,
+                    min_segment_length=None,
+                    arrow=None,
+                    **other_args):
     """
     Add repelling text labels that avoid overlapping with other labels and data points.
 
@@ -8182,37 +8218,37 @@ def geom_text_repel(mapping=None, *, data=None, stat=None, position=None, show_l
                  max_time=max_time,
                  seed=seed,
                  direction=direction,
-                 point_padding = point_padding,
-                 box_padding = box_padding,
-                 max_overlaps = max_overlaps,
-                 min_segment_length = min_segment_length,
+                 point_padding=point_padding,
+                 box_padding=box_padding,
+                 max_overlaps=max_overlaps,
+                 min_segment_length=min_segment_length,
                  arrow=arrow,
                  **other_args)
 
-def geom_label_repel(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=None,
-               manual_key=None, sampling=None,
-               tooltips=None,
-               map=None, map_join=None, use_crs=None,
-               label_format=None,
-               na_text=None,
-               nudge_x=None, nudge_y=None,
-               label_padding=None, label_r=None, label_size=None,
-               alpha_stroke=None,
-               size_unit=None,
-               nudge_unit=None,
-               check_overlap=None,
-               color_by=None, fill_by=None,
-               seed=None,
-               max_iter=None,
-               max_time=None,
-               direction=None,
-               point_padding=None,
-               box_padding=None,
-               max_overlaps=None,
-               min_segment_length=None,
-               arrow=None,
-               **other_args):
 
+def geom_label_repel(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=None,
+                     manual_key=None, sampling=None,
+                     tooltips=None,
+                     map=None, map_join=None, use_crs=None,
+                     label_format=None,
+                     na_text=None,
+                     nudge_x=None, nudge_y=None,
+                     label_padding=None, label_r=None, label_size=None,
+                     alpha_stroke=None,
+                     size_unit=None,
+                     nudge_unit=None,
+                     check_overlap=None,
+                     color_by=None, fill_by=None,
+                     seed=None,
+                     max_iter=None,
+                     max_time=None,
+                     direction=None,
+                     point_padding=None,
+                     box_padding=None,
+                     max_overlaps=None,
+                     min_segment_length=None,
+                     arrow=None,
+                     **other_args):
     """
     Add repelling text labels with background boxes that avoid overlapping with other labels and data points.
 
@@ -8414,10 +8450,10 @@ def geom_label_repel(mapping=None, *, data=None, stat=None, position=None, show_
                  max_time=max_time,
                  seed=seed,
                  direction=direction,
-                 point_padding = point_padding,
-                 box_padding = box_padding,
-                 max_overlaps = max_overlaps,
-                 min_segment_length = min_segment_length,
+                 point_padding=point_padding,
+                 box_padding=box_padding,
+                 max_overlaps=max_overlaps,
+                 min_segment_length=min_segment_length,
                  arrow=arrow,
                  **other_args)
 
@@ -8976,6 +9012,402 @@ def geom_count(mapping=None, *, data=None, stat=None, position=None, show_legend
                  **other_args)
 
 
+def geom_bracket(mapping=None, *, data=None, stat=None, position=None, show_legend=None,
+                 manual_key=None,
+                 sampling=None,
+                 orientation=None,
+                 label_format=None, na_text=None,
+                 nudge_x=None, nudge_y=None, nudge_unit=None,
+                 size_unit=None,
+                 bracket_shorten=None, tiplength_unit=None,
+                 color_by=None,
+                 **other_args):
+    """
+    Annotate a plot with labeled brackets to highlight relationships or groupings between categories or ranges.
+
+    Parameters
+    ----------
+    mapping : ``FeatureSpec``
+        Set of aesthetic mappings created by `aes() <https://lets-plot.org/python/pages/api/lets_plot.aes.html>`__ function.
+        Aesthetic mappings describe the way that variables in the data are
+        mapped to plot "aesthetics".
+    data : dict or Pandas or Polars ``DataFrame``
+        The data to be displayed in this layer. If None, the default, the data
+        is inherited from the plot data as specified in the call to ggplot.
+    stat : str, default='identity'
+        The statistical transformation to use on the data for this layer, as a string.
+        Supported transformations: 'identity' (leaves the data unchanged),
+        'count' (counts number of points with the same x-axis coordinate),
+        'bin' (counts number of points with the x-axis coordinate in the same bin),
+        'smooth' (performs smoothing - linear default),
+        'density' (computes and draws kernel density estimate),
+        'sum' (counts the number of points at each location - might help to work around overplotting).
+    position : str or ``FeatureSpec``, default='identity'
+        Position adjustment.
+        Either a position adjustment name: 'dodge', 'jitter', 'nudge', 'jitterdodge', 'fill',
+        'stack' or 'identity', or the result of calling a position adjustment function (e.g., `position_dodge() <https://lets-plot.org/python/pages/api/lets_plot.position_dodge.html>`__ etc.).
+    show_legend : bool, default=False
+        True - show legend for this layer.
+    manual_key : str or ``layer_key``
+        The key to show in the manual legend.
+        Specify text for the legend label or advanced settings using the `layer_key() <https://lets-plot.org/python/pages/api/lets_plot.layer_key.html>`__ function.
+    sampling : ``FeatureSpec``
+        Result of the call to the ``sampling_xxx()`` function.
+        To prevent any sampling for this layer pass value "none" (string "none").
+    orientation : str, default='x'
+        Specify the axis that the geom should run along.
+        Possible values: 'x', 'y'.
+    label_format : str
+        Format used to transform text label mapping values to a string.
+        Examples:
+
+        - '.2f' -> '12.45'
+        - 'Num {}' -> 'Num 12.456789'
+        - 'TTL: {.2f}$' -> 'TTL: 12.45$'
+
+        For more info see `Formatting <https://lets-plot.org/python/pages/formats.html>`__.
+    na_text : str, default='n/a'
+        Text to show for missing values.
+    nudge_x : float
+        Horizontal adjustment to nudge geometry by.
+    nudge_y : float
+        Vertical adjustment to nudge geometry by.
+    size_unit : {'x', 'y', 'min', 'max'}
+        Relate the size of the text to the length of the unit step along one of the axes.
+        'x' uses the unit step along the x-axis, 'y' uses the unit step along the y-axis.
+        'min' uses the smaller of the unit steps along the x- and y-axes.
+        'max' uses the larger of the unit steps along the x- and y-axes.
+        If None, no fitting is performed.
+    bracket_shorten : float, default=0
+        Symmetrically shorten the bracket by shifting both ends toward the center.
+        Expect values between 0 and 1, where 0 corresponds to no shortening and 1 to a fully collapsed bracket.
+    tiplength_unit : {'res', 'identity', 'size', 'px'}, default='size'
+        Unit for ``lenstart`` and ``lenend`` aesthetics.
+        Possible values:
+
+        - 'res': the unit equals the smallest distance between data points along the corresponding axis;
+        - 'identity': a unit of 1 corresponds to a difference of 1 in data space;
+        - 'size': a unit of 1 corresponds to the diameter of a point with ``size=1``;
+        - 'px': the unit is measured in screen pixels.
+
+    nudge_unit : {'identity', 'size', 'px'}, default='identity'
+        Units for x and y nudging.
+        Possible values:
+
+        - 'identity': a unit of 1 corresponds to a difference of 1 in data space;
+        - 'size': a unit of 1 corresponds to the diameter of a point with ``size=1``;
+        - 'px': the unit is measured in screen pixels.
+
+    color_by : {'fill', 'color', 'paint_a', 'paint_b', 'paint_c'}, default='color'
+        Define the color aesthetic for the geometry.
+    other_args
+        Other arguments passed on to the layer.
+        These are often aesthetics settings used to set an aesthetic to a fixed value,
+        like color='red', fill='blue', size=3 or shape=21.
+        They may also be parameters to the paired geom/stat.
+
+    Returns
+    -------
+    ``LayerSpec``
+        Geom object specification.
+
+    Notes
+    -----
+    ``geom_bracket()`` understands the following aesthetics mappings:
+
+    - xmin or ymin : left or lower end of the bracket for horizontal or vertical brackets, respectively.
+    - xmax or ymax : right or upper end of the bracket for horizontal or vertical brackets, respectively.
+    - y or x : y-axis or x-axis coordinates for horizontal or vertical brackets, respectively.
+    - alpha : transparency level of a layer. Accept values between 0 and 1.
+    - color (colour) : color of the geometry. For more info see `Color and Fill <https://lets-plot.org/python/pages/aesthetics.html#color-and-fill>`__.
+    - size : font size.
+    - label : text to add.
+    - family : font family. For more info see `Text <https://lets-plot.org/python/pages/aesthetics.html#text>`__.
+    - fontface : font style and weight. For more info see `Text <https://lets-plot.org/python/pages/aesthetics.html#text>`__.
+    - hjust : horizontal text alignment relative to the x-coordinate. Possible values: 0 or 'left' - left-aligned (text starts at x), 0.5 or 'middle' (default) - text is centered on x, 1 or 'right' - right-aligned (text ends at x). There are two special alignments: 'inward' (aligns text towards the plot center) and 'outward' (away from the plot center).
+    - vjust : vertical text alignment relative to the y-coordinate. Accept either a numeric value or one of the following strings: 'bottom', 'center', or 'top'. The numeric values 0, 0.5 (default), and 1 correspond to 'bottom' (bottom of text at y), 'center' (middle of text at y), and 'top' (top of text at y), respectively. There are two special alignments: 'inward' (aligns text towards the plot center) and 'outward' (away from the plot center).
+    - angle : text rotation angle in degrees.
+    - lineheight : line height multiplier applied to the font size in the case of multi-line text.
+    - linetype : type of the line. Accept codes or names (0 = 'blank', 1 = 'solid', 2 = 'dashed', 3 = 'dotted', 4 = 'dotdash', 5 = 'longdash', 6 = 'twodash'), a hex string (up to 8 digits for dash-gap lengths), or a list pattern [offset, [dash, gap, ...]] / [dash, gap, ...]. For more info see `Line Types <https://lets-plot.org/python/pages/aesthetics.html#line-types>`__.
+    - segment_color : color of the bracket line (the segments forming the bracket).
+    - segment_size : width of the bracket line (the segments forming the bracket).
+    - segment_alpha : transparency level of the bracket line. Accept values between 0 and 1.
+    - lenstart : length of the tip at the bracket start (at ``xmin`` for horizontal brackets, or ``ymin`` for vertical).
+    - lenend : length of the tip at the bracket end (at ``xmax`` for horizontal brackets, or ``ymax`` for vertical).
+
+    Examples
+    --------
+    .. jupyter-execute::
+        :linenos:
+        :emphasize-lines: 21
+
+        import numpy as np
+        from lets_plot import *
+        LetsPlot.setup_html()
+        n = 50
+        np.random.seed(42)
+        box_data = {
+            'x': ['a'] * n + ['b'] * n + ['c'] * n,
+            'y': np.concatenate([np.random.normal(size=n, loc=0),
+                                 np.random.normal(size=n, loc=.1),
+                                 np.random.normal(size=n, loc=.5)]),
+        }
+        bracket_data = {
+            'xmin': ['a', 'a', 'b'],
+            'xmax': ['b', 'c', 'c'],
+            'y': [3.6, 4.2, 4.8],
+            'label': ['*', '**', 'ns'],
+        }
+        ggplot(box_data, aes(x='x', y='y', color='x')) + \\
+            geom_boxplot(aes(fill='x'), alpha=.25) + \\
+            geom_jitter(height=0, seed=42) + \\
+            geom_bracket(aes(xmin='xmin', xmax='xmax', y='y', label='label'), data=bracket_data)
+
+    |
+
+    .. jupyter-execute::
+        :linenos:
+        :emphasize-lines: 21-23
+
+        import numpy as np
+        from lets_plot import *
+        LetsPlot.setup_html()
+        n = 50
+        np.random.seed(42)
+        violin_data = {
+            'x': np.concatenate([np.random.normal(size=n, loc=0),
+                                 np.random.normal(size=n, loc=.1),
+                                 np.random.normal(size=n, loc=.5)]),
+            'y': ['a'] * n + ['b'] * n + ['c'] * n,
+        }
+        bracket_data = {
+            'x': [-2.9, -3.3, -3.7],
+            'ymin': ['a', 'a', 'b'],
+            'ymax': ['b', 'c', 'c'],
+            'label': ['*', '**', 'ns'],
+        }
+        ggplot(violin_data, aes(x='x', y='y', color='y')) + \\
+            geom_violin(aes(fill='y'), alpha=.25) + \\
+            geom_sina(seed=42) + \\
+            geom_bracket(aes(x='x', ymin='ymin', ymax='ymax', label='label'), data=bracket_data,
+                         lenstart=-.1, lenend=-.1, tiplength_unit='identity', vjust=2.2,
+                         color='maroon', size=9, segment_size=1.25)
+
+    """
+    return _geom('bracket',
+                 mapping=mapping,
+                 data=data,
+                 stat=stat,
+                 position=position,
+                 show_legend=show_legend,
+                 inherit_aes=None,
+                 manual_key=manual_key,
+                 sampling=sampling,
+                 tooltips=None,
+                 orientation=orientation,
+                 label_format=label_format,
+                 na_text=na_text,
+                 nudge_x=nudge_x,
+                 nudge_y=nudge_y,
+                 nudge_unit=nudge_unit,
+                 size_unit=size_unit,
+                 bracket_shorten=bracket_shorten,
+                 tiplength_unit=tiplength_unit,
+                 color_by=color_by,
+                 **other_args)
+
+
+def geom_bracket_dodge(mapping=None, *, data=None, stat=None, position=None, show_legend=None,
+                       manual_key=None,
+                       sampling=None,
+                       orientation=None,
+                       label_format=None, na_text=None,
+                       nudge_x=None, nudge_y=None, nudge_unit=None,
+                       size_unit=None,
+                       bracket_shorten=None, tiplength_unit=None,
+                       dodge_width=None, ngroup=None,
+                       color_by=None,
+                       **other_args):
+    """
+    Annotate a plot with labeled brackets connecting dodged groups inside each category.
+
+    Parameters
+    ----------
+    mapping : ``FeatureSpec``
+        Set of aesthetic mappings created by `aes() <https://lets-plot.org/python/pages/api/lets_plot.aes.html>`__ function.
+        Aesthetic mappings describe the way that variables in the data are
+        mapped to plot "aesthetics".
+    data : dict or Pandas or Polars ``DataFrame``
+        The data to be displayed in this layer. If None, the default, the data
+        is inherited from the plot data as specified in the call to ggplot.
+    stat : str, default='identity'
+        The statistical transformation to use on the data for this layer, as a string.
+        Supported transformations: 'identity' (leaves the data unchanged),
+        'count' (counts number of points with the same x-axis coordinate),
+        'bin' (counts number of points with the x-axis coordinate in the same bin),
+        'smooth' (performs smoothing - linear default),
+        'density' (computes and draws kernel density estimate),
+        'sum' (counts the number of points at each location - might help to work around overplotting).
+    position : str or ``FeatureSpec``, default='identity'
+        Position adjustment.
+        Either a position adjustment name: 'dodge', 'jitter', 'nudge', 'jitterdodge', 'fill',
+        'stack' or 'identity', or the result of calling a position adjustment function (e.g., `position_dodge() <https://lets-plot.org/python/pages/api/lets_plot.position_dodge.html>`__ etc.).
+    show_legend : bool, default=False
+        True - show legend for this layer.
+    manual_key : str or ``layer_key``
+        The key to show in the manual legend.
+        Specify text for the legend label or advanced settings using the `layer_key() <https://lets-plot.org/python/pages/api/lets_plot.layer_key.html>`__ function.
+    sampling : ``FeatureSpec``
+        Result of the call to the ``sampling_xxx()`` function.
+        To prevent any sampling for this layer pass value "none" (string "none").
+    orientation : str, default='x'
+        Specify the axis that the geom should run along.
+        Possible values: 'x', 'y'.
+    label_format : str
+        Format used to transform text label mapping values to a string.
+        Examples:
+
+        - '.2f' -> '12.45'
+        - 'Num {}' -> 'Num 12.456789'
+        - 'TTL: {.2f}$' -> 'TTL: 12.45$'
+
+        For more info see `Formatting <https://lets-plot.org/python/pages/formats.html>`__.
+    na_text : str, default='n/a'
+        Text to show for missing values.
+    nudge_x : float
+        Horizontal adjustment to nudge geometry by.
+    nudge_y : float
+        Vertical adjustment to nudge geometry by.
+    size_unit : {'x', 'y', 'min', 'max'}
+        Relate the size of the text to the length of the unit step along one of the axes.
+        'x' uses the unit step along the x-axis, 'y' uses the unit step along the y-axis.
+        'min' uses the smaller of the unit steps along the x- and y-axes.
+        'max' uses the larger of the unit steps along the x- and y-axes.
+        If None, no fitting is performed.
+    bracket_shorten : float, default=0
+        Symmetrically shorten the bracket by shifting both ends toward the center.
+        Expect values between 0 and 1, where 0 corresponds to no shortening and 1 to a fully collapsed bracket.
+    tiplength_unit : {'res', 'identity', 'size', 'px'}, default='size'
+        Unit for ``lenstart`` and ``lenend`` aesthetics.
+        Possible values:
+
+        - 'res': the unit equals the smallest distance between data points along the corresponding axis;
+        - 'identity': a unit of 1 corresponds to a difference of 1 in data space;
+        - 'size': a unit of 1 corresponds to the diameter of a point with ``size=1``;
+        - 'px': the unit is measured in screen pixels.
+
+    dodge_width : float, default=0.95
+        Width used to compute bracket positions.
+        Expected to match the dodge width used by other layers for proper alignment.
+    ngroup : int
+        Total number of dodged groups per category; used to interpret ``istart``/``iend`` indices.
+        By default, this value is inferred from the data when possible, but can be set explicitly if needed.
+    nudge_unit : {'identity', 'size', 'px'}, default='identity'
+        Units for x and y nudging.
+        Possible values:
+
+        - 'identity': a unit of 1 corresponds to a difference of 1 in data space;
+        - 'size': a unit of 1 corresponds to the diameter of a point with ``size=1``;
+        - 'px': the unit is measured in screen pixels.
+
+    color_by : {'fill', 'color', 'paint_a', 'paint_b', 'paint_c'}, default='color'
+        Define the color aesthetic for the geometry.
+    other_args
+        Other arguments passed on to the layer.
+        These are often aesthetics settings used to set an aesthetic to a fixed value,
+        like color='red', fill='blue', size=3 or shape=21.
+        They may also be parameters to the paired geom/stat.
+
+    Returns
+    -------
+    ``LayerSpec``
+        Geom object specification.
+
+    Notes
+    -----
+    ``geom_bracket_dodge()`` understands the following aesthetics mappings:
+
+    - x or y : primary axis category for horizontal or vertical brackets, respectively.
+    - y or x : bracket level (the height/position at which the bracket is drawn) for horizontal or vertical brackets, respectively.
+    - istart : index of the dodged group at the bracket start. Accept integer values between 0 and ``ngroup - 1``.
+    - iend : index of the dodged group at the bracket end. Accept integer values between 0 and ``ngroup - 1``.
+    - alpha : transparency level of a layer. Accept values between 0 and 1.
+    - color (colour) : color of the geometry. For more info see `Color and Fill <https://lets-plot.org/python/pages/aesthetics.html#color-and-fill>`__.
+    - size : font size.
+    - label : text to add.
+    - family : font family. For more info see `Text <https://lets-plot.org/python/pages/aesthetics.html#text>`__.
+    - fontface : font style and weight. For more info see `Text <https://lets-plot.org/python/pages/aesthetics.html#text>`__.
+    - hjust : horizontal text alignment relative to the x-coordinate. Possible values: 0 or 'left' - left-aligned (text starts at x), 0.5 or 'middle' (default) - text is centered on x, 1 or 'right' - right-aligned (text ends at x). There are two special alignments: 'inward' (aligns text towards the plot center) and 'outward' (away from the plot center).
+    - vjust : vertical text alignment relative to the y-coordinate. Accept either a numeric value or one of the following strings: 'bottom', 'center', or 'top'. The numeric values 0, 0.5 (default), and 1 correspond to 'bottom' (bottom of text at y), 'center' (middle of text at y), and 'top' (top of text at y), respectively. There are two special alignments: 'inward' (aligns text towards the plot center) and 'outward' (away from the plot center).
+    - angle : text rotation angle in degrees.
+    - lineheight : line height multiplier applied to the font size in the case of multi-line text.
+    - linetype : type of the line. Accept codes or names (0 = 'blank', 1 = 'solid', 2 = 'dashed', 3 = 'dotted', 4 = 'dotdash', 5 = 'longdash', 6 = 'twodash'), a hex string (up to 8 digits for dash-gap lengths), or a list pattern [offset, [dash, gap, ...]] / [dash, gap, ...]. For more info see `Line Types <https://lets-plot.org/python/pages/aesthetics.html#line-types>`__.
+    - segment_color : color of the bracket line (the segments forming the bracket).
+    - segment_size : width of the bracket line (the segments forming the bracket).
+    - segment_alpha : transparency level of the bracket line. Accept values between 0 and 1.
+    - lenstart : length of the tip at the bracket start (at ``istart``).
+    - lenend : length of the tip at the bracket end (at ``iend``).
+
+    Examples
+    --------
+    .. jupyter-execute::
+        :linenos:
+        :emphasize-lines: 27
+
+        import numpy as np
+        from lets_plot import *
+        LetsPlot.setup_html()
+        n = 50
+        np.random.seed(42)
+        box_data = {
+            'x': ['a'] * 2 * n + ['b'] * 2 * n + ['c'] * 2 * n,
+            'y': np.concatenate([np.random.normal(size=n, loc=0),
+                                 np.random.normal(size=n, loc=.5),
+                                 np.random.normal(size=n, loc=0),
+                                 np.random.normal(size=n, loc=-.5),
+                                 np.random.normal(size=n, loc=0),
+                                 np.random.normal(size=n, loc=.25)]),
+            'g': (['x'] * n + ['y'] * n) * 3,
+        }
+        bracket_data = {
+            'x': ['a', 'b', 'c'],
+            'y': [2.6, 3, 4.4],
+            'start': [0, 0, 0],
+            'end': [1, 1, 1],
+            'label': ['***', '*', 'ns'],
+        }
+        ggplot(box_data, aes(x='x', y='y', color='g')) + \\
+            geom_boxplot(aes(fill='g'), alpha=.25) + \\
+            geom_point(position=position_jitterdodge(jitter_width=.2, jitter_height=0, seed=42),
+                       shape=1, size=2, alpha=.25, show_legend=False) + \\
+            geom_bracket_dodge(aes(x='x', y='y', istart='start', iend='end', label='label'), data=bracket_data)
+
+    """
+    return _geom('bracket_dodge',
+                 mapping=mapping,
+                 data=data,
+                 stat=stat,
+                 position=position,
+                 show_legend=show_legend,
+                 inherit_aes=None,
+                 manual_key=manual_key,
+                 sampling=sampling,
+                 tooltips=None,
+                 orientation=orientation,
+                 label_format=label_format,
+                 na_text=na_text,
+                 nudge_x=nudge_x,
+                 nudge_y=nudge_y,
+                 nudge_unit=nudge_unit,
+                 size_unit=size_unit,
+                 bracket_shorten=bracket_shorten,
+                 tiplength_unit=tiplength_unit,
+                 dodge_width=dodge_width,
+                 ngroup=ngroup,
+                 color_by=color_by,
+                 **other_args)
+
+
 def geom_blank(mapping=None, *, data=None, stat=None, position=None, show_legend=None, inherit_aes=False,
                manual_key=None,
                sampling=None,
@@ -9128,9 +9560,12 @@ def _geom(name, *,
     data, mapping, data_meta = as_annotated_data(data, mapping)
 
     # GDF in a map parameter has higher priority for defining a geo_data_meta
-    if is_geo_data_frame(data) and not is_geo_data_frame(kwargs.get('map')):
+    if geopandas.lazy_is_instance(data, 'GeoDataFrame') and not geopandas.lazy_is_instance(kwargs.get('map'), 'GeoDataFrame'):
         data = geo_data_frame_to_crs(data, kwargs.get('use_crs'))
         data_meta['data_meta'].update(get_geo_data_frame_meta(data))
+
+    if isinstance(tooltips, list) or isinstance(tooltips, tuple):
+        tooltips = layer_tooltips(tooltips)
 
     return LayerSpec(geom=name,
                      stat=stat,

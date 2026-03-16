@@ -5,7 +5,6 @@
 
 package org.jetbrains.letsPlot.core.spec.back
 
-import org.jetbrains.letsPlot.commons.formatting.string.StringFormat
 import org.jetbrains.letsPlot.commons.intern.datetime.TimeZone
 import org.jetbrains.letsPlot.commons.intern.filterNotNullKeys
 import org.jetbrains.letsPlot.commons.interval.DoubleSpan
@@ -18,12 +17,12 @@ import org.jetbrains.letsPlot.core.plot.base.data.DataFrameUtil
 import org.jetbrains.letsPlot.core.plot.base.scale.breaks.DateTimeBreaksHelper
 import org.jetbrains.letsPlot.core.plot.base.stat.Stats
 import org.jetbrains.letsPlot.core.plot.base.theme.Theme
+import org.jetbrains.letsPlot.core.plot.base.tooltip.text.DataFrameField
 import org.jetbrains.letsPlot.core.plot.builder.VarBinding
 import org.jetbrains.letsPlot.core.plot.builder.assemble.PlotFacets
 import org.jetbrains.letsPlot.core.plot.builder.data.DataProcessing
 import org.jetbrains.letsPlot.core.plot.builder.data.OrderOptionUtil.OrderOption
 import org.jetbrains.letsPlot.core.plot.builder.data.YOrientationUtil
-import org.jetbrains.letsPlot.core.plot.builder.tooltip.data.DataFrameField
 import org.jetbrains.letsPlot.core.spec.Option
 import org.jetbrains.letsPlot.core.spec.Option.Mapping.toOption
 import org.jetbrains.letsPlot.core.spec.Option.Meta.DATA_META
@@ -301,6 +300,22 @@ open class PlotConfigBackend(
 
     companion object {
 
+        private val SMOOTH_STAT_VARS_TO_KEEP = listOf(
+            Stats.R2,
+            Stats.R2_ADJ,
+            Stats.N,
+            Stats.AIC,
+            Stats.BIC,
+            Stats.METHOD,
+            Stats.F,
+            Stats.DF1,
+            Stats.DF2,
+            Stats.P,
+            Stats.CI_LEVEL,
+            Stats.CI_LOW,
+            Stats.CI_HIGH
+        )
+
         private fun variablesToKeep(facets: PlotFacets, layerConfig: LayerConfig): Set<String> {
             val stat = layerConfig.stat
             // keep all original vars
@@ -334,6 +349,9 @@ open class PlotConfigBackend(
             }
             varsToKeep.removeAll(notRenderedVars)
             varsToKeep.addAll(renderedVars)
+
+            varsToKeep.addAll(SMOOTH_STAT_VARS_TO_KEEP)
+            varsToKeep.addAll(layerConfig.ownData.variables().filter { it.label.contains("smooth_eq_coef_") })
 
             return HashSet<String>() +
                     varsToKeep.map(Variable::name) +
@@ -433,8 +451,7 @@ open class PlotConfigBackend(
                 ?.let { doubleList -> DoubleSpan.encloseAllQ(doubleList) }
                 ?.let { range ->
                     DateTimeBreaksHelper(
-                        range.lowerEnd,
-                        range.upperEnd,
+                        range,
                         distinctValues.size,
                         providedFormatter = null,
                         minInterval = NiceTimeInterval.minIntervalOf(dataType),
@@ -470,11 +487,7 @@ open class PlotConfigBackend(
                 return breaksPattern ?: patterns.last()
             }
             (listOfNotNull(breaksPattern) + patterns).forEach { pattern ->
-                val formatter = StringFormat.forOneArg(
-                    pattern,
-                    type = StringFormat.FormatType.DATETIME_FORMAT,
-                    tz = tz
-                )
+                val formatter = FormatterUtil.byPattern(pattern, tz = tz)
                 val formattedValues = mutableSetOf<String>()
                 for (value in distinctValues) {
                     if (!formattedValues.add(formatter.format(value))) {
