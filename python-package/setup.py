@@ -167,8 +167,6 @@ setup(name='lets-plot',
           ],
       },
 
-#      py_modules=['lets_plot_kotlin_bridge'],
-
       ext_modules=[
           Extension('lets_plot_kotlin_bridge',
                     include_dirs=[binaries_build_path],
