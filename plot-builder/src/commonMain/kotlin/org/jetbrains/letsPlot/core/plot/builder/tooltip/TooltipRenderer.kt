@@ -125,7 +125,21 @@ internal class TooltipRenderer(
         // Use the first tile for layout context since ggdeck aligns geometric bounds perfectly
         val baseTileInfo = tileInfos.first()
 
-        val lookupResults = tileInfos.flatMap { it.findTargets(cursor) }
+        // In ggdeck, layers render independently. If we use a single TargetsPicker, it glitches because 
+        // they don't share identical coordinate scales under the hood. 
+        // Instead, grab targets per layer, then filter down to the absolute closest ones overall.
+        var lookupResults = tileInfos.flatMap { it.findTargets(cursor) }
+
+        // Deduplicate axis tooltips (e.g. y=0 horizontal axis) that stack exactly on top of each other
+        lookupResults = lookupResults.distinctBy { 
+            if (it.hasAxisTooltip && !it.hasGeneralTooltip) it.geomKind else it 
+        }
+
+        // If multiple geoms trigger tooltips (like overlaid geom_points), only keep the genuinely closest one
+        if (lookupResults.isNotEmpty() && !lookupResults.first().isCrosshairEnabled) {
+            val minDistance = lookupResults.map { it.distance }.minOrNull() ?: 0.0
+            lookupResults = lookupResults.filter { it.distance == minDistance }
+        }
 
         val tooltips = lookupResults
             .flatMap { tooltipSpecFromLookupResult(it, baseTileInfo.axisOrigin) }

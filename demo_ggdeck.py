@@ -25,7 +25,7 @@ for i in range(1, N+1):
     if i % 2 == 0:
         p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_line(color=colors[i], linetype='dashed') 
     else:
-        p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_point(color=colors[i]) 
+        p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_point(color=colors[i], tooltips=layer_tooltips().line('xy|@x,@y')) 
     plots.append(p)
     sides.append("L" if i % 2 == 0 else "R")
     
