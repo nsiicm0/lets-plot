@@ -114,6 +114,9 @@ class AxisComponent(
             }
             rootElement.children().add(axisLine)
         }
+
+        rootElement.addClass("axis")
+        rootElement.addClass("axis-${orientation.name.lowercase()}")
     }
 
     private fun addTicks(ticks: TickData, tickLabelBaseOffset: DoubleVector) {

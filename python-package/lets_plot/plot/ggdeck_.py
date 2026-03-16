@@ -7,7 +7,7 @@ from ._global_theme import _get_global_theme
 from .subplots import SupPlotsLayoutSpec
 from .subplots import SupPlotsSpec
 from .subplots_util import _strip_theme_if_global
-from .theme_ import theme, element_blank
+from .theme_ import theme, element_blank, element_text
 from .scale_position import scale_y_continuous
 
 __all__ = ['ggdeck']
@@ -63,6 +63,9 @@ def ggdeck(plots: list, sides: list = None, *,
     if len(sides) != len(plots):
         raise ValueError(f"The length of 'sides' ({len(sides)}) must match the number of plots ({len(plots)}).")
 
+    left_count = 0
+    right_count = 0
+
     # Apply transparency and axis positioning
     processed_plots = []
     for i, (plot, side) in enumerate(zip(plots, sides)):
@@ -85,13 +88,13 @@ def ggdeck(plots: list, sides: list = None, *,
         # This creates the visual effect of a secondary axis when overlaid on a left-axis plot.
         if side.upper() == 'R':
             plot += scale_y_continuous(position='right')
+            if right_count > 0:
+                plot += theme(axis_text_y=element_text(margin=margin(0, 0, 0, right_count * 30)))
+            right_count += 1
         elif side.upper() == 'L':
-            # Default is left, but explicit 'left' can be enforced if needed.
-            # However, scale_y_continuous might overwrite other scale settings if not careful.
-            # But since we are adding it, it should be fine as it appends/merges.
-            # To be safe, we only add if it's 'R' or explicitly requested 'L' to overwrite potential 'R' in input?
-            # For now, let's assume input plots are standard and we only move to right if needed.
-            pass
+            if left_count > 0:
+                plot += theme(axis_text_y=element_text(margin=margin(0, left_count * 30, 0, 0)))
+            left_count += 1
         else:
              raise ValueError(f"Invalid side '{side}'. Use 'L' or 'R'.")
 
