@@ -244,12 +244,18 @@ internal class FigureToHtml(
                 // 2. Y-Axis Lateral Spacing & Color Matching
                 // Let's-Plot lacks native support for duplicating axes laterally inside the identical geometry bounds.
                 // We identify left/right axes in the stacked plots and shift them visually via CSS transform.
-                var leftAxisCount = -1
-                var rightAxisCount = -1
+                var leftAxisCount = 0
+                var rightAxisCount = 0
                 
-                val lateralOffset = 65 // Increased spacing to accommodate wider labels
-                
-                fun extractGeomStyle(plotSvg: org.w3c.dom.Element): Pair<String?, String?> {
+                data class GeomStyle(
+                    val stroke: String,
+                    val dashArray: String,
+                    val fill: String,
+                    val strokeOpacity: String,
+                    val fillOpacity: String,
+                    val opacity: String
+                )
+                fun extractGeomStyle(plotSvg: org.w3c.dom.Element): GeomStyle? {
                     val paths = plotSvg.querySelectorAll("path, line, rect, circle, polygon")
                     for (i in 0 until paths.length) {
                         val el = paths.item(i) as? org.w3c.dom.Element ?: continue
@@ -267,36 +273,69 @@ internal class FigureToHtml(
                         
                         val stroke = el.getAttribute("stroke") ?: ""
                         val strokeTrimmed = stroke.replace(" ", "")
-                        val dashArray = el.getAttribute("stroke-dasharray") ?: ""
-                        if (strokeTrimmed.isNotEmpty() && strokeTrimmed != "none" && strokeTrimmed != "transparent" && strokeTrimmed != "#e9e9e9" && strokeTrimmed != "white" && !strokeTrimmed.contains("rgb(255,255,255)") && !strokeTrimmed.contains("rgb(233,233,233)") && !strokeTrimmed.contains("rgb(71,71,71)")) {
-                            return Pair(stroke, dashArray)
-                        }
+                        val isStrokeValid = strokeTrimmed.isNotEmpty() && strokeTrimmed != "none" && strokeTrimmed != "transparent" && strokeTrimmed != "#e9e9e9" && strokeTrimmed != "white" && !strokeTrimmed.contains("rgb(255,255,255)") && !strokeTrimmed.contains("rgb(233,233,233)") && !strokeTrimmed.contains("rgb(71,71,71)")
+                        
                         val fill = el.getAttribute("fill") ?: ""
                         val fillTrimmed = fill.replace(" ", "")
-                        if (fillTrimmed.isNotEmpty() && fillTrimmed != "none" && fillTrimmed != "transparent" && fillTrimmed != "#e9e9e9" && fillTrimmed != "white" && !fillTrimmed.contains("rgb(255,255,255)") && !fillTrimmed.contains("rgb(233,233,233)") && !fillTrimmed.contains("rgb(71,71,71)")) {
-                            return Pair(fill, dashArray)
+                        val isFillValid = fillTrimmed.isNotEmpty() && fillTrimmed != "none" && fillTrimmed != "transparent" && fillTrimmed != "#e9e9e9" && fillTrimmed != "white" && !fillTrimmed.contains("rgb(255,255,255)") && !fillTrimmed.contains("rgb(233,233,233)") && !fillTrimmed.contains("rgb(71,71,71)")
+                        
+                        if (isStrokeValid || isFillValid) {
+                            val dashArray = el.getAttribute("stroke-dasharray") ?: ""
+                            val strokeOpacity = el.getAttribute("stroke-opacity") ?: ""
+                            val fillOpacity = el.getAttribute("fill-opacity") ?: ""
+                            val opacity = el.getAttribute("opacity") ?: ""
+                            
+                            // If it's a line/path with no fill, default to transparent faint version of stroke for nice aesthetics
+                            val resolvedFill = if (isFillValid) fill else if (isStrokeValid) stroke else "none"
+                            val resolvedFillOpacity = if (isFillValid) (if (fillOpacity.isNotEmpty()) fillOpacity else "0.1") else if (isStrokeValid) "0.05" else ""
+                            
+                            return GeomStyle(stroke, dashArray, resolvedFill, strokeOpacity, resolvedFillOpacity, opacity)
                         }
                     }
-                    return Pair(null, null)
+                    return null
                 }
+                
+                // lateralOffset governs the margin distance between overlaid axes
+                val lateralOffset = 70
                 
                 for (plotSvg in domSVGSVGs) {
                     val axisLeftGroup = plotSvg.querySelector("g.axis-left")
                     val axisRightGroup = plotSvg.querySelector("g.axis-right")
-                    val axisTitleGroup = plotSvg.querySelector("g.axis-title-y") ?: plotSvg.querySelector("text.axis-title-y")
+                    val axisTitleText = plotSvg.querySelector("text.axis-title-y")
+                    axisTitleText?.removeAttribute("transform")
+                    val axisTitleGroup = axisTitleText?.parentElement
                     val geomStyle = extractGeomStyle(plotSvg)
-                    val plotColor = geomStyle.first
-                    val plotDashArray = geomStyle.second
+                    val plotColor = geomStyle?.stroke?.takeIf { it.isNotEmpty() } ?: geomStyle?.fill
+                    val plotDashArray = geomStyle?.dashArray
                     
-                    if (axisLeftGroup != null) {
-                        leftAxisCount++
+                        if (axisLeftGroup != null) {
                         if (leftAxisCount > 0) {
                             val existingTransform = axisLeftGroup.getAttribute("transform") ?: ""
                             axisLeftGroup.setAttribute("transform", "$existingTransform translate(-${leftAxisCount * lateralOffset}, 0)")
-                            
-                            if (axisTitleGroup != null) {
-                                val existingTitleX = axisTitleGroup.getAttribute("transform") ?: ""
-                                axisTitleGroup.setAttribute("transform", "translate(-${leftAxisCount * lateralOffset}, 0) $existingTitleX")
+                        }
+                        if (axisTitleText != null) {
+                            val oldParent = axisTitleText.parentElement
+                            var yMiddle = 175.0
+                            var spineMinY = Double.MAX_VALUE
+                            var spineMaxY = -Double.MAX_VALUE
+                            val spines = axisLeftGroup.querySelectorAll("line")
+                            for (i in 0 until spines.length) {
+                                val line = spines.item(i) as? org.w3c.dom.Element
+                                if (line?.getAttribute("x1") == "0" && line.getAttribute("x2") == "0") {
+                                    val y1 = line.getAttribute("y1")?.toDoubleOrNull() ?: 0.0
+                                    val y2 = line.getAttribute("y2")?.toDoubleOrNull() ?: 0.0
+                                    spineMinY = kotlin.math.min(spineMinY, kotlin.math.min(y1, y2))
+                                    spineMaxY = kotlin.math.max(spineMaxY, kotlin.math.max(y1, y2))
+                                }
+                            }
+                            if (spineMinY != Double.MAX_VALUE) {
+                                yMiddle = (spineMinY + spineMaxY) / 2.0
+                            }
+                            axisTitleText.setAttribute("transform", "translate(-45, $yMiddle) rotate(-90)")
+                            axisTitleText.setAttribute("text-anchor", "middle")
+                            axisLeftGroup.appendChild(axisTitleText)
+                            if (oldParent != null && oldParent.childElementCount == 0) {
+                                oldParent.remove()
                             }
                         }
                         
@@ -314,14 +353,23 @@ internal class FigureToHtml(
                             if (spineHeight == 0.0) spineHeight = 350.0 // fallback
                             
                             val rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
-                            rect.setAttribute("x", "-${lateralOffset - 15}")
-                            rect.setAttribute("y", "0")
-                            rect.setAttribute("width", "${lateralOffset - 10}")
-                            rect.setAttribute("height", "$spineHeight")
-                            rect.setAttribute("fill", "none")
-                            rect.setAttribute("stroke", plotColor)
-                            if (plotDashArray != null && plotDashArray.isNotEmpty()) {
-                                rect.setAttribute("stroke-dasharray", plotDashArray)
+                            rect.setAttribute("x", "-58")
+                            rect.setAttribute("y", "-10")
+                            rect.setAttribute("width", "62")
+                            rect.setAttribute("height", "${spineHeight + 20}")
+                            if (geomStyle != null) {
+                                rect.setAttribute("fill", geomStyle.fill)
+                                if (geomStyle.fillOpacity.isNotEmpty()) rect.setAttribute("fill-opacity", geomStyle.fillOpacity)
+                                rect.setAttribute("stroke", geomStyle.stroke)
+                                if (geomStyle.strokeOpacity.isNotEmpty()) rect.setAttribute("stroke-opacity", geomStyle.strokeOpacity)
+                                if (geomStyle.dashArray.isNotEmpty()) rect.setAttribute("stroke-dasharray", geomStyle.dashArray)
+                                if (geomStyle.opacity.isNotEmpty()) rect.setAttribute("opacity", geomStyle.opacity)
+                            } else {
+                                rect.setAttribute("fill", "none")
+                                rect.setAttribute("stroke", plotColor)
+                                if (plotDashArray != null && plotDashArray.isNotEmpty()) {
+                                    rect.setAttribute("stroke-dasharray", plotDashArray)
+                                }
                             }
                             rect.setAttribute("stroke-width", "1.5")
                             rect.setAttribute("rx", "4")
@@ -354,17 +402,37 @@ internal class FigureToHtml(
                                 val currentStyle = textEl.getAttribute("style") ?: ""
                                 textEl.setAttribute("style", "$currentStyle; fill: $plotColor !important;")
                             }
+                            leftAxisCount++
                         }
                     }
                     if (axisRightGroup != null) {
-                        rightAxisCount++
                         if (rightAxisCount > 0) {
                             val existingTransform = axisRightGroup.getAttribute("transform") ?: ""
                             axisRightGroup.setAttribute("transform", "$existingTransform translate(${rightAxisCount * lateralOffset}, 0)")
-                            
-                            if (axisTitleGroup != null) {
-                                val existingTitleX = axisTitleGroup.getAttribute("transform") ?: ""
-                                axisTitleGroup.setAttribute("transform", "translate(${rightAxisCount * lateralOffset}, 0) $existingTitleX")
+                        }
+                        if (axisTitleText != null) {
+                            val oldParent = axisTitleText.parentElement
+                            var yMiddle = 175.0
+                            var spineMinY = Double.MAX_VALUE
+                            var spineMaxY = -Double.MAX_VALUE
+                            val spines = axisRightGroup.querySelectorAll("line")
+                            for (i in 0 until spines.length) {
+                                val line = spines.item(i) as? org.w3c.dom.Element
+                                if (line?.getAttribute("x1") == "0" && line.getAttribute("x2") == "0") {
+                                    val y1 = line.getAttribute("y1")?.toDoubleOrNull() ?: 0.0
+                                    val y2 = line.getAttribute("y2")?.toDoubleOrNull() ?: 0.0
+                                    spineMinY = kotlin.math.min(spineMinY, kotlin.math.min(y1, y2))
+                                    spineMaxY = kotlin.math.max(spineMaxY, kotlin.math.max(y1, y2))
+                                }
+                            }
+                            if (spineMinY != Double.MAX_VALUE) {
+                                yMiddle = (spineMinY + spineMaxY) / 2.0
+                            }
+                            axisTitleText.setAttribute("transform", "translate(45, $yMiddle) rotate(-90)")
+                            axisTitleText.setAttribute("text-anchor", "middle")
+                            axisRightGroup.appendChild(axisTitleText)
+                            if (oldParent != null && oldParent.childElementCount == 0) {
+                                oldParent.remove()
                             }
                         }
                         
@@ -382,14 +450,23 @@ internal class FigureToHtml(
                             if (spineHeight == 0.0) spineHeight = 350.0 // fallback
                             
                             val rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
-                            rect.setAttribute("x", "-5")
-                            rect.setAttribute("y", "0")
-                            rect.setAttribute("width", "${lateralOffset - 10}")
-                            rect.setAttribute("height", "$spineHeight")
-                            rect.setAttribute("fill", "none")
-                            rect.setAttribute("stroke", plotColor)
-                            if (plotDashArray != null && plotDashArray.isNotEmpty()) {
-                                rect.setAttribute("stroke-dasharray", plotDashArray)
+                            rect.setAttribute("x", "-4")
+                            rect.setAttribute("y", "-10")
+                            rect.setAttribute("width", "62")
+                            rect.setAttribute("height", "${spineHeight + 20}")
+                            if (geomStyle != null) {
+                                rect.setAttribute("fill", geomStyle.fill)
+                                if (geomStyle.fillOpacity.isNotEmpty()) rect.setAttribute("fill-opacity", geomStyle.fillOpacity)
+                                rect.setAttribute("stroke", geomStyle.stroke)
+                                if (geomStyle.strokeOpacity.isNotEmpty()) rect.setAttribute("stroke-opacity", geomStyle.strokeOpacity)
+                                if (geomStyle.dashArray.isNotEmpty()) rect.setAttribute("stroke-dasharray", geomStyle.dashArray)
+                                if (geomStyle.opacity.isNotEmpty()) rect.setAttribute("opacity", geomStyle.opacity)
+                            } else {
+                                rect.setAttribute("fill", "none")
+                                rect.setAttribute("stroke", plotColor)
+                                if (plotDashArray != null && plotDashArray.isNotEmpty()) {
+                                    rect.setAttribute("stroke-dasharray", plotDashArray)
+                                }
                             }
                             rect.setAttribute("stroke-width", "1.5")
                             rect.setAttribute("rx", "4")
@@ -422,6 +499,7 @@ internal class FigureToHtml(
                                 val currentStyle = textEl.getAttribute("style") ?: ""
                                 textEl.setAttribute("style", "$currentStyle; fill: $plotColor !important;")
                             }
+                            rightAxisCount++
                         }
                     }
                 }

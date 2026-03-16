@@ -15,17 +15,21 @@ L = 100
 x = np.arange(L)
 
 N = 4
-colors = [None, 'blue', 'green', 'yellow', 'red']
+colors = [None, 'blue', 'green', 'orange', 'red']
 
 sides = []
 plots = []
 for i in range(1, N+1):
     y = np.random.normal(i * 10, i * 5, L)
     c = np.repeat(i, L)
-    p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_line(color=colors[i]) 
+    if i % 2 == 0:
+        p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_line(color=colors[i], linetype='dashed') 
+    else:
+        p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_point(color=colors[i]) 
     plots.append(p)
     sides.append("L" if i % 2 == 0 else "R")
     
+
 # Create a deck of the two plots!
 deck = ggdeck(plots, sides=sides) + ggtb()
 
