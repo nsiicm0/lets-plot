@@ -75,8 +75,9 @@ def ggdeck(plots: list, sides: list = None, *,
             plot += theme(
                 panel_background=element_blank(),
                 plot_background=element_blank(),
-                panel_grid=element_blank()  # Optional: maybe user wants grid from top plots? 
+                panel_grid=element_blank(),  # Optional: maybe user wants grid from top plots? 
                                             # Usually only base plot grid is desired.
+                legend_position='none'       # Prevent overlapping legends
             )
         
         # Apply axis positioning

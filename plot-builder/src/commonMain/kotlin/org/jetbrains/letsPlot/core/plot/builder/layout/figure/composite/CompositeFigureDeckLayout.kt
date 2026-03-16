@@ -62,9 +62,42 @@ class CompositeFigureDeckLayout(
             return elementsLayoutedByBounds
         }
 
-        val commonGeomBounds = geomBounds.reduce { acc, rect ->
-            acc.intersect(rect) ?: DoubleRectangle.ZERO
+        // We want all plots to have the same geometry bounds, but also ensure that 
+        // no plot's outer elements (axes, labels, legends) are clipped by `bounds`.
+        // To do this, we find the maximum margin required on each side across all plots.
+        var maxLeftMargin = 0.0
+        var maxRightMargin = 0.0
+        var maxTopMargin = 0.0
+        var maxBottomMargin = 0.0
+
+        for (el in elementsLayoutedByBounds) {
+            if (el != null && !el.isComposite) {
+                val info = el.layoutInfo as? PlotFigureLayoutInfo
+                if (info != null) {
+                    val gb = info.geomAreaBounds
+                    val ob = el.bounds
+                    
+                    val leftMargin = gb.left - ob.left
+                    val rightMargin = ob.right - gb.right
+                    val topMargin = gb.top - ob.top
+                    val bottomMargin = ob.bottom - gb.bottom
+
+                    if (leftMargin > maxLeftMargin) maxLeftMargin = leftMargin
+                    if (rightMargin > maxRightMargin) maxRightMargin = rightMargin
+                    if (topMargin > maxTopMargin) maxTopMargin = topMargin
+                    if (bottomMargin > maxBottomMargin) maxBottomMargin = bottomMargin
+                }
+            }
         }
+
+        // The common geometry bounds should sit within the provided `bounds`, 
+        // inset by the maximum required margins.
+        val commonGeomBounds = DoubleRectangle(
+            bounds.left + maxLeftMargin,
+            bounds.top + maxTopMargin,
+            bounds.width - maxLeftMargin - maxRightMargin,
+            bounds.height - maxTopMargin - maxBottomMargin
+        )
 
         return elementsLayoutedByBounds.map { buildInfo ->
             if (buildInfo == null) {

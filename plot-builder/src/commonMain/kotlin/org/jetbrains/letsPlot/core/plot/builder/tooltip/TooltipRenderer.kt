@@ -116,16 +116,19 @@ internal class TooltipRenderer(
     }
 
     private fun showTooltips(cursor: DoubleVector) {
-        val tileInfo = findTileInfo(cursor)
-        if (tileInfo == null) {
+        val tileInfos = findTileInfos(cursor)
+        if (tileInfos.isEmpty()) {
             hideTooltips()
             return
         }
 
-        val lookupResults = tileInfo.findTargets(cursor)
+        // Use the first tile for layout context since ggdeck aligns geometric bounds perfectly
+        val baseTileInfo = tileInfos.first()
+
+        val lookupResults = tileInfos.flatMap { it.findTargets(cursor) }
 
         val tooltips = lookupResults
-            .flatMap { tooltipSpecFromLookupResult(it, tileInfo.axisOrigin) }
+            .flatMap { tooltipSpecFromLookupResult(it, baseTileInfo.axisOrigin) }
             .filter { it.lines.isNotEmpty() }
 
         val measuredTooltips = tooltips.map(::measureTooltip)
@@ -133,12 +136,12 @@ internal class TooltipRenderer(
         val positionedTooltips = myLayoutManager.arrange(
             measuredTooltips,
             cursor,
-            tileInfo.geomBounds,
-            tileInfo.hAxisTooltipPosition,
-            tileInfo.vAxisTooltipPosition
+            baseTileInfo.geomBounds,
+            baseTileInfo.hAxisTooltipPosition,
+            baseTileInfo.vAxisTooltipPosition
         )
 
-        showCrosshair(positionedTooltips, tileInfo.geomBounds)
+        showCrosshair(positionedTooltips, baseTileInfo.geomBounds)
 
         tooltipStorage.provide(positionedTooltips.size)
             .zip(positionedTooltips)
@@ -194,8 +197,10 @@ internal class TooltipRenderer(
             hideTooltips()
         } else {
             if (tooltipStorage.size == 0) return
-            val geomBounds = findTileInfo(mouseEvent.location.toDoubleVector())?.geomBounds ?: return
-            pin(geomBounds)
+            val tileInfos = findTileInfos(mouseEvent.location.toDoubleVector())
+            if (tileInfos.isEmpty()) return
+            // Use the first tile for bounding box pinning since deck aligns geometry Bounds exactly
+            pin(tileInfos.first().geomBounds)
         }
     }
 
@@ -268,13 +273,14 @@ internal class TooltipRenderer(
         myTileInfos.add(tileInfo)
     }
 
-    private fun findTileInfo(plotCoord: DoubleVector): TileInfo? {
+    private fun findTileInfos(plotCoord: DoubleVector): List<TileInfo> {
+        val result = ArrayList<TileInfo>()
         for (tileInfo in myTileInfos) {
             if (tileInfo.contains(plotCoord)) {
-                return tileInfo
+                result.add(tileInfo)
             }
         }
-        return null
+        return result
     }
 
     private class TileInfo(

@@ -20,7 +20,7 @@ class CompositeFigureScaleShareConfig(
 ) {
     val shareX: ScaleSharePolicy = parseSharePolicy(SubPlots.Grid.SHARE_X_SCALE, layoutOpts)
     val shareY: ScaleSharePolicy = parseSharePolicy(SubPlots.Grid.SHARE_Y_SCALE, layoutOpts)
-    val ncols: Int = layoutOpts.getIntegerSafe(SubPlots.Grid.NCOLS)
+    val ncols: Int = layoutOpts.getInteger(SubPlots.Grid.NCOLS) ?: 1
 
     val hasSharing: Boolean = shareX != ScaleSharePolicy.NONE || shareY != ScaleSharePolicy.NONE
 

@@ -135,7 +135,7 @@ class CompositeFigureConfig constructor(
 
     private fun createDeckLayout(layoutOptions: OptionsAccessor): CompositeFigureLayout {
         val fitCellAspectRatio = layoutOptions.getBoolean(FIT_CELL_ASPECT_RATIO, true)
-        val innerAlignment = layoutOptions.getBoolean(INNER_ALIGNMENT, false)
+        val innerAlignment = layoutOptions.getBoolean(INNER_ALIGNMENT, true) // Default true for deck
         val shareConfig = CompositeFigureScaleShareConfig(layoutOptions)
         val scaleShareX: ScaleSharePolicy = shareConfig.shareX
         val scaleShareY: ScaleSharePolicy = shareConfig.shareY
@@ -153,6 +153,8 @@ class CompositeFigureConfig constructor(
                 }
             }
         }
+
+        collectOverlayLegends = true
 
         return CompositeFigureDeckLayout(
             scaleShareX = scaleShareX,
