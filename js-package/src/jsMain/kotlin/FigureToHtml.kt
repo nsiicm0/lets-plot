@@ -309,10 +309,9 @@ internal class FigureToHtml(
                     val plotDashArray = geomStyle?.dashArray
                     
                         if (axisLeftGroup != null) {
-                        if (leftAxisCount > 0) {
-                            val existingTransform = axisLeftGroup.getAttribute("transform") ?: ""
-                            axisLeftGroup.setAttribute("transform", "$existingTransform translate(-${leftAxisCount * lateralOffset}, 0)")
-                        }
+                        val shiftAmount = leftAxisCount * lateralOffset + 5
+                        val existingTransform = axisLeftGroup.getAttribute("transform") ?: ""
+                        axisLeftGroup.setAttribute("transform", "$existingTransform translate(-$shiftAmount, 0)")
                         if (axisTitleText != null) {
                             val oldParent = axisTitleText.parentElement
                             var yMiddle = 175.0
@@ -331,7 +330,7 @@ internal class FigureToHtml(
                             if (spineMinY != Double.MAX_VALUE) {
                                 yMiddle = (spineMinY + spineMaxY) / 2.0
                             }
-                            axisTitleText.setAttribute("transform", "translate(-45, $yMiddle) rotate(-90)")
+                            axisTitleText.setAttribute("transform", "translate(-42, $yMiddle) rotate(-90)")
                             axisTitleText.setAttribute("text-anchor", "middle")
                             axisLeftGroup.appendChild(axisTitleText)
                             if (oldParent != null && oldParent.childElementCount == 0) {
@@ -353,9 +352,9 @@ internal class FigureToHtml(
                             if (spineHeight == 0.0) spineHeight = 350.0 // fallback
                             
                             val rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
-                            rect.setAttribute("x", "-58")
+                            rect.setAttribute("x", "-56")
                             rect.setAttribute("y", "-10")
-                            rect.setAttribute("width", "62")
+                            rect.setAttribute("width", "58")
                             rect.setAttribute("height", "${spineHeight + 20}")
                             if (geomStyle != null) {
                                 rect.setAttribute("fill", geomStyle.fill)
@@ -406,10 +405,9 @@ internal class FigureToHtml(
                         }
                     }
                     if (axisRightGroup != null) {
-                        if (rightAxisCount > 0) {
-                            val existingTransform = axisRightGroup.getAttribute("transform") ?: ""
-                            axisRightGroup.setAttribute("transform", "$existingTransform translate(${rightAxisCount * lateralOffset}, 0)")
-                        }
+                        val shiftAmount = rightAxisCount * lateralOffset + 5
+                        val existingTransform = axisRightGroup.getAttribute("transform") ?: ""
+                        axisRightGroup.setAttribute("transform", "$existingTransform translate($shiftAmount, 0)")
                         if (axisTitleText != null) {
                             val oldParent = axisTitleText.parentElement
                             var yMiddle = 175.0
@@ -428,7 +426,7 @@ internal class FigureToHtml(
                             if (spineMinY != Double.MAX_VALUE) {
                                 yMiddle = (spineMinY + spineMaxY) / 2.0
                             }
-                            axisTitleText.setAttribute("transform", "translate(45, $yMiddle) rotate(-90)")
+                            axisTitleText.setAttribute("transform", "translate(42, $yMiddle) rotate(-90)")
                             axisTitleText.setAttribute("text-anchor", "middle")
                             axisRightGroup.appendChild(axisTitleText)
                             if (oldParent != null && oldParent.childElementCount == 0) {
@@ -450,9 +448,9 @@ internal class FigureToHtml(
                             if (spineHeight == 0.0) spineHeight = 350.0 // fallback
                             
                             val rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
-                            rect.setAttribute("x", "-4")
+                            rect.setAttribute("x", "-2")
                             rect.setAttribute("y", "-10")
-                            rect.setAttribute("width", "62")
+                            rect.setAttribute("width", "58")
                             rect.setAttribute("height", "${spineHeight + 20}")
                             if (geomStyle != null) {
                                 rect.setAttribute("fill", geomStyle.fill)
@@ -504,12 +502,12 @@ internal class FigureToHtml(
                     }
                 }
                 
-                // Add margins to the parent container so that shifted axes are not clipped by the browser window edge
+                // Restore margins to avoid clipping the shifted axes, but without excessive extra whitespace.
                 if (leftAxisCount > 0) {
-                    parentElement.style.marginLeft = "${leftAxisCount * lateralOffset}px"
+                    parentElement.style.marginLeft = "${(leftAxisCount - 1) * lateralOffset + 15}px"
                 }
                 if (rightAxisCount > 0) {
-                    parentElement.style.marginRight = "${rightAxisCount * lateralOffset}px"
+                    parentElement.style.marginRight = "${(rightAxisCount - 1) * lateralOffset + 15}px"
                 }
             }
 

@@ -31,7 +31,7 @@ for i in range(1, N+1):
     
 
 # Create a deck of the two plots!
-deck = ggdeck(plots, sides=sides) + ggtb()
+deck = ggdeck(plots, sides=sides) + ggtb() + theme_bw()
 
 # Export to HTML file
 out_path = os.path.join(os.getcwd(), 'demo_ggdeck.html')
