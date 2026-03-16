@@ -241,7 +241,7 @@ internal class FigureToHtml(
                 }
                 tooltipOverlayContainer.appendChild(overlaySvg)
 
-                // 2. Y-Axis Lateral Spacing
+                // 2. Y-Axis Lateral Spacing & Color Matching
                 // Let's-Plot lacks native support for duplicating axes laterally inside the identical geometry bounds.
                 // We identify left/right axes in the stacked plots and shift them visually via CSS transform.
                 var leftAxisCount = -1
@@ -249,15 +249,111 @@ internal class FigureToHtml(
                 
                 val lateralOffset = 65 // Increased spacing to accommodate wider labels
                 
+                fun extractGeomStyle(plotSvg: org.w3c.dom.Element): Pair<String?, String?> {
+                    val paths = plotSvg.querySelectorAll("path, line, rect, circle, polygon")
+                    for (i in 0 until paths.length) {
+                        val el = paths.item(i) as? org.w3c.dom.Element ?: continue
+                        var parent = el.parentElement
+                        var isAxisOrGrid = false
+                        while (parent != null && parent != plotSvg) {
+                            val className = parent.getAttribute("class") ?: ""
+                            if (className.contains("axis") || className.contains("grid") || className.contains("background")) {
+                                isAxisOrGrid = true
+                                break
+                            }
+                            parent = parent.parentElement
+                        }
+                        if (isAxisOrGrid) continue
+                        
+                        val stroke = el.getAttribute("stroke") ?: ""
+                        val strokeTrimmed = stroke.replace(" ", "")
+                        val dashArray = el.getAttribute("stroke-dasharray") ?: ""
+                        if (strokeTrimmed.isNotEmpty() && strokeTrimmed != "none" && strokeTrimmed != "transparent" && strokeTrimmed != "#e9e9e9" && strokeTrimmed != "white" && !strokeTrimmed.contains("rgb(255,255,255)") && !strokeTrimmed.contains("rgb(233,233,233)") && !strokeTrimmed.contains("rgb(71,71,71)")) {
+                            return Pair(stroke, dashArray)
+                        }
+                        val fill = el.getAttribute("fill") ?: ""
+                        val fillTrimmed = fill.replace(" ", "")
+                        if (fillTrimmed.isNotEmpty() && fillTrimmed != "none" && fillTrimmed != "transparent" && fillTrimmed != "#e9e9e9" && fillTrimmed != "white" && !fillTrimmed.contains("rgb(255,255,255)") && !fillTrimmed.contains("rgb(233,233,233)") && !fillTrimmed.contains("rgb(71,71,71)")) {
+                            return Pair(fill, dashArray)
+                        }
+                    }
+                    return Pair(null, null)
+                }
+                
                 for (plotSvg in domSVGSVGs) {
                     val axisLeftGroup = plotSvg.querySelector("g.axis-left")
                     val axisRightGroup = plotSvg.querySelector("g.axis-right")
+                    val axisTitleGroup = plotSvg.querySelector("g.axis-title-y") ?: plotSvg.querySelector("text.axis-title-y")
+                    val geomStyle = extractGeomStyle(plotSvg)
+                    val plotColor = geomStyle.first
+                    val plotDashArray = geomStyle.second
                     
                     if (axisLeftGroup != null) {
                         leftAxisCount++
                         if (leftAxisCount > 0) {
                             val existingTransform = axisLeftGroup.getAttribute("transform") ?: ""
                             axisLeftGroup.setAttribute("transform", "$existingTransform translate(-${leftAxisCount * lateralOffset}, 0)")
+                            
+                            if (axisTitleGroup != null) {
+                                val existingTitleX = axisTitleGroup.getAttribute("transform") ?: ""
+                                axisTitleGroup.setAttribute("transform", "translate(-${leftAxisCount * lateralOffset}, 0) $existingTitleX")
+                            }
+                        }
+                        
+                        if (plotColor != null) {
+                            var spineHeight = 0.0
+                            val spines = axisLeftGroup.querySelectorAll("line")
+                            for (i in 0 until spines.length) {
+                                val line = spines.item(i) as? org.w3c.dom.Element
+                                if (line?.getAttribute("x1") == "0" && line.getAttribute("x2") == "0") {
+                                    val y1 = line.getAttribute("y1")?.toDoubleOrNull() ?: 0.0
+                                    val y2 = line.getAttribute("y2")?.toDoubleOrNull() ?: 0.0
+                                    spineHeight = kotlin.math.max(spineHeight, kotlin.math.abs(y2 - y1))
+                                }
+                            }
+                            if (spineHeight == 0.0) spineHeight = 350.0 // fallback
+                            
+                            val rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
+                            rect.setAttribute("x", "-${lateralOffset - 15}")
+                            rect.setAttribute("y", "0")
+                            rect.setAttribute("width", "${lateralOffset - 10}")
+                            rect.setAttribute("height", "$spineHeight")
+                            rect.setAttribute("fill", "none")
+                            rect.setAttribute("stroke", plotColor)
+                            if (plotDashArray != null && plotDashArray.isNotEmpty()) {
+                                rect.setAttribute("stroke-dasharray", plotDashArray)
+                            }
+                            rect.setAttribute("stroke-width", "1.5")
+                            rect.setAttribute("rx", "4")
+                            axisLeftGroup.prepend(rect)
+                            
+                            axisLeftGroup.querySelectorAll("line, path").let { lines ->
+                                for (i in 0 until lines.length) { 
+                                    (lines.item(i) as? org.w3c.dom.Element)?.let { 
+                                        val currentStyle = it.getAttribute("style") ?: ""
+                                        it.setAttribute("style", "$currentStyle; stroke: $plotColor !important;")
+                                    }
+                                }
+                            }
+                            axisLeftGroup.querySelectorAll("text").let { texts ->
+                                for (i in 0 until texts.length) { 
+                                    (texts.item(i) as? org.w3c.dom.Element)?.let {
+                                        val currentStyle = it.getAttribute("style") ?: ""
+                                        it.setAttribute("style", "$currentStyle; fill: $plotColor !important;")
+                                    }
+                                }
+                            }
+                            val titleTextElements = if (axisTitleGroup?.tagName?.lowercase() == "text") {
+                                listOf(axisTitleGroup)
+                            } else {
+                                axisTitleGroup?.querySelectorAll("text")?.let { nodeList ->
+                                    (0 until nodeList.length).mapNotNull { idx -> nodeList.item(idx) as? org.w3c.dom.Element }
+                                } ?: emptyList()
+                            }
+                            titleTextElements.forEach { textEl ->
+                                val currentStyle = textEl.getAttribute("style") ?: ""
+                                textEl.setAttribute("style", "$currentStyle; fill: $plotColor !important;")
+                            }
                         }
                     }
                     if (axisRightGroup != null) {
@@ -265,6 +361,67 @@ internal class FigureToHtml(
                         if (rightAxisCount > 0) {
                             val existingTransform = axisRightGroup.getAttribute("transform") ?: ""
                             axisRightGroup.setAttribute("transform", "$existingTransform translate(${rightAxisCount * lateralOffset}, 0)")
+                            
+                            if (axisTitleGroup != null) {
+                                val existingTitleX = axisTitleGroup.getAttribute("transform") ?: ""
+                                axisTitleGroup.setAttribute("transform", "translate(${rightAxisCount * lateralOffset}, 0) $existingTitleX")
+                            }
+                        }
+                        
+                        if (plotColor != null) {
+                            var spineHeight = 0.0
+                            val spines = axisRightGroup.querySelectorAll("line")
+                            for (i in 0 until spines.length) {
+                                val line = spines.item(i) as? org.w3c.dom.Element
+                                if (line?.getAttribute("x1") == "0" && line.getAttribute("x2") == "0") {
+                                    val y1 = line.getAttribute("y1")?.toDoubleOrNull() ?: 0.0
+                                    val y2 = line.getAttribute("y2")?.toDoubleOrNull() ?: 0.0
+                                    spineHeight = kotlin.math.max(spineHeight, kotlin.math.abs(y2 - y1))
+                                }
+                            }
+                            if (spineHeight == 0.0) spineHeight = 350.0 // fallback
+                            
+                            val rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
+                            rect.setAttribute("x", "-5")
+                            rect.setAttribute("y", "0")
+                            rect.setAttribute("width", "${lateralOffset - 10}")
+                            rect.setAttribute("height", "$spineHeight")
+                            rect.setAttribute("fill", "none")
+                            rect.setAttribute("stroke", plotColor)
+                            if (plotDashArray != null && plotDashArray.isNotEmpty()) {
+                                rect.setAttribute("stroke-dasharray", plotDashArray)
+                            }
+                            rect.setAttribute("stroke-width", "1.5")
+                            rect.setAttribute("rx", "4")
+                            axisRightGroup.prepend(rect)
+                            
+                            axisRightGroup.querySelectorAll("line, path").let { lines ->
+                                for (i in 0 until lines.length) { 
+                                    (lines.item(i) as? org.w3c.dom.Element)?.let {
+                                        val currentStyle = it.getAttribute("style") ?: ""
+                                        it.setAttribute("style", "$currentStyle; stroke: $plotColor !important;")
+                                    }
+                                }
+                            }
+                            axisRightGroup.querySelectorAll("text").let { texts ->
+                                for (i in 0 until texts.length) { 
+                                    (texts.item(i) as? org.w3c.dom.Element)?.let {
+                                        val currentStyle = it.getAttribute("style") ?: ""
+                                        it.setAttribute("style", "$currentStyle; fill: $plotColor !important;")
+                                    }
+                                }
+                            }
+                            val titleTextElements = if (axisTitleGroup?.tagName?.lowercase() == "text") {
+                                listOf(axisTitleGroup)
+                            } else {
+                                axisTitleGroup?.querySelectorAll("text")?.let { nodeList ->
+                                    (0 until nodeList.length).mapNotNull { idx -> nodeList.item(idx) as? org.w3c.dom.Element }
+                                } ?: emptyList()
+                            }
+                            titleTextElements.forEach { textEl ->
+                                val currentStyle = textEl.getAttribute("style") ?: ""
+                                textEl.setAttribute("style", "$currentStyle; fill: $plotColor !important;")
+                            }
                         }
                     }
                 }

@@ -33,7 +33,7 @@ class CompositeFigureScaleShareConfig(
             @Suppress("UNCHECKED_CAST")
             val layoutOptions = compositeSpec[SubPlots.LAYOUT] as? Map<String, Any> ?: return null
             val layoutName = layoutOptions[SubPlots.Layout.NAME] as? String
-            if (layoutName != SubPlots.Layout.SUBPLOTS_GRID) return null
+            if (layoutName != SubPlots.Layout.SUBPLOTS_GRID && layoutName != SubPlots.Layout.SUBPLOTS_DECK) return null
 
             return CompositeFigureScaleShareConfig(OptionsAccessor(layoutOptions))
         }

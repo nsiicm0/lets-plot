@@ -1,0 +1,5796 @@
+--- SVG 0 ---\n<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="stroke: rgb(110, 110, 110); fill: rgb(110, 110, 110);">
+    <g stroke="none">
+        <path d="M7.5,1V6.793L4.354,3.646 3.646,4.354 6.793,7.5H1v1h5.793L3.646,11.646 4.354,12.354 7.5,9.207V15h1V9.207L11.646,12.354 12.354,11.646 9.207,8.5H15v-1H9.207L12.354,4.354 11.646,3.646 8.5,6.793V1Z"></path>
+    </g>
+</svg>\n--- SVG 1 ---\n<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="stroke: rgb(110, 110, 110); fill: rgb(110, 110, 110);">
+    <g stroke="none">
+        <circle cx="1.6" cy="2.6" r="1.5"></circle>
+        <path d="M3,2C1.901,2 1,2.901 1,4v8c0,1.099 0.901,2 2,2h10c1.099,0 2,-0.901 2,-2V4c0,-1.099 -0.901,-2 -2,-2ZM3,3h10c0.563,0 1,0.438 1,1v8c0,0.563 -0.438,1 -1,1H3c-0.563,0 -1,-0.438 -1,-1V4c0,-0.563 0.438,-1 1,-1Z"></path>
+    </g>
+</svg>\n--- SVG 2 ---\n<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="stroke: rgb(110, 110, 110); fill: rgb(110, 110, 110);">
+    <g stroke="none">
+        <circle cx="8" cy="8" r="1.5"></circle>
+        <path d="M3,2C1.901,2 1,2.901 1,4v8c0,1.099 0.901,2 2,2h10c1.099,0 2,-0.901 2,-2V4c0,-1.099 -0.901,-2 -2,-2ZM3,3h10c0.563,0 1,0.438 1,1v8c0,0.563 -0.438,1 -1,1H3c-0.563,0 -1,-0.438 -1,-1V4c0,-0.563 0.438,-1 1,-1Z"></path>
+    </g>
+</svg>\n--- SVG 3 ---\n<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="stroke: rgb(110, 110, 110); fill: rgb(110, 110, 110);">
+    <g stroke="none">
+        <path d="M8.322,1.482C6.095,1.34 3.77,2.313 2.367,4.75l0.865,0.5C4.867,2.41 7.757,1.939 10.098,2.908 12.439,3.877 14.152,6.255 13.311,9.41 12.469,12.566 9.8,13.773 7.287,13.447 4.775,13.122 2.504,11.276 2.5,8h-1c0.004,3.75 2.727,6.06 5.658,6.439C10.09,14.819 13.314,13.282 14.277,9.668 15.241,6.054 13.212,3.115 10.48,1.984 9.798,1.702 9.065,1.53 8.322,1.482Z"></path>
+        <path d="M2,1v4.5h4.5v-1H3V1Z"></path>
+    </g>
+</svg>\n--- SVG 4 ---\n<svg shape-rendering="geometricPrecision" display="block" class="plt-container" width="600" height="400"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#p0KwU38 .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#p0KwU38 .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#p0KwU38 .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#p0KwU38 .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#p0KwU38 .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#p0KwU38 .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#p0KwU38 .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#p0KwU38 .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#p0KwU38 .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+.axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#p0KwU38 .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#p0KwU38 .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+.axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#p0KwU38 .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#p0KwU38 .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+.tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+.tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+.tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><g id="p0KwU38"><rect x="0" y="0" height="400" width="600" fill="rgb(255,255,255)" fill-opacity="1" stroke="rgb(71,71,71)" stroke-opacity="1" stroke-width="0"></rect></g></svg>\n--- SVG 5 ---\n<svg shape-rendering="geometricPrecision" display="block" class="plt-container" width="541.0581836335954" height="383.224629574827" style="overflow: visible; cursor: crosshair;"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#pGFkIoH .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pGFkIoH .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pGFkIoH .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#pGFkIoH .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><g id="pGFkIoH"><path fill-rule="evenodd" fill="rgb(255,255,255)" fill-opacity="1" d="M-3 -3 L-3 386.224629574827 L544.0581836335954 386.224629574827 L544.0581836335954 -3 Z"></path><g transform="translate(3 3 ) "><g><g transform="translate(0 1.22462957482702 ) "><g><line x1="22.82258966921177" y1="0" x2="22.82258966921177" y2="342" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="115.03507318117852" y1="0" x2="115.03507318117852" y2="342" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="207.24755669314527" y1="0" x2="207.24755669314527" y2="342" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="299.460040205112" y1="0" x2="299.460040205112" y2="342" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="391.6725237170788" y1="0" x2="391.6725237170788" y2="342" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="483.88500722904547" y1="0" x2="483.88500722904547" y2="342" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line></g></g><g transform="translate(0 1.22462957482702 ) "><g><line x1="0" y1="283.3679212414859" x2="502.09697272265896" y2="283.3679212414859" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="0" y1="213.84478353740764" x2="502.09697272265896" y2="213.84478353740764" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="0" y1="144.32164583332943" x2="502.09697272265896" y2="144.32164583332943" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="0" y1="74.79850812925122" x2="502.09697272265896" y2="74.79850812925122" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line><line x1="0" y1="5.27537042517298" x2="502.09697272265896" y2="5.27537042517298" stroke="rgb(233,233,233)" stroke-opacity="1" stroke-width="1" fill="none"></line></g></g></g><g clip-path="url(#cXZQnac)" clip-bounds-jfx="[rect (0, 1.22462957482702), (502.09697272265896, 342)]"><g transform="translate(0 1.22462957482702 ) "><g><g buffered-rendering="static"><g><path d="M22.82258966921177 109.78851937396493 L22.82258966921177 109.78851937396493 L27.433213844810105 153.93421388321184 L32.043838020408444 99.29230640960188 L36.65446219600678 38.43583139885183 L41.26508637160512 160.60072314809454 L45.875710547203454 160.59958173292114 L50.48633472280179 34.52981579676401 L55.09695889840013 90.96717547953978 L59.707583073998464 176.96097821522267 L64.31820724959681 106.60116921037172 L68.92883142519514 176.53989790523644 L73.53945560079347 176.70063962368081 L78.15007977639182 127.49966950805248 L82.76070395199015 277.338891749166 L87.37132812758848 264.24334583135317 L91.98195230318683 183.4136391580355 L96.59257647878516 214.7368432833154 L101.2032006543835 122.47418525616894 L105.81382482998184 207.45032867440892 L110.42444900558017 242.50943054124227 L115.03507318117852 42.42514464578352 L119.64569735677685 160.0183226623722 L124.25632153237518 139.62687315990172 L128.86694570797354 243.37461017708327 L133.47756988357187 182.168840954215 L138.0881940591702 136.60995935443745 L142.69881823476854 224.3423308129698 L147.30944241036687 118.20194076873398 L151.9200665859652 186.07993218295167 L156.53069076156353 164.60111056762634 L161.1413149371619 186.15417749280817 L165.75193911276023 15.545454545454561 L170.36256328835856 145.2600152474077 L174.9731874639569 217.85702839823895 L179.58381163955522 87.1357426413905 L184.19443581515358 229.19852702541428 L188.80505999075191 129.800793356445 L193.41568416635025 280.5640617103911 L198.02630834194858 236.6613074075306 L202.6369325175469 130.63523502340533 L207.24755669314527 92.98113210244881 L211.8581808687436 132.4075852220479 L216.46880504434193 152.3618772950472 L221.07942921994027 165.2553195249904 L225.6900533955386 247.1131337681519 L230.30067757113693 194.36747385903794 L234.9113017467353 176.34669853860407 L239.52192592233362 70.82719172987004 L244.13255009793195 120.43222417002147 L248.7431742735303 266.89372933243226 L253.35379844912862 121.79031140141083 L257.964422624727 171.09377424211345 L262.5750468003253 191.38338727552068 L267.18567097592364 101.79599097392625 L271.796295151522 72.64332405800457 L276.4069193271203 79.57612987094359 L281.01754350271864 202.6666812640124 L285.62816767831697 165.81906041943859 L290.2387918539153 121.29117267553397 L294.8494160295137 76.49868762385915 L299.460040205112 177.63534235529426 L304.07066438071035 157.22924043392624 L308.6812885563087 221.23752457798832 L313.291912731907 227.48568368182043 L317.90253690750535 87.8323011948982 L322.5131610831037 50.031583567217126 L327.123785258702 149.3280154320464 L331.73440943430035 74.55288998260957 L336.3450336098987 119.17957466518729 L340.955657785497 189.17239536836263 L345.5662819610954 119.19628938591924 L350.17690613669373 37.3925178290082 L354.78753031229206 146.8123844837623 L359.3981544878904 35.54270949235993 L364.0087786634887 326.45454545454544 L368.61940283908706 87.18040484232398 L373.2300270146854 138.26986052147075 L377.8406511902837 165.10957503429955 L382.45127536588205 137.94214873041855 L387.0618995414804 282.50367317947257 L391.6725237170788 159.59392474117158 L396.2831478926771 119.4940593482608 L400.89377206827544 41.573814648727875 L405.50439624387377 180.3534175862909 L410.1150204194721 200.53065792013885 L414.72564459507043 179.20536986844834 L419.33626877066877 80.6800183497233 L423.9468929462671 121.46583716609067 L428.55751712186543 181.1522374299658 L433.16814129746376 108.6376834019708 L437.7787654730621 137.57251000203118 L442.3893896486605 76.97840677014582 L447.0000138242588 193.13057975453876 L451.61063799985715 167.10174637165994 L456.2212621754555 171.58223495842822 L460.8318863510538 246.06979710429562 L465.44251052665214 123.73443503399912 L470.0531347022505 126.17226419719137 L474.6637588778488 143.9661422830318 L479.27438305344714 160.63087941057478 " fill="none" stroke-width="1.6500000000000001" stroke="rgb(0,0,255)" stroke-opacity="1"></path></g></g></g></g><defs><clipPath id="cXZQnac"><rect x="0" y="1.22462957482702" width="502.09697272265896" height="342"></rect></clipPath></defs></g><g><g transform="translate(0 343.224629574827 ) " class="axis axis-bottom"><g transform="translate(22.82258966921177 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>0</tspan></text></g></g><g transform="translate(115.03507318117852 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>20</tspan></text></g></g><g transform="translate(207.24755669314527 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>40</tspan></text></g></g><g transform="translate(299.460040205112 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>60</tspan></text></g></g><g transform="translate(391.6725237170788 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>80</tspan></text></g></g><g transform="translate(483.88500722904547 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>100</tspan></text></g></g><line x1="0" y1="0" x2="502.09697272265896" y2="0" stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1"></line></g><g transform="translate(502.09697272265896 1.22462957482702 ) " class="axis axis-right"><g transform="translate(0 283.3679212414859 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(233,233,233) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>0</tspan></text></g></g><g transform="translate(0 213.84478353740764 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(233,233,233) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>5</tspan></text></g></g><g transform="translate(0 144.32164583332943 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(233,233,233) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>10</tspan></text></g></g><g transform="translate(0 74.79850812925122 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(233,233,233) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>15</tspan></text></g></g><g transform="translate(0 5.27537042517298 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(233,233,233) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>20</tspan></text></g></g></g></g></g><g transform="translate(538.0581836335954 175.22462957482702 ) rotate(-90 ) "><text style="font-size:15px;; fill: rgb(233,233,233) !important;" y="0" class="axis-title-y" text-anchor="middle"><tspan>y</tspan></text></g><g transform="translate(254.04848636132948 380.224629574827 ) "><text style="font-size:15px;" y="0" class="axis-title-x" text-anchor="middle"><tspan>x</tspan></text></g><path fill="rgb(0,0,0)" fill-opacity="0" stroke="rgb(71,71,71)" stroke-opacity="1" stroke-width="0" d="M-3 -3 L-3 386.224629574827 L544.0581836335954 386.224629574827 L544.0581836335954 -3 Z" pointer-events="none"></path></g></svg>\n--- SVG 6 ---\n<svg shape-rendering="geometricPrecision" display="block" class="plt-container" width="541.0581836335954" height="382" style="overflow: visible; cursor: crosshair;"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#pzhNtA7 .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pzhNtA7 .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pzhNtA7 .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pzhNtA7 .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pzhNtA7 .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#pzhNtA7 .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pzhNtA7 .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pzhNtA7 .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pzhNtA7 .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUJY7YI .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pzhNtA7 .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pzhNtA7 .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUJY7YI .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pzhNtA7 .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pzhNtA7 .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUJY7YI .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUJY7YI .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUJY7YI .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><g id="pzhNtA7"><path></path><g transform="translate(18 3 ) "><g><g transform="translate(17.961210910936405 0 ) "><g></g></g><g transform="translate(17.961210910936405 0 ) "><g></g></g></g><g clip-path="url(#cGLFG95)" clip-bounds-jfx="[rect (17.961210910936405, 0), (502.09697272265896, 342)]"><g transform="translate(17.961210910936405 0 ) "><g><g buffered-rendering="static"><g><path d="M22.82258966921177 292.7158528617305 L22.82258966921177 292.7158528617305 L27.433213844810105 226.04778852929618 L32.043838020408444 220.82474315107822 L36.65446219600678 251.62536266623204 L41.26508637160512 208.66509889175353 L45.875710547203454 170.7753516446912 L50.48633472280179 71.44032654784945 L55.09695889840013 186.15499648154855 L59.707583073998464 180.59404362620091 L64.31820724959681 202.84495899442666 L68.92883142519514 326.45454545454544 L73.53945560079347 199.63247815752194 L78.15007977639182 193.8187529292962 L82.76070395199015 32.76511038181752 L87.37132812758848 210.7478113002834 L91.98195230318683 177.64529863229973 L96.59257647878516 200.18191394256908 L101.2032006543835 276.1821192599885 L105.81382482998184 121.26169144449872 L110.42444900558017 147.45974028952264 L115.03507318117852 144.8392694670259 L119.64569735677685 258.8040560061289 L124.25632153237518 103.8379922889502 L128.86694570797354 291.8097426638199 L133.47756988357187 158.5233897148408 L138.0881940591702 51.04769036832187 L142.69881823476854 264.2427811087304 L147.30944241036687 235.80964224385164 L151.9200665859652 191.17668502148874 L156.53069076156353 231.59920779748342 L161.1413149371619 301.78338197091 L165.75193911276023 193.26027790360902 L170.36256328835856 269.05274452887596 L174.9731874639569 166.11456583649746 L179.58381163955522 259.4767367724603 L184.19443581515358 93.97643143213367 L188.80505999075191 250.35034577185633 L193.41568416635025 219.44054654026462 L198.02630834194858 143.3322712345439 L202.6369325175469 280.3499416119843 L207.24755669314527 182.61075338893247 L211.8581808687436 110.24871027087099 L216.46880504434193 305.5915346945931 L221.07942921994027 185.48102446003293 L225.6900533955386 180.43772226828324 L230.30067757113693 145.45647619599401 L234.9113017467353 280.7578613539421 L239.52192592233362 286.35455844490605 L244.13255009793195 162.87413065821949 L248.7431742735303 177.95109590179493 L253.35379844912862 181.06705109816562 L257.964422624727 174.63597179436618 L262.5750468003253 243.43180437058294 L267.18567097592364 182.2894678720048 L271.796295151522 178.21329770327534 L276.4069193271203 245.7324336324267 L281.01754350271864 72.80833005880567 L285.62816767831697 166.0984477993776 L290.2387918539153 277.6985131972443 L294.8494160295137 153.85221951592314 L299.460040205112 263.1801771653971 L304.07066438071035 145.10382663225386 L308.6812885563087 120.20457592549013 L313.291912731907 252.8588980476124 L317.90253690750535 133.2884909269806 L322.5131610831037 170.19024859491108 L327.123785258702 142.75970976435534 L331.73440943430035 70.72942324293803 L336.3450336098987 214.30177449502924 L340.955657785497 248.37206136407454 L345.5662819610954 257.472134558486 L350.17690613669373 252.53236669641882 L354.78753031229206 203.02295446769162 L359.3981544878904 174.99093378442157 L364.0087786634887 179.3112232944407 L368.61940283908706 142.41635226772348 L373.2300270146854 196.9840691923588 L377.8406511902837 100.43733323966188 L382.45127536588205 215.59319427311783 L387.0618995414804 15.545454545454504 L391.6725237170788 155.9222653664364 L396.2831478926771 255.30352595264526 L400.89377206827544 269.62837838268376 L405.50439624387377 165.51941528174143 L410.1150204194721 212.8323042997908 L414.72564459507043 150.00203877138955 L419.33626877066877 166.13834549758195 L423.9468929462671 202.7365848991978 L428.55751712186543 254.60892518311445 L433.16814129746376 299.3829234073602 L437.7787654730621 227.78161183078478 L442.3893896486605 140.45828040691725 L447.0000138242588 183.50657652677458 L451.61063799985715 281.34685150172555 L456.2212621754555 186.2486180471445 L460.8318863510538 172.03089878494364 L465.44251052665214 257.0929939491946 L470.0531347022505 187.5525777409087 L474.6637588778488 193.9542364732221 L479.27438305344714 274.459146048627 " fill="none" stroke-width="1.6500000000000001" stroke="rgb(0,128,0)" stroke-opacity="1"></path></g></g></g></g><defs><clipPath id="cGLFG95"><rect x="17.961210910936405" y="0" width="502.09697272265896" height="342"></rect></clipPath></defs></g><g><g transform="translate(17.961210910936405 342 ) " class="axis axis-bottom"><g transform="translate(22.82258966921177 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>0</tspan></text></g></g><g transform="translate(115.03507318117852 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>20</tspan></text></g></g><g transform="translate(207.24755669314527 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>40</tspan></text></g></g><g transform="translate(299.460040205112 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>60</tspan></text></g></g><g transform="translate(391.6725237170788 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>80</tspan></text></g></g><g transform="translate(483.88500722904547 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>100</tspan></text></g></g><line x1="0" y1="0" x2="502.09697272265896" y2="0" stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1"></line></g><g transform="translate(17.961210910936405 0 ) " class="axis axis-left"><g transform="translate(0 331.89862654375816 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>0</tspan></text></g></g><g transform="translate(0 298.38783902394636 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>5</tspan></text></g></g><g transform="translate(0 264.87705150413456 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>10</tspan></text></g></g><g transform="translate(0 231.36626398432279 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>15</tspan></text></g></g><g transform="translate(0 197.855476464511 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>20</tspan></text></g></g><g transform="translate(0 164.34468894469921 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>25</tspan></text></g></g><g transform="translate(0 130.83390142488742 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>30</tspan></text></g></g><g transform="translate(0 97.32311390507564 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>35</tspan></text></g></g><g transform="translate(0 63.81232638526387 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>40</tspan></text></g></g><g transform="translate(0 30.301538865452073 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(0,128,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>45</tspan></text></g></g></g></g></g><g transform="translate(12 174 ) rotate(-90 ) "><text style="font-size:15px;; fill: rgb(0,128,0) !important;" y="0" class="axis-title-y" text-anchor="middle"><tspan>y</tspan></text></g><g transform="translate(287.0096972722659 379 ) "><text style="font-size:15px;" y="0" class="axis-title-x" text-anchor="middle"><tspan>x</tspan></text></g><path></path></g></svg>\n--- SVG 7 ---\n<svg shape-rendering="geometricPrecision" display="block" class="plt-container" width="549.0387890890636" height="382" style="overflow: visible; cursor: crosshair;"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#pd1z2wj .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pd1z2wj .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pd1z2wj .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pd1z2wj .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pd1z2wj .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#pd1z2wj .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pd1z2wj .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pd1z2wj .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pd1z2wj .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUGPc6I .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pd1z2wj .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pd1z2wj .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUGPc6I .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pd1z2wj .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pd1z2wj .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUGPc6I .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUGPc6I .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dUGPc6I .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><g id="pd1z2wj"><path></path><g transform="translate(3 3 ) "><g><g transform=""><g></g></g><g transform=""><g></g></g></g><g clip-path="url(#cGa5IYV)" clip-bounds-jfx="[rect (0, 0), (502.09697272265896, 342)]"><g transform=""><g><g buffered-rendering="static"><g><path d="M22.82258966921177 168.71857005621254 L22.82258966921177 168.71857005621254 L27.433213844810105 159.82180169602586 L32.043838020408444 136.9323885442639 L36.65446219600678 138.21429451074007 L41.26508637160512 244.77853095903066 L45.875710547203454 225.50144853539348 L50.48633472280179 161.82685708361134 L55.09695889840013 161.88161094011116 L59.707583073998464 161.82631279112258 L64.31820724959681 15.545454545454561 L68.92883142519514 159.37888614526508 L73.53945560079347 134.63083707489358 L78.15007977639182 142.58824744241815 L82.76070395199015 155.85077560019639 L87.37132812758848 198.2166602280181 L91.98195230318683 151.13594981575096 L96.59257647878516 218.2699917883025 L101.2032006543835 194.77839965131832 L105.81382482998184 205.67139294438033 L110.42444900558017 180.81103451047153 L115.03507318117852 82.95466421092831 L119.64569735677685 266.2360750582474 L124.25632153237518 154.32257262109994 L128.86694570797354 255.07992744712962 L133.47756988357187 205.08272185040616 L138.0881940591702 136.6738372295236 L142.69881823476854 181.5821330228205 L147.30944241036687 231.63371886476276 L151.9200665859652 215.74899349942098 L156.53069076156353 154.61456782165223 L161.1413149371619 216.4091570601069 L165.75193911276023 174.91259414428376 L170.36256328835856 182.40205745808385 L174.9731874639569 212.95706263893555 L179.58381163955522 90.43657733550782 L184.19443581515358 156.61653197546127 L188.80505999075191 273.1553766024661 L193.41568416635025 176.22759320587846 L198.02630834194858 213.40349017613678 L202.6369325175469 147.03969275341495 L207.24755669314527 219.13318863613563 L211.8581808687436 189.42789763870334 L216.46880504434193 162.2672308361366 L221.07942921994027 146.45583486367033 L225.6900533955386 237.00479609642497 L230.30067757113693 199.05954180204014 L234.9113017467353 205.21479229238403 L239.52192592233362 213.03283457892047 L244.13255009793195 107.02467351266125 L248.7431742735303 166.6501805631833 L253.35379844912862 239.66016998279014 L257.964422624727 144.17214923640054 L262.5750468003253 91.39147653318267 L267.18567097592364 139.14942328668528 L271.796295151522 250.98885114032151 L276.4069193271203 205.62189138083565 L281.01754350271864 128.8743499687506 L285.62816767831697 215.4144070684252 L290.2387918539153 164.9480377194657 L294.8494160295137 150.44940629021457 L299.460040205112 225.02397166820737 L304.07066438071035 187.0081582532019 L308.6812885563087 326.45454545454544 L313.291912731907 229.29523259938287 L317.90253690750535 195.46865584210542 L322.5131610831037 239.0860016857524 L327.123785258702 112.85555386368983 L331.73440943430035 247.07822473085912 L336.3450336098987 203.6851918702531 L340.955657785497 178.66936235264959 L345.5662819610954 121.23257053059896 L350.17690613669373 247.32894938464014 L354.78753031229206 133.4212930490905 L359.3981544878904 183.95085213354213 L364.0087786634887 227.41597264922788 L368.61940283908706 164.14670178862661 L373.2300270146854 175.67513646323363 L377.8406511902837 210.70507635226627 L382.45127536588205 181.34011712626003 L387.0618995414804 201.28649804335 L391.6725237170788 179.4242059242721 L396.2831478926771 155.38009828710184 L400.89377206827544 114.88888772305765 L405.50439624387377 238.64914746899052 L410.1150204194721 90.91476184890723 L414.72564459507043 269.9536002846632 L419.33626877066877 191.05163108937128 L423.9468929462671 158.61512535599195 L428.55751712186543 172.0842904861193 L433.16814129746376 211.69042441307232 L437.7787654730621 193.52072280526102 L442.3893896486605 206.0061171320794 L447.0000138242588 210.22945986136142 L451.61063799985715 147.16377757268816 L456.2212621754555 168.7523990387814 L460.8318863510538 214.7675253893493 L465.44251052665214 144.9725220897727 L470.0531347022505 170.9313034730999 L474.6637588778488 148.77398268960104 L479.27438305344714 156.8045579560241 " fill="none" stroke-width="1.6500000000000001" stroke="rgb(255,255,0)" stroke-opacity="1"></path></g></g></g></g><defs><clipPath id="cGa5IYV"><rect x="0" y="0" width="502.09697272265896" height="342"></rect></clipPath></defs></g><g><g transform="translate(0 342 ) " class="axis axis-bottom"><g transform="translate(22.82258966921177 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>0</tspan></text></g></g><g transform="translate(115.03507318117852 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>20</tspan></text></g></g><g transform="translate(207.24755669314527 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>40</tspan></text></g></g><g transform="translate(299.460040205112 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>60</tspan></text></g></g><g transform="translate(391.6725237170788 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>80</tspan></text></g></g><g transform="translate(483.88500722904547 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>100</tspan></text></g></g><line x1="0" y1="0" x2="502.09697272265896" y2="0" stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1"></line></g><g transform="translate(502.09697272265896 0 )  translate(65, 0)" class="axis axis-right"><g transform="translate(0 330.48952698646565 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(255,255,0) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>-20</tspan></text></g></g><g transform="translate(0 272.0534510246151 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(255,255,0) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>0</tspan></text></g></g><g transform="translate(0 213.61737506276452 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(255,255,0) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>20</tspan></text></g></g><g transform="translate(0 155.18129910091398 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(255,255,0) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>40</tspan></text></g></g><g transform="translate(0 96.74522313906343 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(255,255,0) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>60</tspan></text></g></g><g transform="translate(0 38.30914717721288 ) "><g transform="translate(2 0 ) "><text style="font-size:13px;; fill: rgb(255,255,0) !important;" y="0" class="axis-text-y" dy="0.35em"><tspan>80</tspan></text></g></g></g></g></g><g transform="translate(546.0387890890636 174 ) rotate(-90 ) "><text style="font-size:15px;; fill: rgb(255,255,0) !important;" y="0" class="axis-title-y" text-anchor="middle" transform=" translate(65, 0)"><tspan>y</tspan></text></g><g transform="translate(254.04848636132948 379 ) "><text style="font-size:15px;" y="0" class="axis-title-x" text-anchor="middle"><tspan>x</tspan></text></g><path></path></g></svg>\n--- SVG 8 ---\n<svg shape-rendering="geometricPrecision" display="block" class="plt-container" width="541.0581836335954" height="382" style="overflow: visible; cursor: crosshair;"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#pSdiH3n .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pSdiH3n .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pSdiH3n .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pSdiH3n .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pSdiH3n .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#pSdiH3n .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pSdiH3n .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pSdiH3n .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pSdiH3n .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dzLw82u .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pSdiH3n .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pSdiH3n .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dzLw82u .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pSdiH3n .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pSdiH3n .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dzLw82u .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dzLw82u .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dzLw82u .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><g id="pSdiH3n"><path></path><g transform="translate(18 3 ) "><g><g transform="translate(17.961210910936405 0 ) "><g></g></g><g transform="translate(17.961210910936405 0 ) "><g></g></g></g><g clip-path="url(#c4nlfbB)" clip-bounds-jfx="[rect (17.961210910936405, 0), (502.09697272265896, 342)]"><g transform="translate(17.961210910936405 0 ) "><g><g buffered-rendering="static"><g><path d="M22.82258966921177 233.12479862246755 L22.82258966921177 233.12479862246755 L27.433213844810105 213.75007778610086 L32.043838020408444 119.51406696651344 L36.65446219600678 129.38279319125908 L41.26508637160512 174.8816041894061 L45.875710547203454 164.91877435978296 L50.48633472280179 81.28764715454108 L55.09695889840013 216.01253178056265 L59.707583073998464 133.94317547276364 L64.31820724959681 187.94812613581456 L68.92883142519514 189.06446077783903 L73.53945560079347 94.18097223085192 L78.15007977639182 113.88338360110637 L82.76070395199015 114.74155789758058 L87.37132812758848 79.28296426314134 L91.98195230318683 171.86127710586064 L96.59257647878516 124.22348194327125 L101.2032006543835 195.7375486575823 L105.81382482998184 150.01089113061886 L110.42444900558017 182.75516371224782 L115.03507318117852 166.38415784792002 L119.64569735677685 130.47928485482387 L124.25632153237518 232.34824080219104 L128.86694570797354 22.566671354560867 L133.47756988357187 245.88365562116425 L138.0881940591702 260.887561413296 L142.69881823476854 89.90448280654826 L147.30944241036687 116.31617249803088 L151.9200665859652 128.3917966164949 L156.53069076156353 128.0872305750444 L161.1413149371619 174.2578094417493 L165.75193911276023 238.0445803280998 L170.36256328835856 167.91152485846956 L174.9731874639569 222.18143960806287 L179.58381163955522 103.09353784360582 L184.19443581515358 183.97426093952754 L188.80505999075191 232.87269426898126 L193.41568416635025 196.5389548062406 L198.02630834194858 143.61316164319928 L202.6369325175469 214.00547584951136 L207.24755669314527 232.6365193826079 L211.8581808687436 155.81141141515758 L216.46880504434193 155.71920179019588 L221.07942921994027 209.9129678094781 L225.6900533955386 207.3251304800034 L230.30067757113693 156.6501659525043 L234.9113017467353 277.7455559451395 L239.52192592233362 274.81783553664695 L244.13255009793195 225.15686941733165 L248.7431742735303 188.75929224104064 L253.35379844912862 150.9665159217641 L257.964422624727 67.03907908742141 L262.5750468003253 111.5594551421004 L267.18567097592364 184.90266750565976 L271.796295151522 174.7457153123845 L276.4069193271203 245.63225740406477 L281.01754350271864 174.7094564907304 L285.62816767831697 194.1801472822348 L290.2387918539153 150.11524050154813 L294.8494160295137 232.99765376934386 L299.460040205112 135.9433144471764 L304.07066438071035 62.90323111096933 L308.6812885563087 181.2139944360563 L313.291912731907 144.4218219155641 L317.90253690750535 123.63311555159976 L322.5131610831037 202.2930220880251 L327.123785258702 157.22369819630586 L331.73440943430035 172.46753026256766 L336.3450336098987 166.33513733851123 L340.955657785497 229.08967298353514 L345.5662819610954 171.60855878319126 L350.17690613669373 137.48198395821012 L354.78753031229206 68.78419873958569 L359.3981544878904 104.23584512139053 L364.0087786634887 18.184869051282078 L368.61940283908706 228.68156937842264 L373.2300270146854 110.50276510721864 L377.8406511902837 160.16078177018267 L382.45127536588205 15.545454545454561 L387.0618995414804 231.63308567687795 L391.6725237170788 233.89793314570528 L396.2831478926771 216.57624750919297 L400.89377206827544 326.45454545454544 L405.50439624387377 211.26882840586973 L410.1150204194721 228.08948177366744 L414.72564459507043 162.53551902263095 L419.33626877066877 148.743122048839 L423.9468929462671 38.15043393033835 L428.55751712186543 104.87349025689636 L433.16814129746376 214.95535742771597 L437.7787654730621 238.12820874169114 L442.3893896486605 137.92013547077912 L447.0000138242588 268.53070735517673 L451.61063799985715 41.37304894940945 L456.2212621754555 88.36718097120738 L460.8318863510538 207.19088004746862 L465.44251052665214 296.84900275781723 L470.0531347022505 75.79500622068312 L474.6637588778488 181.63056509134867 L479.27438305344714 84.15972699866867 " fill="none" stroke-width="1.6500000000000001" stroke="rgb(255,0,0)" stroke-opacity="1"></path></g></g></g></g><defs><clipPath id="c4nlfbB"><rect x="17.961210910936405" y="0" width="502.09697272265896" height="342"></rect></clipPath></defs></g><g><g transform="translate(17.961210910936405 342 ) " class="axis axis-bottom"><g transform="translate(22.82258966921177 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>0</tspan></text></g></g><g transform="translate(115.03507318117852 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>20</tspan></text></g></g><g transform="translate(207.24755669314527 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>40</tspan></text></g></g><g transform="translate(299.460040205112 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>60</tspan></text></g></g><g transform="translate(391.6725237170788 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>80</tspan></text></g></g><g transform="translate(483.88500722904547 0 ) "><line stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1" x2="0" y2="4"></line><g transform="translate(0 6 ) "><text style="font-size:13px;" y="0" class="axis-text-x" text-anchor="middle" dy="0.7em"><tspan>100</tspan></text></g></g><line x1="0" y1="0" x2="502.09697272265896" y2="0" stroke-width="1" stroke="rgb(71,71,71)" stroke-opacity="1"></line></g><g transform="translate(17.961210910936405 0 )  translate(-65, 0)" class="axis axis-left"><g transform="translate(0 317.52478237397725 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>0</tspan></text></g></g><g transform="translate(0 281.4873681277886 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>10</tspan></text></g></g><g transform="translate(0 245.44995388160004 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>20</tspan></text></g></g><g transform="translate(0 209.4125396354114 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>30</tspan></text></g></g><g transform="translate(0 173.3751253892228 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>40</tspan></text></g></g><g transform="translate(0 137.3377111430342 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>50</tspan></text></g></g><g transform="translate(0 101.3002968968456 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>60</tspan></text></g></g><g transform="translate(0 65.26288265065699 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>70</tspan></text></g></g><g transform="translate(0 29.22546840446836 ) "><g transform="translate(-2 0 ) "><text style="font-size:13px;; fill: rgb(255,0,0) !important;" y="0" class="axis-text-y" text-anchor="end" dy="0.35em"><tspan>80</tspan></text></g></g></g></g></g><g transform="translate(12 174 ) rotate(-90 ) "><text style="font-size:15px;; fill: rgb(255,0,0) !important;" y="0" class="axis-title-y" text-anchor="middle" transform=" translate(-65, 0)"><tspan>y</tspan></text></g><g transform="translate(287.0096972722659 379 ) "><text style="font-size:15px;" y="0" class="axis-title-x" text-anchor="middle"><tspan>x</tspan></text></g><path></path></g></svg>\n--- SVG 9 ---\n<svg style="overflow: visible;"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#pGFkIoH .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pGFkIoH .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#pGFkIoH .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#pGFkIoH .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#pGFkIoH .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#pGFkIoH .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#dw7o4eL .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><g transform="translate(41.961210910936416, 7.77537042517298)"><g id="dw7o4eL"><rect width="0" height="0" fill="rgb(255,255,255)" fill-opacity="0.6980392156862745" visibility="hidden"></rect><g><g visibility="hidden"><g><path></path><path></path></g><g><svg display="block" x="0" y="0" width="0" height="0" id="tt-c-htrjRe"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-htrjRe .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-htrjRe .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-htrjRe .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-htrjRe .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-AATcqX"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-AATcqX .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-AATcqX .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-AATcqX .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-AATcqX .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-601wmx"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-601wmx .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-601wmx .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-601wmx .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-601wmx .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg><path></path><path></path><path></path></g></g><g></g><g></g></g></g></g><g transform="translate(9, 9)"><g id="dUJY7YI"><rect width="0" height="0" fill="rgb(255,255,255)" fill-opacity="0.6980392156862745" visibility="hidden"></rect><g><g visibility="hidden"><g><path></path><path></path></g><g><svg display="block" x="0" y="0" width="0" height="0" id="tt-c-G53UDg"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-G53UDg .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-G53UDg .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-G53UDg .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-G53UDg .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-4UMiUS"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-4UMiUS .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-4UMiUS .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-4UMiUS .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-4UMiUS .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-yVra4X"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-yVra4X .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-yVra4X .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-yVra4X .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-yVra4X .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg><path></path><path></path><path></path></g></g><g></g><g></g></g></g></g><g transform="translate(41.961210910936416, 9)"><g id="dUGPc6I"><rect width="0" height="0" fill="rgb(255,255,255)" fill-opacity="0.6980392156862745" visibility="hidden"></rect><g><g visibility="hidden"><g><path></path><path></path></g><g><svg display="block" x="0" y="0" width="0" height="0" id="tt-c-Fhpluk"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-Fhpluk .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-Fhpluk .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-Fhpluk .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-Fhpluk .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-YOXoAp"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-YOXoAp .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-YOXoAp .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-YOXoAp .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-YOXoAp .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-djARJR"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-djARJR .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-djARJR .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-djARJR .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-djARJR .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg><path></path><path></path><path></path></g></g><g></g><g></g></g></g></g><g transform="translate(9, 9)"><g id="dzLw82u"><rect width="0" height="0" fill="rgb(255,255,255)" fill-opacity="0.6980392156862745" visibility="hidden"></rect><g><g visibility="hidden"><g><path></path><path></path></g><g><svg display="block" x="0" y="0" width="0" height="0" id="tt-c-lr3F2W"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-lr3F2W .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-lr3F2W .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-lr3F2W .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-lr3F2W .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-bTPZXU"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-bTPZXU .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-bTPZXU .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-bTPZXU .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-bTPZXU .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-REgSLL"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-REgSLL .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-REgSLL .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-REgSLL .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-REgSLL .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg><path></path><path></path><path></path></g></g><g></g><g></g></g></g></g></svg>\n--- SVG 10 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-c-htrjRe"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-htrjRe .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-htrjRe .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-htrjRe .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-htrjRe .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-htrjRe .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-htrjRe .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-AATcqX"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-AATcqX .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-AATcqX .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-AATcqX .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-AATcqX .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-601wmx"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-601wmx .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-601wmx .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-601wmx .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-601wmx .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg>\n--- SVG 11 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-t-AATcqX"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-AATcqX .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-AATcqX .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-AATcqX .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-AATcqX .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-AATcqX .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-AATcqX .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 12 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-l-601wmx"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-601wmx .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-601wmx .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-601wmx .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-601wmx .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-601wmx .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-601wmx .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 13 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-c-G53UDg"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-G53UDg .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-G53UDg .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-G53UDg .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-G53UDg .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-G53UDg .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-G53UDg .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-4UMiUS"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-4UMiUS .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-4UMiUS .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-4UMiUS .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-4UMiUS .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-yVra4X"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-yVra4X .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-yVra4X .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-yVra4X .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-yVra4X .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg>\n--- SVG 14 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-t-4UMiUS"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-4UMiUS .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-4UMiUS .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-4UMiUS .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-4UMiUS .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-4UMiUS .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-4UMiUS .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 15 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-l-yVra4X"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-yVra4X .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-yVra4X .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-yVra4X .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-yVra4X .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-yVra4X .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-yVra4X .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 16 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-c-Fhpluk"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-Fhpluk .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-Fhpluk .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-Fhpluk .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-Fhpluk .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-Fhpluk .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-Fhpluk .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-YOXoAp"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-YOXoAp .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-YOXoAp .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-YOXoAp .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-YOXoAp .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-djARJR"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-djARJR .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-djARJR .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-djARJR .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-djARJR .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg>\n--- SVG 17 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-t-YOXoAp"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-YOXoAp .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-YOXoAp .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-YOXoAp .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-YOXoAp .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-YOXoAp .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-YOXoAp .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 18 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-l-djARJR"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-djARJR .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-djARJR .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-djARJR .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-djARJR .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-djARJR .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-djARJR .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 19 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-c-lr3F2W"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-c-lr3F2W .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-lr3F2W .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-c-lr3F2W .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-c-lr3F2W .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-c-lr3F2W .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c-lr3F2W .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-c- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style><svg display="block" x="0" y="0" width="0" height="0" id="tt-t-bTPZXU"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-bTPZXU .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-bTPZXU .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-bTPZXU .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-bTPZXU .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg><svg display="block" x="0" y="0" width="0" height="0" id="tt-l-REgSLL"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-REgSLL .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-REgSLL .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-REgSLL .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-REgSLL .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg></svg>\n--- SVG 20 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-t-bTPZXU"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-t-bTPZXU .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-bTPZXU .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-t-bTPZXU .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-t-bTPZXU .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-t-bTPZXU .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t-bTPZXU .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-t- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n--- SVG 21 ---\n<svg display="block" x="0" y="0" width="0" height="0" id="tt-l-REgSLL"><style type="text/css">.plt-container {
+   font-family: sans-serif;
+   user-select: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+}
+text {
+   text-rendering: optimizeLegibility;
+}
+#tt-l-REgSLL .plot-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-REgSLL .plot-subtitle {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .plot-caption {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .plot-tag {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 16px;
+
+}
+#tt-l-REgSLL .hyperlink-element {
+fill: #118ed8;
+font-weight: normal;
+font-style: normal;
+
+}
+#tt-l-REgSLL .legend-title {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .legend-item {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .axis-title-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .axis-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-x {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .axis-title-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 15px;
+
+}
+#tt-l-REgSLL .axis-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .axis-tooltip-text-y {
+fill: #ffffff;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .facet-strip-text-x {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l-REgSLL .facet-strip-text-y {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-text {
+fill: #474747;
+font-weight: normal;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-title {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+#tt-l- .tooltip-label {
+fill: #474747;
+font-weight: bold;
+font-style: normal;
+font-family: sans-serif;
+font-size: 13px;
+
+}
+</style></svg>\n

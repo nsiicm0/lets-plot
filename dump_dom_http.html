@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        fetch("http://localhost:8080/demo_ggdeck.html").then(r => r.text()).then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const script = doc.querySelector('script[data-lets-plot-script="plot"]');
+            
+            // Re-execute lets-plot in our container
+            const config = JSON.parse(script.innerHTML.match(/const plotSpec=(.*);/)[1]);
+            // Wait, standard Lets-Plot js exposes LetsPlot.buildPlotFromProcessedSpecs
+            // We just need the actual DOM
+        });
+    </script>
+</body>
+</html>

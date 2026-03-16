@@ -27,7 +27,7 @@ for i in range(1, N+1):
     sides.append("L" if i % 2 == 0 else "R")
     
 # Create a deck of the two plots!
-deck = ggdeck(plots, sides=sides)
+deck = ggdeck(plots, sides=sides) + ggtb()
 
 # Export to HTML file
 out_path = os.path.join(os.getcwd(), 'demo_ggdeck.html')

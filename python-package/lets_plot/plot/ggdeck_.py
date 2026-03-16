@@ -88,12 +88,8 @@ def ggdeck(plots: list, sides: list = None, *,
         # This creates the visual effect of a secondary axis when overlaid on a left-axis plot.
         if side.upper() == 'R':
             plot += scale_y_continuous(position='right')
-            if right_count > 0:
-                plot += theme(axis_text_y=element_text(margin=margin(0, 0, 0, right_count * 30)))
             right_count += 1
         elif side.upper() == 'L':
-            if left_count > 0:
-                plot += theme(axis_text_y=element_text(margin=margin(0, left_count * 30, 0, 0)))
             left_count += 1
         else:
              raise ValueError(f"Invalid side '{side}'. Use 'L' or 'R'.")

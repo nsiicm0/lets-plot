@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" data-lets-plot-script="library" src="file:///Users/nsiicm0/code/development/lets-plot/lets-plot/js-package/build/kotlin-webpack/js/productionExecutable/lets-plot.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        // read demo_ggdeck.html, extract the script inside data-lets-plot-script="plot"
+        fetch("demo_ggdeck.html").then(r => r.text()).then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const script = doc.querySelector('script[data-lets-plot-script="plot"]');
+            
+            // Rewrite the target div to our container
+            let code = script.innerHTML;
+            code = code.replace(/document\.getElementById\("[^"]+"\)/, 'document.getElementById("container")');
+            
+            // Execute it
+            const newScript = document.createElement('script');
+            newScript.innerHTML = code;
+            document.body.appendChild(newScript);
+            
+            // Wait for render
+            setTimeout(() => {
+                const svgs = document.querySelectorAll("svg");
+                let dom = "";
+                svgs.forEach((svg, i) => {
+                    dom += `\n--- SVG ${i} ---\n` + svg.outerHTML + "\n";
+                });
+                
+                // Write to body so python can read it easily or browser subagent
+                const pre = document.createElement("pre");
+                pre.id = "dom-dump";
+                pre.innerText = dom;
+                document.body.appendChild(pre);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
