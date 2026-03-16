@@ -136,8 +136,9 @@ class CompositeFigureConfig constructor(
     private fun createDeckLayout(layoutOptions: OptionsAccessor): CompositeFigureLayout {
         val fitCellAspectRatio = layoutOptions.getBoolean(FIT_CELL_ASPECT_RATIO, true)
         val innerAlignment = layoutOptions.getBoolean(INNER_ALIGNMENT, false)
-        val scaleShareX: ScaleSharePolicy = asScaleSharePolicy(SHARE_X_SCALE, layoutOptions)
-        val scaleShareY: ScaleSharePolicy = asScaleSharePolicy(SHARE_Y_SCALE, layoutOptions)
+        val shareConfig = CompositeFigureScaleShareConfig(layoutOptions)
+        val scaleShareX: ScaleSharePolicy = shareConfig.shareX
+        val scaleShareY: ScaleSharePolicy = shareConfig.shareY
 
         val elementsDefaultSizes: List<DoubleVector?> = elementConfigs.map { figureSpec ->
             figureSpec?.let {
