@@ -23,7 +23,7 @@ for i in range(1, N+1):
     y = np.random.normal(i * 10, i * 5, L)
     c = np.repeat(i, L)
     if i % 2 == 0:
-        p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_line(color=colors[i], linetype='dashed') 
+        p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_line(color="green", linetype='dashed' if i > 2 else 'solid') 
     else:
         p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_point(color=colors[i], tooltips=layer_tooltips().line('xy|@x,@y')) 
     plots.append(p)

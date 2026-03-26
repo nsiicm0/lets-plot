@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2023. JetBrains s.r.o.
+ * Use of this source code is governed by the MIT license that can be found in the LICENSE file.
+ */
+
+package demo.plot.export.browser.image
+
+import demo.plot.common.model.plotConfig.SpecialSymbols
+import org.jetbrains.letsPlot.awt.plot.PlotImageExport.Format.*
+
+object SpecialSymbols {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        with(SpecialSymbols()) {
+            @Suppress("UNCHECKED_CAST")
+            (PlotImageDemoUtil.show(
+                "Special symbols",
+                plotSpec(),
+                scalingFactors = listOf(2.0, 2.0, 2.0),
+                targetDPIs = listOf(96, 96, 96),
+                formats = listOf(PNG, TIFF, JPEG())
+            ))
+        }
+    }
+}

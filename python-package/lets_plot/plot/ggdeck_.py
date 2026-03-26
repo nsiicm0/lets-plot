@@ -13,8 +13,10 @@ from .scale_position import scale_y_continuous
 __all__ = ['ggdeck']
 
 
-def ggdeck(plots: list, sides: list = None, *,
-           guides: str = None
+from typing import Optional
+
+def ggdeck(plots: list, sides: Optional[list] = None, *,
+           guides: Optional[str] = None
            ) -> SupPlotsSpec:
     """
     Combine several plots on one figure, organized in a deck (overlaying each other).
@@ -26,7 +28,15 @@ def ggdeck(plots: list, sides: list = None, *,
         Use None to fill in empty cells in the grid.
     sides : list, optional
         List of side specifiers for each plot ('L' for left, 'R' for right).
-        If not provided, defaults to ['L', 'R', 'R', ...].
+        If not provided, defaults to ['L'] + ['R'] for subsequent plots.
+        When providing multiple left or right sides (e.g., 'L', 'L'), the axes will be
+        automatically shifted outwards to prevent overlaps. 
+        
+        Notes: 
+        1. Subsequent plots in the deck will have a transparent background.
+        2. By default, axes are drawn with standard colors. If you want to differentiate
+           them, you can apply grammar constraints to individual plots (e.g. 
+           `theme(axis_line_y=element_line(color="red"), axis_text_y=element_text(color="red"))`).
     guides : {'auto', 'collect', 'keep'}, default='auto'
         Controls the placement of guides.
 
@@ -59,6 +69,7 @@ def ggdeck(plots: list, sides: list = None, *,
     # Validate and normalize 'sides'
     if sides is None:
         sides = ['L'] + ['R'] * (len(plots) - 1)
+
     
     if len(sides) != len(plots):
         raise ValueError(f"The length of 'sides' ({len(sides)}) must match the number of plots ({len(plots)}).")

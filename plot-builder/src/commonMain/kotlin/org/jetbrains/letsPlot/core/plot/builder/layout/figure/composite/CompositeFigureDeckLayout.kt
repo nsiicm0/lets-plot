@@ -99,13 +99,30 @@ class CompositeFigureDeckLayout(
             bounds.height - maxTopMargin - maxBottomMargin
         )
 
+        var leftAxisCount = 0
+        var rightAxisCount = 0
+        val lateralOffset = 65.0
+
         return elementsLayoutedByBounds.map { buildInfo ->
             if (buildInfo == null) {
                 null
             } else if (buildInfo.isComposite) {
                 buildInfo
             } else {
-                buildInfo.layoutedByGeomBounds(commonGeomBounds)
+                var shiftedLeft = 0.0
+                var shiftedRight = 0.0
+                val info = buildInfo.layoutInfo as? PlotFigureLayoutInfo
+                if (info != null) {
+                    if (info.plotLayoutInfo.hasLeftAxis) {
+                        shiftedLeft = leftAxisCount * lateralOffset
+                        leftAxisCount++
+                    }
+                    if (info.plotLayoutInfo.hasRightAxis) {
+                        shiftedRight = rightAxisCount * lateralOffset
+                        rightAxisCount++
+                    }
+                }
+                buildInfo.layoutedByGeomBounds(commonGeomBounds).withAxisShift(shiftedLeft, shiftedRight)
             }
         }
     }

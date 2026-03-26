@@ -137,6 +137,10 @@ class CompositeFigureBuildInfo constructor(
         UNSUPPORTED("Composite figure does not support layouting by \"geometry bounds\".")
     }
 
+    override fun withAxisShift(leftShift: Double, rightShift: Double): FigureBuildInfo {
+        return this
+    }
+
     override fun withPreferredSize(size: DoubleVector): FigureBuildInfo {
         return CompositeFigureBuildInfo(
             elements,

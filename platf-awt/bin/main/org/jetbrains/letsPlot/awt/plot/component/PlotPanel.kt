@@ -1,0 +1,193 @@
+/*
+ * Copyright (c) 2023. JetBrains s.r.o.
+ * Use of this source code is governed by the MIT license that can be found in the LICENSE file.
+ */
+
+package org.jetbrains.letsPlot.awt.plot.component
+
+import org.jetbrains.letsPlot.commons.registration.Disposable
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.FigureModel
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.SpecOverrideState
+import org.jetbrains.letsPlot.core.plot.builder.interact.tools.WithFigureModel
+import org.jetbrains.letsPlot.core.plot.builder.presentation.Defaults.TOOLBAR_HEIGHT
+import org.jetbrains.letsPlot.core.util.sizing.SizingPolicy
+import java.awt.BorderLayout
+import java.awt.Component
+import java.awt.Dimension
+import java.awt.event.ContainerAdapter
+import java.awt.event.ContainerEvent
+import javax.swing.JComponent
+import javax.swing.JPanel
+import javax.swing.JScrollPane
+
+open class PlotPanel constructor(
+    private val plotComponentProvider: PlotComponentProvider,
+    preferredSizeFromPlot: Boolean,
+    val sizingPolicy: SizingPolicy,
+    repaintDelay: Int,  // ms
+    applicationContext: ApplicationContext,
+    showToolbar: Boolean = false,
+) : JPanel(), WithFigureModel, Disposable {
+
+    final override val figureModel: FigureModel
+    val hasToolbar = showToolbar
+
+    // The panel that contains the plot component when a toolbar is shown.
+    private lateinit var plotComponentContainer: JPanel
+
+    init {
+        // Lay out a single child component.
+        // 1. FlowLayout
+        // Works well, at least in corretto-17 JRE.
+        // However, in some cases undesirable "animation" effects were noticed.
+        // This was happening because of continuous re-layouting after parent re-size.
+        // Not sure now what cases it were, maybe just in older JRE.
+//        layout = FlowLayout()
+        // 2. GridBagLayout
+        // Works fine but causes flickering during plot downsizing
+        // See issue #888: https://github.com/JetBrains/lets-plot/issues/888
+//        layout = GridBagLayout()
+        // 3. GridLayout, BorderLayout
+        // Almost as good as FlowLayout
+        layout = BorderLayout(0, 0)
+        isOpaque = false
+        border = null
+
+        // Extra cleanup on 'dispose'.
+        addContainerListener(object : ContainerAdapter() {
+            override fun componentRemoved(e: ContainerEvent) {
+                handleChildRemovedIntern(e.child)
+            }
+        })
+
+        if (hasToolbar) {
+            // The panel that contains the plot component when a toolbar is shown.
+            // Must be initialized before the first call to 'rebuildProvidedComponent()'.
+            plotComponentContainer = JPanel(BorderLayout(0, 0))
+                .apply { isOpaque = false; border = null }
+                .apply {
+                    // Extra cleanup on 'dispose'.
+                    addContainerListener(object : ContainerAdapter() {
+                        override fun componentRemoved(e: ContainerEvent) {
+                            handleChildRemovedIntern(e.child)
+                        }
+                    })
+                }
+        }
+
+        val providedComponent = if (preferredSizeFromPlot) {
+            // Build the plot component now with its default size.
+            // So that the container could take the plot's preferred size into account.
+            rebuildProvidedComponent(null, sizingPolicy, SpecOverrideState.empty())
+        } else {
+            null
+        }
+
+        figureModel = PlotPanelFigureModel(
+            plotPanel = this,
+            providedComponent = providedComponent,
+            plotComponentFactory = { containerSize: Dimension, state: SpecOverrideState ->
+                rebuildProvidedComponent(
+                    containerSize,
+                    sizingPolicy,
+                    state
+                )
+            },
+            applicationContext = applicationContext,
+        )
+
+        addComponentListener(
+            ResizeHook(
+                plotPanel = this,
+                skipFirstResizeEvent = providedComponent != null,
+                plotScrollPane = if (providedComponent is JScrollPane) providedComponent else null,
+                figureModel = figureModel,
+                applicationContext = applicationContext,
+                repaintDelay = repaintDelay
+            )
+        )
+
+        if (hasToolbar) {
+            add(PlotPanelToolbar().also { it.attach(figureModel) }, BorderLayout.NORTH)
+            add(plotComponentContainer, BorderLayout.CENTER)
+        }
+    }
+
+    override fun dispose() {
+        figureModel.dispose()
+        if (hasToolbar) {
+            plotComponentContainer.removeAll()
+        }
+        removeAll()
+    }
+
+    /**
+     * Dispose the "provided" plot component.
+     */
+    private fun handleChildRemovedIntern(child: Component) {
+        this.handleChildRemoved(child)
+        when (child) {
+            is Disposable -> child.dispose()
+            is JScrollPane -> {
+                handleChildRemovedIntern(child.viewport.view)
+            }
+        }
+    }
+
+    /**
+     * Override for a custom disposal of child.
+     */
+    protected open fun handleChildRemoved(child: Component) {
+        // Nothing is needed.
+    }
+
+    /**
+     * Invoked each time a new plot component is created.
+     * Every time the plot needs to be rebuilt, an old plot coponent (if any) is removed from
+     * this panel. Then a new plot component is created and
+     * added to this paned.
+     */
+    protected open fun plotComponentCreated(plotComponent: JComponent) {
+//        println("plotComponentRebuilt: ${plotComponent::class.simpleName}")
+    }
+
+    private fun rebuildProvidedComponent(
+        containerSize: Dimension?,
+        sizingPolicy: SizingPolicy,
+        specOverrideState: SpecOverrideState
+    ): JComponent {
+        val plotComponentContainer = if (hasToolbar) plotComponentContainer else this
+        plotComponentContainer.removeAll()
+
+        // Adjust the container size if we have a toolbar
+        val adjustedContainerSize = if (hasToolbar && containerSize != null) {
+            Dimension(containerSize.width, containerSize.height - TOOLBAR_HEIGHT)
+        } else {
+            containerSize
+        }
+
+        val providedComponent: JComponent = plotComponentProvider.createComponent(
+            adjustedContainerSize,
+            sizingPolicy,
+            specOverrideState
+        )
+
+        // notify
+        plotComponentCreated(actualPlotComponentFromProvidedComponent(providedComponent))
+
+        // add
+        plotComponentContainer.add(providedComponent)
+        return providedComponent
+    }
+
+
+    companion object {
+        fun actualPlotComponentFromProvidedComponent(providedComponent: JComponent): JComponent {
+            return if (providedComponent is JScrollPane) {
+                providedComponent.viewport.view as JComponent
+            } else {
+                providedComponent
+            }
+        }
+    }
+}

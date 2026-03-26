@@ -17,6 +17,8 @@ class PlotFigureBuildInfo constructor(
     private val processedPlotSpec: Map<String, Any>,
     override val bounds: DoubleRectangle,
     override val computationMessages: List<String>,
+    private val axisLeftShift: Double = 0.0,
+    private val axisRightShift: Double = 0.0,
 ) : FigureBuildInfo {
 
     override val isComposite: Boolean = false
@@ -42,11 +44,42 @@ class PlotFigureBuildInfo constructor(
     override fun createSvgRoot(): PlotSvgRoot {
         check(this::_layoutInfo.isInitialized) { "Plot figure is not layouted." }
         val plotSvgComponent = plotAssembler.createPlot(_layoutInfo)
+        
+        fun shiftAxis(container: org.jetbrains.letsPlot.datamodel.svg.dom.SvgNode, className: String, shift: Double) {
+            if (container is org.jetbrains.letsPlot.datamodel.svg.dom.SvgElement) {
+                val elemClass = container.getAttribute("class")?.toString() ?: ""
+                if (elemClass.contains(className)) {
+                    val existing = container.getAttribute("transform")?.toString() ?: ""
+                    val newTransform = if (existing.isEmpty()) "translate($shift, 0)" else "$existing translate($shift, 0)"
+                    container.setAttribute("transform", newTransform)
+                    return
+                }
+            }
+            for (child in container.children()) {
+                shiftAxis(child, className, shift)
+            }
+        }
+        
+        if (axisLeftShift != 0.0) {
+            shiftAxis(plotSvgComponent.rootGroup, "axis-left", -axisLeftShift)
+        }
+        if (axisRightShift != 0.0) {
+            shiftAxis(plotSvgComponent.rootGroup, "axis-right", axisRightShift)
+        }
+
         return PlotSvgRoot(
             plotSvgComponent,
             liveMapCursorServiceConfig = if (containsLiveMap) liveMapCursorServiceConfig else null,
             bounds.origin
         )
+    }
+
+    override fun withAxisShift(leftShift: Double, rightShift: Double): FigureBuildInfo {
+        return makeCopy(bounds, leftShift, rightShift).apply {
+            if (this@PlotFigureBuildInfo::_layoutInfo.isInitialized) {
+                this._layoutInfo = this@PlotFigureBuildInfo._layoutInfo
+            }
+        }
     }
 
     override fun withBounds(bounds: DoubleRectangle): PlotFigureBuildInfo {
@@ -80,12 +113,18 @@ class PlotFigureBuildInfo constructor(
         }
     }
 
-    private fun makeCopy(newBounds: DoubleRectangle? = null): PlotFigureBuildInfo {
+    private fun makeCopy(
+        newBounds: DoubleRectangle? = null, 
+        newAxisLeftShift: Double = this.axisLeftShift, 
+        newAxisRightShift: Double = this.axisRightShift
+    ): PlotFigureBuildInfo {
         val newBuildInfo = PlotFigureBuildInfo(
             plotAssembler,
             processedPlotSpec,
             newBounds ?: this.bounds,
             computationMessages,
+            newAxisLeftShift,
+            newAxisRightShift
         )
 
         if (this.liveMapCursorServiceConfig != null) {

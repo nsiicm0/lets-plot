@@ -51,10 +51,10 @@ class CompositeFigureDeckLayoutTest {
         val bounds = DoubleRectangle(0.0, 0.0, 100.0, 100.0)
         
         // Mock PlotFigureLayoutInfo
-        val layoutInfo1 = mockk<PlotFigureLayoutInfo>()
+        val layoutInfo1 = mockk<PlotFigureLayoutInfo>(relaxed = true)
         every { layoutInfo1.geomAreaBounds } returns DoubleRectangle(10.0, 10.0, 80.0, 80.0)
         
-        val layoutInfo2 = mockk<PlotFigureLayoutInfo>()
+        val layoutInfo2 = mockk<PlotFigureLayoutInfo>(relaxed = true)
         every { layoutInfo2.geomAreaBounds } returns DoubleRectangle(20.0, 20.0, 60.0, 60.0)
 
         val info1 = FakeFigureBuildInfo(layoutInfo = layoutInfo1)
@@ -106,6 +106,12 @@ class CompositeFigureDeckLayoutTest {
         override fun layoutedByGeomBounds(geomBounds: DoubleRectangle): FigureBuildInfo {
             val newInfo = FakeFigureBuildInfo(isComposite, bounds, layoutInfo)
             newInfo.layoutedGeomBounds = geomBounds
+            return newInfo
+        }
+
+        override fun withAxisShift(leftShift: Double, rightShift: Double): FigureBuildInfo {
+            val newInfo = FakeFigureBuildInfo(isComposite, bounds, layoutInfo)
+            newInfo.layoutedGeomBounds = this.layoutedGeomBounds
             return newInfo
         }
 
