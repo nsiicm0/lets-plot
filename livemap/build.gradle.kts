@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. JetBrains s.r.o.
+ * Copyright (c) 2026. JetBrains s.r.o.
  * Use of this source code is governed by the MIT license that can be found in the LICENSE file.
  */
 
@@ -60,6 +60,10 @@ kotlin {
                 implementation(kotlin("test-junit"))
                 implementation("org.mockito:mockito-core:$mockitoVersion")
                 implementation("org.assertj:assertj-core:$assertjVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                implementation("io.ktor:ktor-server-core:$ktorVersion")
+                implementation("io.ktor:ktor-server-cio:$ktorVersion")
             }
         }
 
