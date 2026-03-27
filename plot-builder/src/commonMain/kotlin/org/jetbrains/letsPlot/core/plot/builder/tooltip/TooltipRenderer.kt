@@ -128,22 +128,43 @@ internal class TooltipRenderer(
         // In ggdeck, layers render independently. If we use a single TargetsPicker, it glitches because 
         // they don't share identical coordinate scales under the hood. 
         // Instead, grab targets per layer, then filter down to the absolute closest ones overall.
-        var lookupResults = tileInfos.flatMap { it.findTargets(cursor) }
+        // Track the source tile for each result so we can use the correct axis origin.
+        var lookupResultsWithTile = tileInfos.flatMap { tile ->
+            tile.findTargets(cursor).map { result -> result to tile }
+        }
 
         // Deduplicate axis tooltips (e.g. y=0 horizontal axis) that stack exactly on top of each other
-        lookupResults = lookupResults.distinctBy { 
-            if (it.hasAxisTooltip && !it.hasGeneralTooltip) it.geomKind else it 
+        lookupResultsWithTile = lookupResultsWithTile.distinctBy { (result, _) ->
+            if (result.hasAxisTooltip && !result.hasGeneralTooltip) result.geomKind else result 
         }
+
+        // Save all results before distance filtering so we can re-add axis tooltips from
+        // tiles that get excluded. In ggdeck, each tile has its own y-axis and all must show.
+        val allResultsWithTile = lookupResultsWithTile.toList()
 
         // If multiple geoms trigger tooltips (like overlaid geom_points), only keep the genuinely closest one
-        if (lookupResults.isNotEmpty() && !lookupResults.first().isCrosshairEnabled) {
-            val minDistance = lookupResults.map { it.distance }.minOrNull() ?: 0.0
-            lookupResults = lookupResults.filter { it.distance == minDistance }
+        if (lookupResultsWithTile.isNotEmpty() && !lookupResultsWithTile.first().first.isCrosshairEnabled) {
+            val minDistance = lookupResultsWithTile.map { it.first.distance }.minOrNull() ?: 0.0
+            lookupResultsWithTile = lookupResultsWithTile.filter { it.first.distance == minDistance }
         }
 
-        val tooltips = lookupResults
-            .flatMap { tooltipSpecFromLookupResult(it, baseTileInfo.axisOrigin) }
+        // Generate data + axis tooltips from the closest result(s)
+        val tooltips = lookupResultsWithTile
+            .flatMap { (result, tile) -> tooltipSpecFromLookupResult(result, tile.axisOrigin) }
             .filter { it.lines.isNotEmpty() }
+            .toMutableList()
+
+        // Re-add Y_AXIS_TOOLTIP specs from ALL tiles whose results were dropped by the
+        // distance filter. This ensures every deck plot's y-axis value is shown, not just
+        // the closest geom's.
+        val closestTiles = lookupResultsWithTile.map { it.second }.toSet()
+        for ((result, tile) in allResultsWithTile) {
+            if (tile !in closestTiles && result.hasAxisTooltip) {
+                tooltipSpecFromLookupResult(result, tile.axisOrigin)
+                    .filter { it.layoutHint.kind == Y_AXIS_TOOLTIP && it.lines.isNotEmpty() }
+                    .let { tooltips.addAll(it) }
+            }
+        }
 
         val measuredTooltips = tooltips.map(::measureTooltip)
 

@@ -14,7 +14,6 @@ from .geom_function_ import *
 from .geom_imshow_ import *
 from .geom_livemap_ import *
 from .ggbunch_ import *
-from . import ggdeck_
 from .ggdeck_ import *
 from .gggrid_ import *
 from .ggtb_ import *

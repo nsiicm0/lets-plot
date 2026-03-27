@@ -1,5 +1,8 @@
-import numpy as np
+import sys
 import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'python-package'))
+
+import numpy as np
 import time
 
 custom_js_url = f"file://{os.path.abspath('js-package/build/kotlin-webpack/js/productionExecutable/lets-plot.js')}?t={int(time.time())}"
@@ -28,10 +31,10 @@ for i in range(1, N+1):
         p = ggplot({'x': x, 'y': y}, aes(x='x', y='y')) + geom_point(color=colors[i], tooltips=layer_tooltips().line('xy|@x,@y')) 
     plots.append(p)
     sides.append("L" if i % 2 == 0 else "R")
-    
+print(len(plots))
 
 # Create a deck of the two plots!
-deck = ggdeck(plots, sides=sides) + ggtb() + theme_bw()
+deck = ggdeck(plots, sides=sides) + ggtb() + theme_grey() + flavor_darcula()
 
 # Export to HTML file
 out_path = os.path.join(os.getcwd(), 'demo_ggdeck.html')

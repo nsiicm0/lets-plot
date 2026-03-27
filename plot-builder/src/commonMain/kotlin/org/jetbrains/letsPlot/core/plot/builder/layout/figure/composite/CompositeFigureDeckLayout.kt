@@ -20,6 +20,18 @@ class CompositeFigureDeckLayout(
     private val innerAlignment: Boolean,
 ) : CompositeFigureLayout {
 
+    companion object {
+        /**
+         * Horizontal pixel offset applied between stacked axes on the same side.
+         * When multiple plots share the same side (e.g. two left-axis plots),
+         * each subsequent axis is shifted outward by this amount.
+         */
+        const val AXIS_LATERAL_OFFSET = 65.0
+
+        /** Horizontal gap between adjacent axis bounding boxes. */
+        const val AXIS_BOX_GAP = 6.0
+    }
+
     override fun defaultSize(): DoubleVector {
         return DEF_PLOT_SIZE
     }
@@ -48,8 +60,6 @@ class CompositeFigureDeckLayout(
             it?.layoutedByOuterSize()
         }
 
-
-
         // Compute common "inner" size
         val geomBounds = elementsLayoutedByBounds
             .filterNotNull()
@@ -70,6 +80,11 @@ class CompositeFigureDeckLayout(
         var maxTopMargin = 0.0
         var maxBottomMargin = 0.0
 
+        // Pre-count left and right axes so we can reserve space for shifted axes
+        // within the figure bounds (ensuring the theme background covers them).
+        var totalLeftAxes = 0
+        var totalRightAxes = 0
+
         for (el in elementsLayoutedByBounds) {
             if (el != null && !el.isComposite) {
                 val info = el.layoutInfo as? PlotFigureLayoutInfo
@@ -86,22 +101,38 @@ class CompositeFigureDeckLayout(
                     if (rightMargin > maxRightMargin) maxRightMargin = rightMargin
                     if (topMargin > maxTopMargin) maxTopMargin = topMargin
                     if (bottomMargin > maxBottomMargin) maxBottomMargin = bottomMargin
+
+                    if (info.plotLayoutInfo.hasLeftAxis) totalLeftAxes++
+                    if (info.plotLayoutInfo.hasRightAxis) totalRightAxes++
                 }
             }
         }
 
+        // Reserve horizontal space for all axis bounding boxes.
+        // Each axis (including the first) needs AXIS_LATERAL_OFFSET width.
+        // Use max(totalAxes * offset, margin + (count-1) * offset) to ensure
+        // both labels and bounding boxes fit within the SVG viewport.
+        val totalLeftSpace = if (totalLeftAxes > 0) {
+            maxOf(maxLeftMargin + (totalLeftAxes - 1) * AXIS_LATERAL_OFFSET,
+                  totalLeftAxes * AXIS_LATERAL_OFFSET)
+        } else maxLeftMargin
+
+        val totalRightSpace = if (totalRightAxes > 0) {
+            maxOf(maxRightMargin + (totalRightAxes - 1) * AXIS_LATERAL_OFFSET,
+                  totalRightAxes * AXIS_LATERAL_OFFSET)
+        } else maxRightMargin
+
         // The common geometry bounds should sit within the provided `bounds`, 
-        // inset by the maximum required margins.
+        // inset by the required margins and space for axes.
         val commonGeomBounds = DoubleRectangle(
-            bounds.left + maxLeftMargin,
+            bounds.left + totalLeftSpace,
             bounds.top + maxTopMargin,
-            bounds.width - maxLeftMargin - maxRightMargin,
+            bounds.width - totalLeftSpace - totalRightSpace,
             bounds.height - maxTopMargin - maxBottomMargin
         )
 
         var leftAxisCount = 0
         var rightAxisCount = 0
-        val lateralOffset = 65.0
 
         return elementsLayoutedByBounds.map { buildInfo ->
             if (buildInfo == null) {
@@ -114,11 +145,11 @@ class CompositeFigureDeckLayout(
                 val info = buildInfo.layoutInfo as? PlotFigureLayoutInfo
                 if (info != null) {
                     if (info.plotLayoutInfo.hasLeftAxis) {
-                        shiftedLeft = leftAxisCount * lateralOffset
+                        shiftedLeft = leftAxisCount * AXIS_LATERAL_OFFSET
                         leftAxisCount++
                     }
                     if (info.plotLayoutInfo.hasRightAxis) {
-                        shiftedRight = rightAxisCount * lateralOffset
+                        shiftedRight = rightAxisCount * AXIS_LATERAL_OFFSET
                         rightAxisCount++
                     }
                 }

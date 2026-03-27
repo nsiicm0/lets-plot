@@ -90,16 +90,17 @@ class LayoutManager(
                 }
             }
 
-        // y-axis tooltip
+        // y-axis tooltips — process all (ggdeck overlays produce one per plot).
+        // Determine alignment per-tooltip from its hint coord vs geom centre.
         tooltips
-            .firstOrNull { it.hintKind === Y_AXIS_TOOLTIP }
-            ?.let {
+            .filter { it.hintKind === Y_AXIS_TOOLTIP }
+            .forEach { yAxisTooltip ->
                 val preferredAlignment = when {
-                    vAxisTooltipPosition.isLeft -> HorizontalAlignment.LEFT
-                    vAxisTooltipPosition.isRight -> HorizontalAlignment.RIGHT
-                    else -> error("Axis tooltips with LEFT or RIGHT positions are currently supported.")
+                    // If the hint x is to the right of geom centre → right-side axis
+                    yAxisTooltip.hintCoord.x > geomBounds.center.x -> HorizontalAlignment.RIGHT
+                    else -> HorizontalAlignment.LEFT
                 }
-                val positionedTooltip = calculateHorizontalTooltipPosition(it, preferredAlignment)
+                val positionedTooltip = calculateHorizontalTooltipPosition(yAxisTooltip, preferredAlignment)
                 if (isTooltipWithinBounds(positionedTooltip, geomBounds)) {
                     desiredPosition.add(positionedTooltip)
                 }
@@ -460,15 +461,15 @@ class LayoutManager(
 
             when {
                 measuredTooltip.hintKind == Y_AXIS_TOOLTIP && preferredAlignment == HorizontalAlignment.LEFT && !canFitLeft -> {
-                    // move axis tooltip to the border if it doesn't fit
-                    tooltipX = myHorizontalSpace.lowerEnd
+                    // Place at the actual axis position (may be outside viewport for ggdeck shifted axes)
+                    tooltipX = targetCoordX - tooltipWidth
                     stemX = targetLeftPoint
                 }
 
                 measuredTooltip.hintKind == Y_AXIS_TOOLTIP && preferredAlignment == HorizontalAlignment.RIGHT && !canFitRight -> {
-                    // move axis tooltip to the border if it doesn't fit
-                    tooltipX = myHorizontalSpace.upperEnd - tooltipWidth
-                    stemX = targetLeftPoint
+                    // Place at the actual axis position (may be outside viewport for ggdeck shifted axes)
+                    tooltipX = targetCoordX
+                    stemX = targetCoordX
                 }
 
                 !(canFitLeft || canFitRight) -> {
