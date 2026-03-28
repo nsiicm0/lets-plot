@@ -116,29 +116,67 @@ internal class TooltipRenderer(
     }
 
     private fun showTooltips(cursor: DoubleVector) {
-        val tileInfo = findTileInfo(cursor)
-        if (tileInfo == null) {
+        val tileInfos = findTileInfos(cursor)
+        if (tileInfos.isEmpty()) {
             hideTooltips()
             return
         }
 
-        val lookupResults = tileInfo.findTargets(cursor)
+        // Use the first tile for layout context since ggdeck aligns geometric bounds perfectly
+        val baseTileInfo = tileInfos.first()
 
-        val tooltips = lookupResults
-            .flatMap { tooltipSpecFromLookupResult(it, tileInfo.axisOrigin) }
+        // In ggdeck, layers render independently. If we use a single TargetsPicker, it glitches because 
+        // they don't share identical coordinate scales under the hood. 
+        // Instead, grab targets per layer, then filter down to the absolute closest ones overall.
+        // Track the source tile for each result so we can use the correct axis origin.
+        var lookupResultsWithTile = tileInfos.flatMap { tile ->
+            tile.findTargets(cursor).map { result -> result to tile }
+        }
+
+        // Deduplicate axis tooltips (e.g. y=0 horizontal axis) that stack exactly on top of each other
+        lookupResultsWithTile = lookupResultsWithTile.distinctBy { (result, _) ->
+            if (result.hasAxisTooltip && !result.hasGeneralTooltip) result.geomKind else result 
+        }
+
+        // Save all results before distance filtering so we can re-add axis tooltips from
+        // tiles that get excluded. In ggdeck, each tile has its own y-axis and all must show.
+        val allResultsWithTile = lookupResultsWithTile.toList()
+
+        // If multiple geoms trigger tooltips (like overlaid geom_points), only keep the genuinely closest one
+        if (lookupResultsWithTile.isNotEmpty() && !lookupResultsWithTile.first().first.isCrosshairEnabled) {
+            val minDistance = lookupResultsWithTile.map { it.first.distance }.minOrNull() ?: 0.0
+            lookupResultsWithTile = lookupResultsWithTile.filter { it.first.distance == minDistance }
+        }
+
+        // Generate data + axis tooltips from the closest result(s)
+        val tooltips = lookupResultsWithTile
+            .flatMap { (result, tile) -> tooltipSpecFromLookupResult(result, tile.axisOrigin) }
             .filter { it.lines.isNotEmpty() }
+            .toMutableList()
+
+        // Re-add Y_AXIS_TOOLTIP specs from ALL tiles whose results were dropped by the
+        // distance filter. This ensures every deck plot's y-axis value is shown, not just
+        // the closest geom's.
+        val closestTiles = lookupResultsWithTile.map { it.second }.toSet()
+        for ((result, tile) in allResultsWithTile) {
+            if (tile !in closestTiles && result.hasAxisTooltip) {
+                tooltipSpecFromLookupResult(result, tile.axisOrigin)
+                    .filter { it.layoutHint.kind == Y_AXIS_TOOLTIP && it.lines.isNotEmpty() }
+                    .let { tooltips.addAll(it) }
+            }
+        }
 
         val measuredTooltips = tooltips.map(::measureTooltip)
 
         val positionedTooltips = myLayoutManager.arrange(
             measuredTooltips,
             cursor,
-            tileInfo.geomBounds,
-            tileInfo.hAxisTooltipPosition,
-            tileInfo.vAxisTooltipPosition
+            baseTileInfo.geomBounds,
+            baseTileInfo.hAxisTooltipPosition,
+            baseTileInfo.vAxisTooltipPosition
         )
 
-        showCrosshair(positionedTooltips, tileInfo.geomBounds)
+        showCrosshair(positionedTooltips, baseTileInfo.geomBounds)
 
         tooltipStorage.provide(positionedTooltips.size)
             .zip(positionedTooltips)
@@ -194,8 +232,10 @@ internal class TooltipRenderer(
             hideTooltips()
         } else {
             if (tooltipStorage.size == 0) return
-            val geomBounds = findTileInfo(mouseEvent.location.toDoubleVector())?.geomBounds ?: return
-            pin(geomBounds)
+            val tileInfos = findTileInfos(mouseEvent.location.toDoubleVector())
+            if (tileInfos.isEmpty()) return
+            // Use the first tile for bounding box pinning since deck aligns geometry Bounds exactly
+            pin(tileInfos.first().geomBounds)
         }
     }
 
@@ -268,13 +308,14 @@ internal class TooltipRenderer(
         myTileInfos.add(tileInfo)
     }
 
-    private fun findTileInfo(plotCoord: DoubleVector): TileInfo? {
+    private fun findTileInfos(plotCoord: DoubleVector): List<TileInfo> {
+        val result = ArrayList<TileInfo>()
         for (tileInfo in myTileInfos) {
             if (tileInfo.contains(plotCoord)) {
-                return tileInfo
+                result.add(tileInfo)
             }
         }
-        return null
+        return result
     }
 
     private class TileInfo(

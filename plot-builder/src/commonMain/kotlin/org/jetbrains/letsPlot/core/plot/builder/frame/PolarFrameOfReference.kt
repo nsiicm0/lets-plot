@@ -161,6 +161,8 @@ internal class PolarFrameOfReference(
     }
 
     override fun doDrawPanelBorder(parent: SvgComponent) {
+        if (!theme.panel().showBorder()) return
+
         val border = createPanelElement() {
             it.strokeColor().set(theme.panel().borderColor())
             it.strokeWidth().set(theme.panel().borderWidth())

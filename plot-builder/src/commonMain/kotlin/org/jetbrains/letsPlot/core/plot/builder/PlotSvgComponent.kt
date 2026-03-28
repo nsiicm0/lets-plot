@@ -50,7 +50,7 @@ class PlotSvgComponent constructor(
     private val tag: String?,
     private val coreLayersByTile: List<List<GeomLayer>>,
     private val marginalLayersByTile: List<List<GeomLayer>>,
-    private val figureLayoutInfo: PlotFigureLayoutInfo,
+    internal val figureLayoutInfo: PlotFigureLayoutInfo,
     private val frameProviderByTile: List<FrameOfReferenceProvider>,
     private val coordProvider: CoordProvider,
     val interactionsEnabled: Boolean,
@@ -63,6 +63,13 @@ class PlotSvgComponent constructor(
     val figureSize: DoubleVector = figureLayoutInfo.figureSize
     val flippedAxis = frameProviderByTile[0].flipAxis
     val mouseEventPeer = MouseEventPeer()
+
+    /**
+     * Horizontal offset applied to y-axis tooltips for ggdeck.
+     * Set by PlotSvgRoot before the build to match the axis shift.
+     * Negative for left-shifted axes, positive for right-shifted axes.
+     */
+    internal var axisTooltipXShift: Double = 0.0
 
     internal var interactor: PlotInteractor? = null
         set(value) {
@@ -212,9 +219,14 @@ class PlotSvgComponent constructor(
             val geomInnerBoundsAbsolute = tileLayoutInfo.geomInnerBounds.add(plotOriginAbsolute)
             val geomContentBoundsAbsolute = tileLayoutInfo.geomContentBounds.add(plotOriginAbsolute)
 
-            // axis tooltip should appear on 'outer' bounds:
+            // axis tooltip should appear on 'outer' bounds, adjusted by the deck shift:
+            val axisOriginX = if (layoutInfo.hasLeftAxis) {
+                geomOuterBoundsAbsolute.left + axisTooltipXShift
+            } else {
+                geomOuterBoundsAbsolute.right + axisTooltipXShift
+            }
             val axisOrigin = DoubleVector(
-                x = if (layoutInfo.hasLeftAxis) geomOuterBoundsAbsolute.left else geomOuterBoundsAbsolute.right,
+                x = axisOriginX,
                 y = if (layoutInfo.hasBottomAxis) geomOuterBoundsAbsolute.bottom else geomOuterBoundsAbsolute.top
             )
             interactor?.onTileAdded(

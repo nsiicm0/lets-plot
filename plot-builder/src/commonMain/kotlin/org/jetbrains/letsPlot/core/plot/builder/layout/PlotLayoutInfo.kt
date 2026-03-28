@@ -22,6 +22,8 @@ class PlotLayoutInfo constructor(
 
     val hasBottomAxis: Boolean = tiles.firstOrNull()?.axisInfos?.bottom != null
     val hasLeftAxis: Boolean = tiles.firstOrNull()?.axisInfos?.left != null
+    val hasTopAxis: Boolean = tiles.firstOrNull()?.axisInfos?.top != null
+    val hasRightAxis: Boolean = tiles.firstOrNull()?.axisInfos?.right != null
 
     val geomInnerBounds: DoubleRectangle
         get() {

@@ -28,3 +28,13 @@ def test_ggunch_plus_unsupported():
 def test_unsupported_plus_ggbunch():
     with pytest.raises(TypeError):
         spec = FeatureSpec(kind='unsupported test feature', name=None) + gg.ggbunch([gg.ggplot()])
+
+
+def test_ggdeck_plus_unsupported():
+    with pytest.raises(TypeError):
+        spec = gg.ggdeck([gg.ggplot(), gg.ggplot()]) + FeatureSpec(kind='unsupported test feature', name=None)
+
+
+def test_unsupported_plus_ggdeck():
+    with pytest.raises(TypeError):
+        spec = FeatureSpec(kind='unsupported test feature', name=None) + gg.ggdeck([gg.ggplot(), gg.ggplot()])

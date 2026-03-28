@@ -17,6 +17,9 @@ class PlotFigureBuildInfo constructor(
     private val processedPlotSpec: Map<String, Any>,
     override val bounds: DoubleRectangle,
     override val computationMessages: List<String>,
+    private val axisLeftShift: Double = 0.0,
+    private val axisRightShift: Double = 0.0,
+    private val isDeckPlot: Boolean = false,
 ) : FigureBuildInfo {
 
     override val isComposite: Boolean = false
@@ -42,11 +45,23 @@ class PlotFigureBuildInfo constructor(
     override fun createSvgRoot(): PlotSvgRoot {
         check(this::_layoutInfo.isInitialized) { "Plot figure is not layouted." }
         val plotSvgComponent = plotAssembler.createPlot(_layoutInfo)
+
         return PlotSvgRoot(
             plotSvgComponent,
             liveMapCursorServiceConfig = if (containsLiveMap) liveMapCursorServiceConfig else null,
-            bounds.origin
+            bounds.origin,
+            axisLeftShift = axisLeftShift,
+            axisRightShift = axisRightShift,
+            isDeckPlot = isDeckPlot
         )
+    }
+
+    override fun withAxisShift(leftShift: Double, rightShift: Double): FigureBuildInfo {
+        return makeCopy(bounds, leftShift, rightShift, newIsDeckPlot = true).apply {
+            if (this@PlotFigureBuildInfo::_layoutInfo.isInitialized) {
+                this._layoutInfo = this@PlotFigureBuildInfo._layoutInfo
+            }
+        }
     }
 
     override fun withBounds(bounds: DoubleRectangle): PlotFigureBuildInfo {
@@ -80,12 +95,20 @@ class PlotFigureBuildInfo constructor(
         }
     }
 
-    private fun makeCopy(newBounds: DoubleRectangle? = null): PlotFigureBuildInfo {
+    private fun makeCopy(
+        newBounds: DoubleRectangle? = null, 
+        newAxisLeftShift: Double = this.axisLeftShift, 
+        newAxisRightShift: Double = this.axisRightShift,
+        newIsDeckPlot: Boolean = this.isDeckPlot
+    ): PlotFigureBuildInfo {
         val newBuildInfo = PlotFigureBuildInfo(
             plotAssembler,
             processedPlotSpec,
             newBounds ?: this.bounds,
             computationMessages,
+            newAxisLeftShift,
+            newAxisRightShift,
+            newIsDeckPlot
         )
 
         if (this.liveMapCursorServiceConfig != null) {

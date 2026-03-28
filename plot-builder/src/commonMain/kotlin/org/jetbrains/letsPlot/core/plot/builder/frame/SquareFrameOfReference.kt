@@ -60,6 +60,8 @@ internal class SquareFrameOfReference(
     )
 
     override fun doDrawPanelBorder(parent: SvgComponent) {
+        if (!theme.panel().showBorder()) return
+
         val panelBorder = SvgRectElement(layoutInfo.geomContentBounds).apply {
             strokeColor().set(theme.panel().borderColor())
             strokeWidth().set(theme.panel().borderWidth())

@@ -83,7 +83,8 @@ internal class FigureToHtml(
         } else {
             processPlotFigure(
                 svgRoot = svgRoot as PlotSvgRoot,
-                parentElement = parentElement,
+                containerElement = parentElement,
+                eventElement = parentElement,
 //                eventArea = buildInfo.bounds
                 eventArea = DoubleRectangle(DoubleVector.ZERO, buildInfo.bounds.dimension)
             )
@@ -114,12 +115,13 @@ internal class FigureToHtml(
     companion object {
         private fun processPlotFigure(
             svgRoot: PlotSvgRoot,
-            parentElement: HTMLElement,
+            containerElement: HTMLElement,
+            eventElement: HTMLElement,
             eventArea: DoubleRectangle
         ): Pair<ToolEventDispatcher, Registration> {
 
             val plotContainer = PlotContainer(svgRoot)
-            val (rootSVG, cleanupRegistration) = buildPlotFigureSVG(plotContainer, parentElement, eventArea)
+            val (rootSVG, cleanupRegistration) = buildPlotFigureSVG(plotContainer, eventElement, eventArea)
             rootSVG.style.setCursor(CssCursor.CROSSHAIR)
 
             // Livemap cursor pointer
@@ -129,7 +131,7 @@ internal class FigureToHtml(
                 cursorServiceConfig.pointerSetter { rootSVG.style.setCursor(CssCursor.POINTER) }
             }
 
-            parentElement.appendChild(rootSVG)
+            containerElement.appendChild(rootSVG)
             return plotContainer.toolEventDispatcher to cleanupRegistration
         }
 
@@ -160,17 +162,30 @@ internal class FigureToHtml(
             val elementToolEventDispatchers = ArrayList<ToolEventDispatcher>()
             val elementRegistractions = CompositeRegistration()
 
+            val domSVGSVGs = ArrayList<SVGSVGElement>()
+            val plotOrigins = ArrayList<DoubleVector>()
+
             for (figureSvgRoot in svgRoot.elements) {
                 val elementOrigin = figureSvgRoot.bounds.origin.add(origin)
                 val (toolEventDispatcher, registration) = if (figureSvgRoot is PlotSvgRoot) {
                     // Create "container" with absolute positioning.
                     val figureContainer = createContainerElement(elementOrigin)
+                    figureContainer.style.setProperty("pointer-events", "none") // Let hovers pass through to parent
+                    figureContainer.style.setProperty("overflow", "visible")
                     parentElement.appendChild(figureContainer)
-                    processPlotFigure(
+                    val out = processPlotFigure(
                         svgRoot = figureSvgRoot,
-                        parentElement = figureContainer,
-                        eventArea = DoubleRectangle(DoubleVector.ZERO, figureSvgRoot.bounds.dimension)
+                        containerElement = figureContainer,
+                        eventElement = parentElement, // Map mouse events to the shared parent instead of the isolated container
+                        eventArea = DoubleRectangle(elementOrigin, figureSvgRoot.bounds.dimension)
                     )
+                    
+                    val svgNode = figureContainer.firstChild as? SVGSVGElement
+                    if (svgNode != null) {
+                        domSVGSVGs.add(svgNode)
+                        plotOrigins.add(figureSvgRoot.bounds.origin)
+                    }
+                    out
                 } else {
                     figureSvgRoot as CompositeFigureSvgRoot
                     processCompositeFigure(figureSvgRoot, elementOrigin, parentElement)
@@ -178,6 +193,53 @@ internal class FigureToHtml(
 
                 elementToolEventDispatchers.add(toolEventDispatcher)
                 elementRegistractions.add(registration)
+            }
+
+            // --- GGDECK OVERLAP FIXES ---
+            
+            // 1. Tooltips Z-Index Extraction
+            // The tooltip HTML content lives in a `<g>` with an id from `decorationLayerId`.
+            // SVG clipping and painter's algorithm traps them underneath the next subplot.
+            // We create a global overlay SVG, copy the first plot's CSS into it, and hoist all decoration layers to it.
+            if (domSVGSVGs.isNotEmpty()) {
+                val tooltipOverlayContainer = createContainerElement(origin ?: DoubleVector.ZERO)
+                tooltipOverlayContainer.style.setProperty("pointer-events", "none")
+                tooltipOverlayContainer.style.setProperty("overflow", "visible")
+                // Make sure this container sits strictly over all previous subplots
+                tooltipOverlayContainer.style.setProperty("z-index", "9999")
+                parentElement.appendChild(tooltipOverlayContainer)
+
+                val overlaySvg = document.createElementNS("http://www.w3.org/2000/svg", "svg") as SVGSVGElement
+                overlaySvg.style.setProperty("overflow", "visible")
+                // Copy the first CSS style to ensure tooltip text renders correctly
+                val styleNode = domSVGSVGs.first().querySelector("style")?.cloneNode(true)
+                if (styleNode != null) {
+                    overlaySvg.appendChild(styleNode)
+                }
+                
+                // Extract every single decorationLayer from each subplot's SVG and append it into the single overlaySvg.
+                for ((index, plotSvg) in domSVGSVGs.withIndex()) {
+                    // Search for inner nodes that might be the decoration layer. The ID prefix is "d".
+                    // However, we don't have direct access to the ID string here easily. Let's find any group at the very end.
+                    // The easiest heuristic is to just grab the LAST <g> element in the SVG, which is where TooltipRenderer attaches.
+                    val childNodes = plotSvg.childNodes
+                    if (childNodes.length > 0) {
+                        val lastChild = childNodes.item(childNodes.length - 1)
+                        if (lastChild != null && lastChild.nodeName.lowercase() == "g") {
+                            // Apply the original container offset!
+                            // Because we moved the `<g>` out of its absolute container into the origin container, we must preserve its x/y shift
+                            val elementOrigin = plotOrigins[index]
+                            val innerGroup = document.createElementNS("http://www.w3.org/2000/svg", "g")
+                            innerGroup.setAttribute("transform", "translate(${elementOrigin.x}, ${elementOrigin.y})")
+                            
+                            // Extract to top
+                            plotSvg.removeChild(lastChild)
+                            innerGroup.appendChild(lastChild)
+                            overlaySvg.appendChild(innerGroup)
+                        }
+                    }
+                }
+                tooltipOverlayContainer.appendChild(overlaySvg)
             }
 
             return CompositeToolEventDispatcher(elementToolEventDispatchers) to elementRegistractions
@@ -193,7 +255,7 @@ internal class FigureToHtml(
             return document.createElement("div") {
                 setAttribute(
                     "style",
-                    "position: absolute; left: ${origin.x}px; top: ${origin.y}px;"
+                    "position: absolute; left: ${origin.x}px; top: ${origin.y}px; overflow: visible;"
                 )
             } as HTMLElement
         }
@@ -212,6 +274,7 @@ internal class FigureToHtml(
             eventArea: DoubleRectangle,
         ): Pair<SVGSVGElement, Registration> {
             val svg: SVGSVGElement = mapSvgToSVG(plotContainer.svg)
+            svg.style.setProperty("overflow", "visible")
 
             if (plotContainer.isLiveMap) {
                 svg.style.run {

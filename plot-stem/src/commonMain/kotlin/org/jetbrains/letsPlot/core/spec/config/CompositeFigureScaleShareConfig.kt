@@ -20,7 +20,7 @@ class CompositeFigureScaleShareConfig(
 ) {
     val shareX: ScaleSharePolicy = parseSharePolicy(SubPlots.Grid.SHARE_X_SCALE, layoutOpts)
     val shareY: ScaleSharePolicy = parseSharePolicy(SubPlots.Grid.SHARE_Y_SCALE, layoutOpts)
-    val ncols: Int = layoutOpts.getIntegerSafe(SubPlots.Grid.NCOLS)
+    val ncols: Int = layoutOpts.getInteger(SubPlots.Grid.NCOLS) ?: 1
 
     val hasSharing: Boolean = shareX != ScaleSharePolicy.NONE || shareY != ScaleSharePolicy.NONE
 
@@ -33,7 +33,7 @@ class CompositeFigureScaleShareConfig(
             @Suppress("UNCHECKED_CAST")
             val layoutOptions = compositeSpec[SubPlots.LAYOUT] as? Map<String, Any> ?: return null
             val layoutName = layoutOptions[SubPlots.Layout.NAME] as? String
-            if (layoutName != SubPlots.Layout.SUBPLOTS_GRID) return null
+            if (layoutName != SubPlots.Layout.SUBPLOTS_GRID && layoutName != SubPlots.Layout.SUBPLOTS_DECK) return null
 
             return CompositeFigureScaleShareConfig(OptionsAccessor(layoutOptions))
         }

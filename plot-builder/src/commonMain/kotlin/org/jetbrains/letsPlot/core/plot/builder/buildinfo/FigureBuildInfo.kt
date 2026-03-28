@@ -28,5 +28,7 @@ interface FigureBuildInfo {
 
     fun layoutedByGeomBounds(geomBounds: DoubleRectangle): FigureBuildInfo
 
+    fun withAxisShift(leftShift: Double, rightShift: Double): FigureBuildInfo
+
     fun withPreferredSize(size: DoubleVector): FigureBuildInfo
 }

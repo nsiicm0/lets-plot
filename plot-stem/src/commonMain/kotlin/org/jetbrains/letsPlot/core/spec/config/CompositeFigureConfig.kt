@@ -11,6 +11,7 @@ import org.jetbrains.letsPlot.core.plot.base.theme.FontFamilyRegistry
 import org.jetbrains.letsPlot.core.plot.base.theme.Theme
 import org.jetbrains.letsPlot.core.plot.builder.assemble.PlotFacets
 import org.jetbrains.letsPlot.core.plot.builder.layout.figure.CompositeFigureLayout
+import org.jetbrains.letsPlot.core.plot.builder.layout.figure.composite.CompositeFigureDeckLayout
 import org.jetbrains.letsPlot.core.plot.builder.layout.figure.composite.CompositeFigureFreeLayout
 import org.jetbrains.letsPlot.core.plot.builder.layout.figure.composite.CompositeFigureGridAlignmentLayout
 import org.jetbrains.letsPlot.core.plot.builder.layout.figure.composite.CompositeFigureGridLayout
@@ -120,15 +121,48 @@ class CompositeFigureConfig constructor(
         layout = when (layoutKind) {
             Layout.SUBPLOTS_GRID -> createGridLayout(layoutOptions)
             Layout.SUBPLOTS_FREE -> createFreeLayout(layoutOptions, elementConfigs.size)
+            Layout.SUBPLOTS_DECK -> createDeckLayout(layoutOptions)
             else -> throw IllegalArgumentException("Unsupported composite figure layout: $layoutKind")
         }
 
-        guidesSharing = if (layoutKind == Layout.SUBPLOTS_GRID) {
+        guidesSharing = if (layoutKind == Layout.SUBPLOTS_GRID || layoutKind == Layout.SUBPLOTS_DECK) {
             GuidesSharingMode.fromOption(layoutOptions.getString(Layout.GUIDES))
         } else {
             GuidesSharingMode.KEEP
         }
         computationMessagesHandler(computationMessages)
+    }
+
+    private fun createDeckLayout(layoutOptions: OptionsAccessor): CompositeFigureLayout {
+        val fitCellAspectRatio = layoutOptions.getBoolean(FIT_CELL_ASPECT_RATIO, true)
+        val innerAlignment = layoutOptions.getBoolean(INNER_ALIGNMENT, true) // Default true for deck
+        val shareConfig = CompositeFigureScaleShareConfig(layoutOptions)
+        val scaleShareX: ScaleSharePolicy = shareConfig.shareX
+        val scaleShareY: ScaleSharePolicy = shareConfig.shareY
+
+        val elementsDefaultSizes: List<DoubleVector?> = elementConfigs.map { figureSpec ->
+            figureSpec?.let {
+                if (!fitCellAspectRatio) {
+                    PlotSizeHelper.singlePlotSizeDefault(
+                        plotSpec = it.toMap(),
+                        facets = PlotFacets.UNDEFINED,
+                        containsLiveMap = false
+                    )
+                } else {
+                    null
+                }
+            }
+        }
+
+        collectOverlayLegends = true
+
+        return CompositeFigureDeckLayout(
+            scaleShareX = scaleShareX,
+            scaleShareY = scaleShareY,
+            fitCellAspectRatio = fitCellAspectRatio,
+            elementsDefaultSizes = elementsDefaultSizes,
+            innerAlignment = innerAlignment,
+        )
     }
 
     private fun createGridLayout(layoutOptions: OptionsAccessor): CompositeFigureLayout {
